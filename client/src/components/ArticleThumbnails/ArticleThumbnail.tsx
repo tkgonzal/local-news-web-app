@@ -1,18 +1,24 @@
 import { Article } from "../../types/interfaces/Article"
 
+import "./ArticleThumbnail.css"
+
 interface Props {
+    className?: string
     article: Article
 }
 
-const ArticleThumbnail: React.FC<Props> = ({ article }) => {
+// Component to display on News Pages, which shows thumbnails of articles to 
+// display in each's carousel. Mean to be used for three article carousels
+const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
     return (
-        <div className="article-thumbnail">
+        <div className={`article-thumbnail ${className || ""}`}>
             <img
+                className="article-thumbnail--img"
                 src={article.imgSrc}
                 alt={article.heading} 
             />
-            <h2>{article.heading}</h2>
-            <h3>{article.subHeading}</h3>
+            <h2 className="article-thumbnail--heading">{article.heading}</h2>
+            <h3 className="article-thumbnail--subheading">{article.subHeading}</h3>
         </div>
     )
 }
