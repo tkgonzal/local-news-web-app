@@ -1,3 +1,5 @@
+import { useNavigate, NavigateFunction } from "react-router-dom"
+
 import { Article } from "../../types/interfaces/Article"
 
 import "./ArticleThumbnail.css"
@@ -10,8 +12,17 @@ interface Props {
 // Component to display on News Pages, which shows thumbnails of articles to 
 // display in each's carousel. Mean to be used for three article carousels
 const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
+    const articleNavigate: NavigateFunction = useNavigate();
+
+    const navigateToArticle = (): void => {
+        articleNavigate(`/article/${article.id}`);
+    }
+
     return (
-        <div className={`article-thumbnail ${className || ""}`}>
+        <div 
+            onClick={navigateToArticle}
+            className={`article-thumbnail ${className || ""}`}
+        >
             <img
                 className="article-thumbnail--img"
                 src={article.imgSrc}
