@@ -1,5 +1,5 @@
 .article-thumbnail {
-    border: 0.125rem solid black;
+    outline: 0.125rem solid black;
     width: 30%;
 }
 
@@ -14,6 +14,7 @@
     margin: .5rem;
     text-overflow: ellipsis;
     text-wrap: nowrap;
+    cursor: pointer;
 }
 
 .article-thumbnail--heading {
@@ -30,4 +31,18 @@
 
 .main-article .article-thumbnail--img {
     max-height: 30rem !important;
+}
+
+.main-article .article-thumbnail--heading {
+    font-size: 2.5rem
+}
+
+.main-article .article-thumbnail--subheading {
+    font-size: 1.8rem
+}
+
+.article-thumbnail:hover {
+    outline: .3rem solid black;
+    cursor: pointer;
+    text-decoration: underline;
 }
