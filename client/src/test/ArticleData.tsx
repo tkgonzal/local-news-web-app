@@ -1,6 +1,6 @@
 import { Article } from "../types/interfaces/Article"
 
-import testImage from "assets/article-test-image.jpg"
+import testImage from "./assets/article-test-image.jpg"
 
 const ArticleTestData : Article[] = [
     {
