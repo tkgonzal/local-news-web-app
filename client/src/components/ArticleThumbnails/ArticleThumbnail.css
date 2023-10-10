@@ -1,0 +1,48 @@
+.article-thumbnail {
+    outline: 0.125rem solid black;
+    width: 30%;
+}
+
+.article-thumbnail--img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 15rem;
+}
+
+.article-thumbnail--heading,
+.article-thumbnail--subheading {
+    margin: .5rem;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.article-thumbnail--heading {
+    font-size: 2rem;
+}
+
+.article-thumbnail--subheading {
+    font-size: 1.3rem;
+}
+
+.main-article {
+    width: 80%;
+}
+
+.main-article .article-thumbnail--img {
+    max-height: 30rem !important;
+}
+
+.main-article .article-thumbnail--heading {
+    font-size: 2.5rem
+}
+
+.main-article .article-thumbnail--subheading {
+    font-size: 1.8rem
+}
+
+.article-thumbnail:hover {
+    outline: .3rem solid black;
+    cursor: pointer;
+    text-decoration: underline;
+}
