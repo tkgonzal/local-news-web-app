@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 
 import BreakingNews from "./pages/BreakingNews"
+import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import Error from "./pages/Error"
 
 import ArticleTestData from "./test/ArticleData"
@@ -14,6 +15,8 @@ function App() : JSX.Element {
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
         <Route path="/news" element={<h1>news page</h1>}/>
         <Route path="/article/:id" element={<Error />}/>
+        <Route path="/business/articles" element={<ArticlesTable />}/>
+        <Route path="*" element={<Error />}/>
       </Routes>
     </>
   )
