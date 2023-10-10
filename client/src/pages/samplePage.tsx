@@ -1,1 +1,0 @@
-// Sample page file to maintain client directory structure
