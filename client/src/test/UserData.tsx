@@ -9,6 +9,7 @@ const UserData: User[] = [
             last: "Remover"
         },
         email: "frailty@swag.net",
+        phone: "(555)555-555",
         articlePermissions: Permission.READ_ONLY,
         userPermissions: Permission.READ_ONLY
     },
@@ -19,6 +20,7 @@ const UserData: User[] = [
             last: "Rosenstock"
         },
         email: "jeff@quoteunquote.net",
+        phone: "(666)666-6666",
         articlePermissions: Permission.WRITE,
         userPermissions: Permission.WRITE
     },
@@ -29,6 +31,7 @@ const UserData: User[] = [
             last: "Knowles"
         },
         email: "seat@table.org",
+        phone: "(777)777-7777",
         articlePermissions: Permission.DELETE,
         userPermissions: Permission.DELETE
     }

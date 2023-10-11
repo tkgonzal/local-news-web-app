@@ -2,11 +2,11 @@ import PanelHeader from "../../components/BusinessPanel/PanelHeader"
 import PanelNav from "../../components/BusinessPanel/PanelNav"
 import PanelTable from "../../components/BusinessPanel/PanelTable"
 
-import ArticleTestData from "../../test/ArticleData"
+import UserTestData from "../../test/UserData"
 
 import "./BusinessPanel.css"
 
-const ArticlesTable: React.FC = () => {
+const UsersTable: React.FC = () => {
     return (
         <>
             <PanelHeader />
@@ -14,21 +14,18 @@ const ArticlesTable: React.FC = () => {
                 <PanelNav />
                 <div className="business-panel--page-content">
                     <div className="business-panel--page-header">
-                        <h1>Articles</h1>
+                        <h1>Users</h1>
 
                         <button>
-                            New Article
+                            New User
                         </button>
                     </div>
 
-                    <PanelTable
-                        tableType="Article"
-                        tableContents={ArticleTestData}
-                    />
+                    <PanelTable tableType="User" tableContents={UserTestData}/>
                 </div>
             </main>
         </>
     )
 }
 
-export default ArticlesTable
+export default UsersTable
