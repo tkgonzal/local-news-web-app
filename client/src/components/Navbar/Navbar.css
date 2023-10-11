@@ -1,10 +1,18 @@
-* {
-  margin: 0%;
+body {
+  margin: 0;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  background-color: rgb(253, 253, 253);
 }
 .nav-main {
   display: flex;
   position: relative;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 0%;
   height: 15vh;
@@ -13,8 +21,24 @@
   width: 100%;
 }
 
+.left-container {
+  margin-top: 10%;
+  padding-top: 20em;
+}
+.left-column {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 10;
+}
+.left-links {
+  list-style: none;
+}
+
 .nav-title {
   text-decoration: none;
+  padding-left: 40rem;
 }
 
 .top-navbar-links > ul {

@@ -16,40 +16,44 @@ const Navbar: React.FC<NavbarProps> = ({ title, links }) => {
       name: ["breaking", "local", "crime"],
       url: ["/staff", "/login", "/"],
     },
-    { title: "Sports", name: ["local", "crime"], url: [] },
+    { title: "Sports", name: ["local", "crime"], url: ["/", "/"] },
   ];
 
   return (
-    <nav className="nav-main">
-      <div className="hamburger-menu">
-        <button onClick={toggleNav}>sidebar placeholder</button>
-      </div>
+    <>
+      <div className="nav-container">
+        <div className="left-column">
+          <Sidebar links={sideBarLinks} />
+          {/* <button onClick={toggleNav}>sidebar placeholder</button> */}
+        </div>
+        <nav className="nav-main">
+          <div className="title">
+            <h1>
+              <a href="/" className="nav-title">
+                {title}
+              </a>
+            </h1>
+          </div>
 
-      <div className="title">
-        <h1>
-          <a href="/" className="nav-title">
-            {title}
-          </a>
-        </h1>
-      </div>
+          <div className="top-navbar-links">
+            <ul>
+              {links.map((link, index) => (
+                <li key={index} className="main-links">
+                  <a href={link.url}>{link.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-      <div className="top-navbar-links">
-        <ul>
-          {links.map((link, index) => (
-            <li key={index} className="main-links">
-              <a href={link.url}>{link.name}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {navOpen && (
-        <div className="sidebar-content">
+          {/* {navOpen && (  
+          <div className="sidebar-content">
           <button onClick={toggleNav}>close sidebar</button>
           <Sidebar links={sideBarLinks} />
-        </div>
-      )}
-    </nav>
+          </div>
+        )} */}
+        </nav>
+      </div>
+    </>
   );
 };
 
