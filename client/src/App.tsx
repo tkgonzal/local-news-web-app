@@ -1,5 +1,10 @@
 import { Route, Routes } from "react-router-dom"
 
+import BreakingNews from "./pages/BreakingNews"
+import Error from "./pages/Error"
+
+import ArticleTestData from "./test/ArticleData"
+
 import "./App.css"
 import Navbar from "./components/Navbar/Navbar";
 
@@ -15,11 +20,9 @@ function App() : JSX.Element {
       <Navbar links={navLinks}/>
 
       <Routes>
-        <Route path="/" element={<h1>home page</h1>}/>
-        <Route path="/panel" element={<h1>Business Panel</h1>}/>
-        <Route path="/staff" element={<h1>Staff</h1>}/>
-        <Route path="/login" element={<h1>Login</h1>}/>
-        <Route path="/subscribe" element={<h1>Subscribe</h1>}/>
+        <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
+        <Route path="/news" element={<h1>news page</h1>}/>
+        <Route path="/article/:id" element={<Error />}/>
       </Routes>
     </>
   )
