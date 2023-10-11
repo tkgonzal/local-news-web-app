@@ -17,5 +17,20 @@
 
 .business-panel--page-header h1 {
     margin: 0;
+    padding: 0.25rem 0rem;
+}
+
+.business-panel--settings-input {
+    display: flex;
+    width: calc(100% - 2rem);
     padding: 1rem;
+    align-items: center;
+}
+
+.business-panel--settings-input input {
+    margin: 0.4rem;
+}
+
+.business-panel--settings-input label {
+    font-size: 1.1rem;
 }

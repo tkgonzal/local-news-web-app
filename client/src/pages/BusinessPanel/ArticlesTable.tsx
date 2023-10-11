@@ -3,8 +3,6 @@ import PanelTable from "../../components/BusinessPanel/PanelTable"
 
 import ArticleTestData from "../../test/ArticleData"
 
-import "./BusinessPanel.css"
-
 const ArticlesTable: React.FC = () => {
     return (
         <BusinessPanelPage>
