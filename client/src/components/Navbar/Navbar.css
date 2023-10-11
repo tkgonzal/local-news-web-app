@@ -1,8 +1,9 @@
 body {
   margin: 0;
 }
-.logo{
-
+.search-bar > input{
+    margin-left: 10rem;
+    width: 50em;
 }
 .nav-container {
   display: flex;

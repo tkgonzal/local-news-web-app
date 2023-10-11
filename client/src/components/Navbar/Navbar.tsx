@@ -4,38 +4,32 @@ import { NavbarProps } from "../../types/interfaces/NavInterface";
 import Sidebar from "../Sidebar/sidebar";
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
-    //   const [navOpen, setNavOpen] = useState(false);
-    
-//   const toggleNav = () => {
-//     setNavOpen(!navOpen);
-//   };
+  //   const [navOpen, setNavOpen] = useState(false);
 
-//   const sideBarLinks = [
-//     {
-//       title: "News",
-//       name: ["breaking", "local", "crime"],
-//       url: ["/staff", "/login", "/"],
-//     },
-//     { title: "Sports", name: ["local", "crime"], url: ["/", "/"] },
-//   ];
+  //   const toggleNav = () => {
+  //     setNavOpen(!navOpen);
+  //   };
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("Searching for:", searchTerm);
+  };
 
   const sideBarLinks = [
-    {name:["HOME"],
-     url: "/",
-  },
+    { name: ["HOME"], url: "/" },
     {
       name: ["NEWS", "BREAKING", "LOCAL"],
       url: ["/", "/", "/"],
     },
-    { name: ["SPORTS", "HIGHSCHOOL"],
-     url: ["/", "/"] 
-    },
-    { name: ["LOCAL", "CRIME"],
-     url: ["/", "/"] 
-    },
-    { name: ["BUSINESS", "STAFF"],
-     url: ["/panel", "/staff"] 
-    },
+    { name: ["SPORTS", "HIGHSCHOOL"], url: ["/", "/"] },
+    { name: ["LOCAL", "CRIME"], url: ["/", "/"] },
+    { name: ["BUSINESS", "STAFF"], url: ["/panel", "/staff"] },
   ];
 
   return (
@@ -47,7 +41,19 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         </div>
         <nav className="nav-main">
           <div className="title">
-            
+          <form onSubmit={handleSearch} className="search-bar">
+      <input
+        type="text"
+        placeholder="Search articles"
+        value={searchTerm}
+        onChange={handleInputChange}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            handleSearch(e);
+          }
+        }}
+      />
+    </form>
           </div>
 
           <div className="top-navbar-links">
@@ -66,6 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
           <Sidebar links={sideBarLinks} />
           </div>
         )} */}
+
         </nav>
       </div>
     </>
