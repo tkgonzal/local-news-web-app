@@ -1,0 +1,13 @@
+:root {
+    --bp-table-outline-color: #000;
+}
+
+.business-panel--table {
+    width: calc(100% - 2rem);
+    margin: 0rem 1rem;
+}
+
+.business-panel--table td, th {
+    outline: 0.125rem solid var(--bp-table-outline-color, black);
+    text-align: left;
+}

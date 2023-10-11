@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 
 import "./PanelNav.css"
 
+// Navbar for Business Panel
 const PanelNav: React.FC = () => {
     return (
         <nav className="business-panel--nav">
