@@ -67,16 +67,10 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     {isUser(row) && getUserFullname(row) || row.id}    
                 </td>
                 <td>
-                    {
-                        isUser(row) && row.phone || 
-                        isArticle(row) && row.heading
-                    }
+                    {isUser(row) && row.phone || isArticle(row) && row.heading}
                 </td>
                 <td>
-                    {
-                        isUser(row) && row.email || 
-                        isArticle(row) && row.heading
-                    }
+                    {isUser(row) && row.email || isArticle(row) && row.impressions}
                 </td>
                 <td>
                     <button>Edit</button>
