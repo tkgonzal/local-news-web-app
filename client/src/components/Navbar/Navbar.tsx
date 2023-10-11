@@ -3,20 +3,39 @@ import "./Navbar.css";
 import { NavbarProps } from "../../types/interfaces/NavInterface";
 import Sidebar from "../Sidebar/sidebar";
 
-const Navbar: React.FC<NavbarProps> = ({ title, links }) => {
-  const [navOpen, setNavOpen] = useState(false);
+const Navbar: React.FC<NavbarProps> = ({ links }) => {
+    //   const [navOpen, setNavOpen] = useState(false);
+    
+//   const toggleNav = () => {
+//     setNavOpen(!navOpen);
+//   };
 
-  const toggleNav = () => {
-    setNavOpen(!navOpen);
-  };
+//   const sideBarLinks = [
+//     {
+//       title: "News",
+//       name: ["breaking", "local", "crime"],
+//       url: ["/staff", "/login", "/"],
+//     },
+//     { title: "Sports", name: ["local", "crime"], url: ["/", "/"] },
+//   ];
 
   const sideBarLinks = [
+    {name:["HOME"],
+     url: "/",
+  },
     {
-      title: "News",
-      name: ["breaking", "local", "crime"],
-      url: ["/staff", "/login", "/"],
+      name: ["NEWS", "BREAKING", "LOCAL"],
+      url: ["/", "/", "/"],
     },
-    { title: "Sports", name: ["local", "crime"], url: ["/", "/"] },
+    { name: ["SPORTS", "HIGHSCHOOL"],
+     url: ["/", "/"] 
+    },
+    { name: ["LOCAL", "CRIME"],
+     url: ["/", "/"] 
+    },
+    { name: ["BUSINESS", "STAFF"],
+     url: ["/panel", "/staff"] 
+    },
   ];
 
   return (
@@ -28,11 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, links }) => {
         </div>
         <nav className="nav-main">
           <div className="title">
-            <h1>
-              <a href="/" className="nav-title">
-                {title}
-              </a>
-            </h1>
+            
           </div>
 
           <div className="top-navbar-links">

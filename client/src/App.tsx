@@ -6,15 +6,13 @@ import Navbar from "./components/Navbar/Navbar";
 function App() : JSX.Element {
 
   const navLinks = [
-    { name: 'Business panel', url: '/panel' },
-    { name: 'Staff', url: '/staff' },
     { name: 'Login', url: '/login' },
     { name: 'Subscribe', url: '/subscribe' },
   ];
 
   return (
     <>
-      <Navbar title="Local News App" links={navLinks}/>
+      <Navbar links={navLinks}/>
 
       <Routes>
         <Route path="/" element={<h1>home page</h1>}/>

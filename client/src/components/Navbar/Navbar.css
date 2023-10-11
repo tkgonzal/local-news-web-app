@@ -1,6 +1,9 @@
 body {
   margin: 0;
 }
+.logo{
+
+}
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -21,9 +24,9 @@ body {
   width: 100%;
 }
 
-.left-container {
-  margin-top: 10%;
-  padding-top: 20em;
+.left-container > ul{
+    padding-top: 10rem;
+    list-style: none;
 }
 .left-column {
   position: absolute;
@@ -31,14 +34,20 @@ body {
   left: 0;
   height: 100vh;
   z-index: 10;
+  background-color: black;
+  color: white;
+}
+
+.left-main-links{
+    margin: .5rem .5rem 1.5rem ;
 }
 .left-links {
   list-style: none;
 }
 
-.nav-title {
-  text-decoration: none;
-  padding-left: 40rem;
+.left-links > a{
+    color: white;
+    text-decoration: none;
 }
 
 .top-navbar-links > ul {
