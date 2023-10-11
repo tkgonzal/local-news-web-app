@@ -10,4 +10,5 @@
 .business-panel--table td, th {
     outline: 0.125rem solid var(--bp-table-outline-color, black);
     text-align: left;
+    width: 25%;
 }

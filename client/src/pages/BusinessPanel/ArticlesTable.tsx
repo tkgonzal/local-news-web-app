@@ -3,7 +3,7 @@ import PanelNav from "../../components/BusinessPanel/PanelNav"
 
 import PanelTable from "../../components/BusinessPanel/PanelTable"
 
-import UserData from "../../test/UserData"
+import ArticleTestData from "../../test/ArticleData"
 
 import "./BusinessPanel.css"
 
@@ -21,8 +21,8 @@ const ArticlesTable: React.FC = () => {
                             New Article
                         </button>
                     </div>
-                    
-                    <PanelTable tableContents={UserData}/>
+
+                    <PanelTable tableContents={ArticleTestData}/>
                 </div>
 
             </main>
