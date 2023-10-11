@@ -1,9 +1,16 @@
 body {
   margin: 0;
 }
-.search-bar > input{
-    margin-left: 10rem;
-    width: 50em;
+.search-bar > div {
+  background-color: rgba(0, 0, 0, 0.116);
+  width: 30em;
+  margin-left: 10rem;
+}
+
+.custom-input {
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+  border: none;
 }
 .nav-container {
   display: flex;
@@ -25,9 +32,9 @@ body {
   width: 100%;
 }
 
-.left-container > ul{
-    padding-top: 10rem;
-    list-style: none;
+.left-container > ul {
+  padding-top: 10rem;
+  list-style: none;
 }
 .left-column {
   position: absolute;
@@ -39,16 +46,16 @@ body {
   color: white;
 }
 
-.left-main-links{
-    margin: .5rem .5rem 1.5rem ;
+.left-main-links {
+  margin: 0.5rem 0.5rem 1.5rem;
 }
 .left-links {
   list-style: none;
 }
 
-.left-links > a{
-    color: white;
-    text-decoration: none;
+.left-links > a {
+  color: white;
+  text-decoration: none;
 }
 
 .top-navbar-links > ul {
@@ -59,7 +66,14 @@ body {
   bottom: 0;
   right: 0;
 }
-
+.mglass {
+  height: 20px;
+}
+.subscribe-link {
+  background-color: black;
+  padding: 0.5rem 2rem;
+  color: white;
+}
 .main-links {
   display: flex;
   justify-content: space-between;
