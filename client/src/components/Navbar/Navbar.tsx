@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ title, links }) => {
     {
       title: "News",
       name: ["breaking", "local", "crime"],
-      url: ["/staff", "/login", "/crime"],
+      url: ["/staff", "/login", "/"],
     },
     { title: "Sports", name: ["local", "crime"], url: [] },
   ];
