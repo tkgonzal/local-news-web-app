@@ -11,14 +11,28 @@ interface Props {
 }
 
 // Table Utils
+/**
+ * Type guard for User
+ * @param tableRow A row to generate for the table.
+ * @returns Whether or not tableRow is User
+ */
 const isUser = (tableRow: User | Article): tableRow is User => {
     return (tableRow as User).email !== undefined
 }
 
+/**
+ * Type guard for Article
+ * @param tableRow A row to generate for the table.
+ * @returns Whether or not tableRow is Article
+ */
 const isArticle = (tableRow: User | Article): tableRow is Article => {
     return (tableRow as Article).heading !== undefined
 }
 
+/**
+ * @param user 
+ * @returns The user's full name as a string
+ */
 const getUserFullname = (user: User): string => {
     return `${user.name?.first} ${user.name?.last}`
 }
