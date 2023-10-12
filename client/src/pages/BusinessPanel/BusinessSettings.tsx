@@ -17,12 +17,7 @@ const BusinessSettings: React.FC = () => {
             >
                 <div className="business-panel--page-header">
                     <h1>Settings</h1>
-
-                    <button 
-                        type="submit"
-                    >
-                        Save
-                    </button>
+                    <button type="submit">Save</button>
                 </div>
 
                 <span className="business-panel--settings-input">
