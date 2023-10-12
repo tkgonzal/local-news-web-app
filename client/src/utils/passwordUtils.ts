@@ -15,7 +15,7 @@ export function isStrongPassword(password: string): boolean {
     }
 
     // check for not allowed strings
-    const notAllowedStrings = ['password', '123', '1234', '12345', '123456']
+    const notAllowedStrings = ['password', '123', '1234', '12345', '123456'];
     for (const notAllowed of notAllowedStrings) {
         if (password.toLocaleLowerCase().includes(notAllowed)) {
             return false;
