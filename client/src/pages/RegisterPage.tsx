@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
+
 import { isStrongPassword } from '../utils/passwordUtils';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../contexts/UserContext';
 
 const RegisterPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +16,21 @@ const RegisterPage: React.FC = () => {
         businessWebsite: '',
         mobileNumber: '',
     });
+
+    // Uncomment useEffect When business panel page gets added. 
+
+    // useEffect(() => {
+    //     if (user?.accType === 'business') {
+    //         navigate('/business-panel');  *** just change the '/business-panel' to the correct route
+    //     }
+    //     else {
+    //         navigate('/')
+    //     }
+    // }, [user])
+
+    const { setUser } = useUserContext();
+
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -35,24 +53,32 @@ const RegisterPage: React.FC = () => {
 
         try {
             if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
+                const userData = {
+                    email: formData.email,
+                    password: formData.password,
+                    accType: formData.accType,
+                    businessName: formData.businessName,
+                    businessWebsite: formData.businessWebsite,
+                    mobileNumber: formData.mobileNumber,
+                };
+
                 const response = await axios.post('http://localhost:5000/api/users/register', {
-                email: formData.email,
-                password: formData.password,
+                userData
                 });
 
-                const { user, accessToken } = response.data
-                // save user data in context, get rid of console.log()
+                const { userWithoutPassword, accessToken } = response.data;
+
                 Cookies.set('access_token', accessToken);
-                console.log('Created User: ', user);
+                setUser(userWithoutPassword);
             }
             else {
                 alert('Passwords do not match');
             }  
         }
         catch (error: any) {
-            console.error('Error registering user.', error)
+            console.error('Error registering user.', error);
             if (error.response && error.response.data && error.response.data.message) {
-                alert(`${error.response.data.message}.`)
+                alert(`${error.response.data.message}.`);
             }
             
         }
@@ -66,6 +92,9 @@ const RegisterPage: React.FC = () => {
                 businessWebsite: '',
                 mobileNumber: '',
             });
+            // remove below when business panel page gets pushed and uncomment useEffect
+            navigate('/');
+            // remove above when business panel page gets pushed and uncomment useEffect
         }
 
     }
@@ -154,7 +183,6 @@ const RegisterPage: React.FC = () => {
                 <button type="submit">Register</button>
             </form>
         </div>
-    );
-};
+    )};
 
 export default RegisterPage;

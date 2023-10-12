@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { isStrongPassword } from '../utils/passwordUtils';
 
@@ -7,6 +8,12 @@ const ConfirmResetPassword: React.FC = () => {
         password: '',
         confirmPassword: '',
     });
+
+    const navigate = useNavigate();
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get('token');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -21,22 +28,37 @@ const ConfirmResetPassword: React.FC = () => {
     
         try {
             if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
-                console.log(isStrongPassword(formData.password), formData.password)
-                // axios stuff here
+                const response = await axios.post(
+                    'http://localhost:5000/api/confirm-password-reset/reset', 
+                    {
+                        newPassword: formData.password,
+                    },
+                    {
+                        headers: {
+                            Authorization: `${token}`,
+                        },
+                    }
+                );
+                
+                const data = response.data;
+                alert(data.message);
             }
             else {
                 alert('Passwords do not match');
             }
+            navigate('/login');
 
         }
         catch (error) {
-
+            console.error('Error resetting password: ', error);
         }
         finally {
-
-        }
-        
-    }
+            setFormData({
+                password: '',
+                confirmPassword: '',
+            });
+        }  
+    };
 
     return (
         <div className='confirmResetPassword-container'>
@@ -65,8 +87,6 @@ const ConfirmResetPassword: React.FC = () => {
                 <button type='submit'>Submit</button>
             </form>
         </div>
-    )
-
-}
+    )};
 
 export default ConfirmResetPassword
