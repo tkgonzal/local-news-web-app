@@ -1,3 +1,5 @@
+import { NavigateFunction, useNavigate } from "react-router-dom"
+
 import { User } from "../../types/interfaces/User"
 import { Article } from "../../types/interfaces/Article"
 
@@ -40,6 +42,8 @@ const getUserFullname = (user: User): string => {
 // Table to display either users or articles for a Business as well as their
 // actions the business can take on each one
 const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
+    const formNavigate: NavigateFunction = useNavigate();
+
     const articleHeaderNames: string[] = [
         "ID", 
         "Title", 
@@ -52,6 +56,11 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
         "Email", 
         "Actions"
     ]
+
+    // Event Handlers
+    const openEntryForm = (id: string) => {
+        formNavigate(`/business/${tableType.toLowerCase()}s/form/${id}`)
+    }
 
     let tableHeaderNames = tableType == "Article" ? 
         articleHeaderNames : userHeaderNames
@@ -73,7 +82,7 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     {isUser(row) && row.email || isArticle(row) && row.impressions}
                 </td>
                 <td>
-                    <button>Edit</button>
+                    <button onClick={() => openEntryForm(row.id)}>Edit</button>
                     <button>Delete</button>
                 </td>
             </tr>
