@@ -20,6 +20,7 @@ const BusinessSettings: React.FC = () => {
                     <button type="submit">Save</button>
                 </div>
 
+                <h2>Notifications</h2>
                 <span className="business-panel--settings-input">
                     <input
                         type="checkbox"

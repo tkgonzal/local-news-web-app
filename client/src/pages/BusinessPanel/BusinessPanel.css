@@ -27,6 +27,10 @@
     align-items: center;
 }
 
+.business-panel--settings h2 {
+    padding-left: 1rem;
+}
+
 .business-panel--settings-input input {
     margin: 0.4rem;
 }
