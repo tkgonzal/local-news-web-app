@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+}
+.search-bar > div {
+  background-color: rgba(0, 0, 0, 0.116);
+  width: 30em;
+  margin-left: 10rem;
+}
+
+.custom-input {
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+  border: none;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  background-color: rgb(253, 253, 253);
+}
+.nav-main {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0%;
+  height: 15vh;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.left-container > ul {
+  padding-top: 10rem;
+  list-style: none;
+}
+.left-column {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 10;
+  background-color: black;
+  color: white;
+}
+
+.left-main-links {
+  margin: 0.5rem 0.5rem 1.5rem;
+}
+.left-links {
+  list-style: none;
+}
+
+.left-links > a {
+  color: white;
+  text-decoration: none;
+}
+
+.top-navbar-links > ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.mglass {
+  height: 20px;
+}
+.subscribe-link {
+  background-color: black;
+  padding: 0.5rem 2rem;
+  color: white;
+}
+.main-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin-right: 1rem;
+}
+
+.main-links > a {
+  text-decoration: none;
+  margin: 0 0.3rem;
+}
+
+.sidebar-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: rgb(253, 253, 253);
+  border: 1px solid black;
+}
