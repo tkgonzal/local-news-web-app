@@ -1,15 +1,25 @@
+import { NavigateFunction, useNavigate } from "react-router-dom"
+
 import BusinessPanelPage from "./BusinessPanelPage"
 import PanelTable from "../../components/BusinessPanel/PanelTable"
 
 import ArticleTestData from "../../test/ArticleData"
 
+// Page used for dashboard, displaying a business's articles
 const ArticlesTable: React.FC = () => {
+    const formNavigate: NavigateFunction = useNavigate()
+
+    // Event handlers
+    const makeNewArticle = () => {
+        formNavigate("/business/articles/form/new")
+    }
+
     return (
         <BusinessPanelPage>
             <>
                 <div className="business-panel--page-header">
                     <h1>Articles</h1>
-                    <button>New Article</button>
+                    <button onClick={makeNewArticle}>New Article</button>
                 </div>
 
                 <PanelTable tableType="Article" tableContents={ArticleTestData}/>

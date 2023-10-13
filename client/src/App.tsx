@@ -17,9 +17,9 @@ function App() : JSX.Element {
       <Routes>
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
         <Route path="/news" element={<h1>news page</h1>}/>
-        <Route path="/article/:id" element={<Error />}/>
+        <Route path="/article/:articleId" element={<Error />}/>
         <Route path="/business/articles" element={<ArticlesTable />}/>
-        <Route path="/business/articles/form/:id" element={<ArticleForm />}/>
+        <Route path="/business/articles/form/:articleId" element={<ArticleForm />}/>
         <Route path="/business/users" element={<UsersTable />}/>
         <Route path="/business/settings" element={<BusinessSettings />}/>
         <Route path="*" element={<Error />}/>

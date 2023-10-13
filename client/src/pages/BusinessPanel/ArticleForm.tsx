@@ -1,5 +1,6 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
+import { useParams } from "react-router-dom"
 import ReactQuill from "react-quill"
 
 import BusinessPanelPage from "./BusinessPanelPage"
@@ -7,16 +8,25 @@ import BusinessPanelPage from "./BusinessPanelPage"
 import { ArticleInput } from "../../types/interfaces/BusinessPanel/ArticleInput"
 
 import "react-quill/dist/quill.snow.css"
-import "./ArticleForm.css"
+import "./BusinessForm.css"
 
+// Page component that allows users to create new articles or edit existing ones
 const ArticleForm: React.FC = () => {
-    const { register, handleSubmit, setValue, watch } = useForm<ArticleInput>();
+    const { register, handleSubmit, setValue, watch } = useForm<ArticleInput>()
+    const { articleId } = useParams()
     const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
+    const [isNewArticle] = useState<boolean>(articleId === "new")
 
+    // Side Effects
+    // Use effect to control the content of the react quill element
     useEffect(() => {
         register("content", { required: true })
     }, [register])
 
+    /**
+     * onChange handler for ReactQuill element
+     * @param editorState The state of the react quill input
+     */
     const onEditorStateChange = (editorState: string) => {
         setValue("content", editorState)
     }
@@ -30,7 +40,7 @@ const ArticleForm: React.FC = () => {
                 onSubmit={handleSubmit(submitArticle)}
             >
                 <div className="business-panel--page-header">
-                    <h1>New Article</h1>
+                    <h1>{isNewArticle ? "New" : "Edit"} Article</h1>
                     <button type="submit">Save</button>
                 </div>
 
