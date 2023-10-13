@@ -1,0 +1,37 @@
+:root {
+    --form-dive-outline-colour: #000;
+}
+
+.business-panel--form {
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.business-panel--form-half {
+    width: calc(50% - 0.125rem);
+    margin: 0.0625rem;
+}
+
+.business-panel--form-section {
+    width: calc(100% - 0.25rem);
+    outline: 0.125rem solid var(--form-dive-outline-colour, black);
+    padding: 0.125rem;
+    margin-bottom: .5rem;
+}
+
+.business-panel--rte-container {
+    width: calc(100% - 0.25rem);
+    padding: 0.125rem;
+}
+
+.business-panel--input {
+    display: flex;
+    flex-direction: column;
+}
+
+.business-panel--checkbox-span {
+    display: flex;
+    flex-direction: row;
+}

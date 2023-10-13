@@ -1,0 +1,41 @@
+.business-panel--main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.business-panel--page-content {
+    width: 100%;
+}
+
+.business-panel--page-header {
+    width: calc(100% - 2rem);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+}
+
+.business-panel--page-header h1 {
+    margin: 0;
+    padding: 0.25rem 0rem;
+}
+
+.business-panel--settings-input {
+    display: flex;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    align-items: center;
+}
+
+.business-panel--settings h2 {
+    padding-left: 1rem;
+}
+
+.business-panel--settings-input input {
+    margin: 0.4rem;
+}
+
+.business-panel--settings-input label {
+    font-size: 1.1rem;
+}
