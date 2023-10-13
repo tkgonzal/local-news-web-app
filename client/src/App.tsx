@@ -16,10 +16,7 @@ import Error from "./pages/Error"
 
 import ArticleTestData from "./test/ArticleData"
 
-
 import "./App.css"
-
-
 
 function App() : JSX.Element {
 
