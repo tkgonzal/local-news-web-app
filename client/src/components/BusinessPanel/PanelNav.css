@@ -1,0 +1,25 @@
+:root {
+    --bp-nav-bg-color: #000;
+    --bp-nav-color: #fff;
+}
+
+.business-panel--nav {
+    background-color: var(--bp-nav-bg-color, black);
+    color: var(--bp-nav-color, white);
+    padding: 1.5rem 1rem;
+    width: calc(100% - 2rem);
+}
+
+.business-panel--nav ul {
+    padding-left: .5rem;
+    display: flex;
+    gap: .5rem;
+}
+
+.business-panel--nav li {
+    list-style: none;
+}
+
+.business-panel--nav a {
+    color: var(--bp-nav-color, white);
+}

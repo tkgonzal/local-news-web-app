@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
     },
     { name: ["SPORTS", "HIGHSCHOOL"], url: ["/", "/"] },
     { name: ["LOCAL", "CRIME"], url: ["/", "/"] },
-    { name: ["BUSINESS", "STAFF"], url: ["/panel", "/staff"] },
+    { name: ["BUSINESS", "STAFF"], url: ["/business/articles", "/staff"] },
   ];
 
   return (
