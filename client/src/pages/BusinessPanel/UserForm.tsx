@@ -11,6 +11,7 @@ import Permission from "../../types/enums/Permission"
 import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
 
+// Form that allows for the creation of new Users or editing of existing ones
 const UserForm: React.FC = () => {
     const { register, handleSubmit, setValue, watch } = useForm<UserInput>()
     const { userId } = useParams()

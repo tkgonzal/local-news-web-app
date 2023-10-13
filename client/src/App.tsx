@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 
+import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
@@ -16,7 +17,6 @@ import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
 
 import "./App.css"
-import Navbar from "./components/Navbar/Navbar";
 
 function App() : JSX.Element {
 

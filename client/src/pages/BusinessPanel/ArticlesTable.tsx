@@ -5,7 +5,8 @@ import PanelTable from "../../components/BusinessPanel/PanelTable"
 
 import ArticleTestData from "../../test/ArticleData"
 
-// Page used for dashboard, displaying a business's articles
+// Page used for dashboard, displaying a business's articles and options
+// to edit/delete them or make new ones
 const ArticlesTable: React.FC = () => {
     const formNavigate: NavigateFunction = useNavigate()
 

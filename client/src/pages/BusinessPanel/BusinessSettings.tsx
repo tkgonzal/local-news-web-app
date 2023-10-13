@@ -4,7 +4,7 @@ import BusinessPanelPage from "./BusinessPanelPage"
 
 import { SettingsInput } from "../../types/interfaces/BusinessPanel/SettingsInput"
 
-// Page for business settings
+// Page for business settings, only has toggle for comment notifications
 const BusinessSettings: React.FC = () => {
     const { register, handleSubmit } = useForm<SettingsInput>();
     const submitSettings: SubmitHandler<SettingsInput> = data => console.log(data)
