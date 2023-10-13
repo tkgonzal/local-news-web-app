@@ -7,6 +7,7 @@ import ArticleTestData from "./test/ArticleData"
 
 import "./App.css"
 import Navbar from "./components/Navbar/Navbar";
+import SubscribePage from "./pages/SubscribePage"
 
 function App() : JSX.Element {
 
@@ -23,6 +24,7 @@ function App() : JSX.Element {
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
         <Route path="/news" element={<h1>news page</h1>}/>
         <Route path="/article/:id" element={<Error />}/>
+        <Route path="/subscribe" element={<SubscribePage />}/>
       </Routes>
     </>
   )
