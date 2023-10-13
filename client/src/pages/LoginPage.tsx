@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useUserContext } from '../contexts/UserContext';
+
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { user, setUser } = useUserContext();
+
+    const navigate = useNavigate();
+
+    // Uncomment useEffect When business panel page gets added. 
+
+    // useEffect(() => {
+    //     if (user?.accType === 'business') {
+    //         navigate('/business-panel');  *** just change the '/business-panel' to the correct route
+    //     }
+    //     else {
+    //         navigate('/')
+    //     }
+    // }, [user])
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -17,7 +36,7 @@ const Login: React.FC = () => {
 
             const { accessToken, userWithoutPassword } = response.data;
             Cookies.set('access_token', accessToken);
-            console.log('Access Token: ', accessToken, 'user: ', userWithoutPassword)
+            setUser(userWithoutPassword);
         }
         catch (error) {
             console.error('Error', error);
@@ -25,6 +44,10 @@ const Login: React.FC = () => {
         finally {
             setEmail('');
             setPassword('');
+            // remove below when business panel page gets pushed and uncomment useEffect
+            navigate('/');
+            // remove above when business panel page gets pushed and uncomment useEffect
+            
         }
     }
 
@@ -57,12 +80,12 @@ return (
             </div>
             <button type='submit'>Login</button>
         </form>
-        <a href=''>Forgot Password?</a>
+        <a href='' onClick={() => navigate("/reset-password")}>Forgot Password?</a>
         <div>
-            <button>Register</button>
+            <button onClick={() => navigate("/register")}>Register</button>
         </div>
         
     </div>
 )};
 
-export default Login
+export default LoginPage

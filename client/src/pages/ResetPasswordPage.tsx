@@ -6,17 +6,22 @@ const ResetPassword: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(email);
+
         try {
-            // axios stuff here
+            const response = await axios.post('http://localhost:5000/api/request-password-reset/send-request-link', {
+                email: email,
+            });
+
+            const data = response.data;
+            alert(data.message);
         }
         catch (error) {
-
+            console.error('Error sending email');
         }
         finally {
-
+            setEmail('')
         }
-    }
+    };
 
     return (
         <div className='resetPassword-container'>
@@ -36,7 +41,6 @@ const ResetPassword: React.FC = () => {
                 <button type='submit'>Submit</button>
             </form>
         </div>
-    )
-}
+    )};
 
 export default ResetPassword
