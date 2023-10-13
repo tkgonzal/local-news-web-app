@@ -18,6 +18,10 @@ import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
 
 import "./App.css"
 
+import Navbar from "./components/Navbar/Navbar";
+import SubscribePage from "./pages/SubscribePage"
+
+
 function App() : JSX.Element {
 
   const navLinks = [
@@ -37,6 +41,7 @@ function App() : JSX.Element {
         <Route path="/register" element={<RegisterPage />}/>
         <Route path="/reset-password" element={<ResetPassword />}/>
         <Route path="/confirm-reset-password" element={<ConfirmResetPassword />}/>
+        <Route path="/subscribe" element={<SubscribePage />}/>
         <Route path="/business/articles" element={<ArticlesTable />}/>
         <Route path="/business/articles/form/:articleId" element={<ArticleForm />}/>
         <Route path="/business/users" element={<UsersTable />}/>
