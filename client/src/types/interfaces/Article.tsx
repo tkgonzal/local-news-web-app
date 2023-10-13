@@ -6,6 +6,7 @@ interface Article {
     imgSrc: string
     heading: string
     subHeading: string
+    impressions: number
     tags: ArticleTag[]
 }
 
