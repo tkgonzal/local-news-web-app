@@ -20,7 +20,7 @@ router.post('/send-request-link', async (req: Request, res: Response) => {
 
     const token = jwt.sign({ email }, secretKey, { expiresIn: '1h' });
 
-    const resetPasswordLink = `http://localhost:5173/confirm-reset-password?token=${token}`;
+    const resetPasswordLink = `${process.env.CLIENT_URL}/confirm-reset-password?token=${token}`;
 
     sendResetEmail(email, resetPasswordLink);
 

@@ -1,17 +1,17 @@
 import { Route, Routes } from "react-router-dom"
 
 import BreakingNews from "./pages/BreakingNews"
-import Error from "./pages/Error"
-
-import ArticleTestData from "./test/ArticleData"
-
+import Navbar from "./components/Navbar/Navbar"
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
+import Error from "./pages/Error"
+
+import ArticleTestData from "./test/ArticleData"
+
 
 import "./App.css"
-import Navbar from "./components/Navbar/Navbar";
 
 function App() : JSX.Element {
 
