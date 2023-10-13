@@ -7,11 +7,13 @@
     background-color: var(--bp-nav-bg-color, black);
     color: var(--bp-nav-color, white);
     padding: 1.5rem 1rem;
-    width: 20%;
+    width: calc(100% - 2rem);
 }
 
 .business-panel--nav ul {
     padding-left: .5rem;
+    display: flex;
+    gap: .5rem;
 }
 
 .business-panel--nav li {

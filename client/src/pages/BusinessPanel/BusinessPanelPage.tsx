@@ -1,4 +1,3 @@
-import PanelHeader from "../../components/BusinessPanel/PanelHeader"
 import PanelNav from "../../components/BusinessPanel/PanelNav"
 
 import "./BusinessPanel.css"
@@ -11,15 +10,12 @@ interface Props {
 // the children its given undet the page content div
 const BusinessPanelPage: React.FC<Props> = ({ children }) => {
     return (
-        <>
-            <PanelHeader />
-            <main className="business-panel--main">
-                <PanelNav />
-                <div className="business-panel--page-content">
-                    {children}
-                </div>
-            </main>
-        </>
+        <main className="business-panel--main">
+            <PanelNav />
+            <div className="business-panel--page-content">
+                {children}
+            </div>
+        </main>
     )
 }
 

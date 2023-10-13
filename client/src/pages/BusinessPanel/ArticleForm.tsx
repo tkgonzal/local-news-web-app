@@ -14,8 +14,9 @@ import "./BusinessForm.css"
 const ArticleForm: React.FC = () => {
     const { register, handleSubmit, setValue, watch } = useForm<ArticleInput>()
     const { articleId } = useParams()
-    const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
     const [isNewArticle] = useState<boolean>(articleId === "new")
+
+    const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
 
     // Side Effects
     // Use effect to control the content of the react quill element
@@ -88,6 +89,7 @@ const ArticleForm: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Content Editor */}
                 <div className="business-panel--form-half">
                     <div className="business-panel--rte-container">
                         <ReactQuill 

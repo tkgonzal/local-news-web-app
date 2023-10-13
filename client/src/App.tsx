@@ -21,6 +21,7 @@ function App() : JSX.Element {
         <Route path="/business/articles" element={<ArticlesTable />}/>
         <Route path="/business/articles/form/:articleId" element={<ArticleForm />}/>
         <Route path="/business/users" element={<UsersTable />}/>
+        <Route path="/business/users/form/:userId" element={<UsersTable />}/>
         <Route path="/business/settings" element={<BusinessSettings />}/>
         <Route path="*" element={<Error />}/>
       </Routes>
