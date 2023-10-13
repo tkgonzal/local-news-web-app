@@ -1,14 +1,27 @@
+import { useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
+import ReactQuill from "react-quill"
 
 import BusinessPanelPage from "./BusinessPanelPage"
 
 import { ArticleInput } from "../../types/interfaces/BusinessPanel/ArticleInput"
 
+import "react-quill/dist/quill.snow.css"
 import "./ArticleForm.css"
 
 const ArticleForm: React.FC = () => {
-    const { register, handleSubmit } = useForm<ArticleInput>();
+    const { register, handleSubmit, setValue, watch } = useForm<ArticleInput>();
     const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
+
+    useEffect(() => {
+        register("content", { required: true })
+    }, [register])
+
+    const onEditorStateChange = (editorState: string) => {
+        setValue("content", editorState)
+    }
+
+    const richTextEditorContent = watch("content")
 
     return (
         <BusinessPanelPage>
@@ -62,6 +75,16 @@ const ArticleForm: React.FC = () => {
                                 Allow Anonymous Comments
                             </label>
                         </span>
+                    </div>
+                </div>
+
+                <div className="business-panel--form-half">
+                    <div className="business-panel--rte-container">
+                        <ReactQuill 
+                            theme="snow"
+                            value={richTextEditorContent}
+                            onChange={onEditorStateChange}
+                        />
                     </div>
                 </div>
             </form>
