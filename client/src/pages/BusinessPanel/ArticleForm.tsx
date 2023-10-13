@@ -19,7 +19,7 @@ const ArticleForm: React.FC = () => {
     const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
 
     // Side Effects
-    // Use effect to control the content of the react quill element
+    // Use effect to control the content of the react quill content editor
     useEffect(() => {
         register("content", { required: true })
     }, [register])
@@ -50,23 +50,30 @@ const ArticleForm: React.FC = () => {
                     <div className="business-panel--form-section">
                         <span className="business-panel--input">
                             <label htmlFor="heading">Heading</label>
-                            <input {...register(
-                                "heading", { required: "Required" }
-                            )}/>
+                            <input 
+                                {...register(
+                                    "heading", { required: "Required" }
+                                )}
+                            />
                         </span>
 
                         <span className="business-panel--input">
                             <label htmlFor="subHeading">Sub-Heading</label>
-                            <input {...register(
-                                "subHeading", { required: "Required" }
-                            )}/>
+                            <input 
+                                {...register(
+                                    
+                                    "subHeading", { required: "Required" }
+                                )}
+                            />
                         </span>
 
                         <span className="business-panel--input">
                             <label htmlFor="author">Author</label>
-                            <input {...register(
-                                "author", { required: "Required" }
-                            )}/>
+                            <input 
+                                {...register(
+                                    "author", { required: "Required" }
+                                )}
+                            />
                         </span>
                     </div>
 

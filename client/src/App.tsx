@@ -4,6 +4,7 @@ import BreakingNews from "./pages/BreakingNews"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
 import UsersTable from "./pages/BusinessPanel/UsersTable"
+import UserForm from "./pages/BusinessPanel/UserForm"
 import BusinessSettings from "./pages/BusinessPanel/BusinessSettings"
 import Error from "./pages/Error"
 
@@ -21,7 +22,7 @@ function App() : JSX.Element {
         <Route path="/business/articles" element={<ArticlesTable />}/>
         <Route path="/business/articles/form/:articleId" element={<ArticleForm />}/>
         <Route path="/business/users" element={<UsersTable />}/>
-        <Route path="/business/users/form/:userId" element={<UsersTable />}/>
+        <Route path="/business/users/form/:userId" element={<UserForm />}/>
         <Route path="/business/settings" element={<BusinessSettings />}/>
         <Route path="*" element={<Error />}/>
       </Routes>
