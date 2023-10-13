@@ -9,12 +9,12 @@ const SubscribePage: React.FC = () => {
         breakingNews: false,
         sports: false
     });
+    const [frequency, setFrequency] = useState('');
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = event.target;
         
         if (name === 'selectAll') {
-            // If the "Select All" checkbox is clicked, update all checkboxes
             setIsCheckedAll(checked);
             setCheckboxOptions(prevOptions => {
                 return Object.keys(prevOptions).reduce((options, key) => {
@@ -23,13 +23,16 @@ const SubscribePage: React.FC = () => {
                 }, {});
             });
         } else {
-            // If an individual checkbox is clicked, update the "Select All" checkbox accordingly
             setCheckboxOptions(prevOptions => ({
                 ...prevOptions,
                 [name]: checked
             }));
             setIsCheckedAll(Object.values(checkboxOptions).every(option => option));
         }
+    };
+
+    const handleFrequencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setFrequency(event.target.value);
     };
 
     return (
@@ -88,11 +91,19 @@ const SubscribePage: React.FC = () => {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="frequency">Frequency</label>
+                    <label htmlFor="frequency">Frequency:</label>
+                    <select value={frequency} onChange={handleFrequencyChange}>
+                        <option value="" >Select Frequency</option>
+                        <option value="hourly">Hourly</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="biweekly">Biweekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
                 </div>
                 <div>
-                    <input type="email" placeholder='Enter your email address'/>
-                    <input type="tel" placeholder='Mobile Number'/>
+                    <input type="email" name='email' placeholder='Enter your email address'/>
+                    <input type="tel" name='phoneNumber' placeholder='Mobile Number'/>
                     <button type="submit">Subscribe</button>
                 </div>
             </form>
