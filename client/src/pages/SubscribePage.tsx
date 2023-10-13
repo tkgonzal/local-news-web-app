@@ -10,6 +10,8 @@ const SubscribePage: React.FC = () => {
         sports: false
     });
     const [frequency, setFrequency] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = event.target;
@@ -33,6 +35,14 @@ const SubscribePage: React.FC = () => {
 
     const handleFrequencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setFrequency(event.target.value);
+    };
+
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    };
+
+    const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPhoneNumber(event.target.value);
     };
 
     return (
@@ -102,8 +112,20 @@ const SubscribePage: React.FC = () => {
                     </select>
                 </div>
                 <div>
-                    <input type="email" name='email' placeholder='Enter your email address'/>
-                    <input type="tel" name='phoneNumber' placeholder='Mobile Number'/>
+                    <input
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        placeholder='Enter your email address'
+                    />
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={phoneNumber}
+                        onChange={handlePhoneNumberChange}
+                        placeholder='Mobile Number'
+                    />
                     <button type="submit">Subscribe</button>
                 </div>
             </form>
