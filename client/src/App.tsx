@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
+import StaffPage from "./pages/StaffPage"
 
 import "./App.css"
 import Navbar from "./components/Navbar/Navbar";
@@ -32,6 +33,7 @@ function App() : JSX.Element {
         <Route path="/register" element={<RegisterPage />}/>
         <Route path="/reset-password" element={<ResetPassword />}/>
         <Route path="/confirm-reset-password" element={<ConfirmResetPassword />}/>
+        <Route path="/staff" element={<StaffPage />}/>
       </Routes>
     </>
   )
