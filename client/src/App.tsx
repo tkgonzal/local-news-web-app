@@ -1,17 +1,18 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom";
 
-import BreakingNews from "./pages/BreakingNews"
-import Error from "./pages/Error"
+import BreakingNews from "./pages/BreakingNews";
+import Error from "./pages/Error";
 
-import ArticleTestData from "./test/ArticleData"
+import ArticleTestData from "./test/ArticleData";
 
-import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage"
-import ResetPassword from "./pages/ResetPasswordPage"
-import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
-
-import "./App.css"
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ResetPassword from "./pages/ResetPasswordPage";
+import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage";
 import Navbar from "./components/Navbar/Navbar";
+
+import "./App.css";
+
 
 function App() : JSX.Element {
 
@@ -20,9 +21,13 @@ function App() : JSX.Element {
     { name: 'Subscribe', url: '/subscribe' },
   ];
 
+  const location = useLocation();
+  const shouldNotRenderNavbar = 
+    !['/login', '/register', '/reset-password', '/confirm-reset-password'].includes(location.pathname);
+
   return (
     <>
-      <Navbar links={navLinks}/>
+      {shouldNotRenderNavbar && <Navbar links={navLinks}/>}
 
       <Routes>
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
