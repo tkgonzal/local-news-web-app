@@ -3,6 +3,7 @@ import { Article } from "../types/interfaces/Article"
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
 import HeadlineColumn from "../components/BreakingNews/HeadlineColumn"
+import HeadlineBulletPoints from "../components/BreakingNews/HeadlineBulletPoints"
 
 import "./BreakingNews.css"
 
@@ -36,6 +37,7 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
                 <h2>LATEST HEADLINES</h2>
                 <HeadlineColumn articleThumbnails={articleThumbnails}/>
                 <h2>MORE NEWS</h2>
+                <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
             </div>
         </main>
     )

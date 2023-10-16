@@ -1,0 +1,11 @@
+.headline-bullet-points {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+}
+
+.headline-bullet-points .article-thumbnail--subheading,
+.headline-bullet-points .article-thumbnail--img {
+    display: none;
+}
