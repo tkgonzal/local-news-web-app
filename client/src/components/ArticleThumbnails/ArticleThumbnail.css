@@ -1,5 +1,5 @@
 .article-thumbnail {
-    outline: 0.125rem solid black;
+    /* outline: 0.125rem solid black; */
     width: 100%;
 }
 
@@ -12,6 +12,7 @@
 .article-thumbnail--heading,
 .article-thumbnail--subheading {
     margin: .5rem;
+    margin-left: 0rem;
     text-overflow: ellipsis;
     text-wrap: nowrap;
     cursor: pointer;
@@ -42,7 +43,6 @@
 }
 
 .article-thumbnail:hover {
-    outline: .3rem solid black;
     cursor: pointer;
     text-decoration: underline;
 }

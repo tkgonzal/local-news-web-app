@@ -16,3 +16,9 @@
 .carousel-content .article-thumbnail {
     width: 30%;
 }
+
+.carousel-content .article-thumbnail--subheading, 
+.carousel-content .article-thumbnail--author,
+.carousel-content .article-thumbnail--body {
+    display: none;
+}
