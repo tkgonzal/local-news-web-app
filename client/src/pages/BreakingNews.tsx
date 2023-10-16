@@ -1,7 +1,6 @@
 import { Article } from "../types/interfaces/Article"
 
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
-import MainArticleThumbnail from "../components/ArticleThumbnails/MainArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
 
 import "./BreakingNews.css"
@@ -13,9 +12,7 @@ interface Props {
 // Page component for the home page of the app which displays breaking news
 const BreakingNews: React.FC<Props> = ({ articles }) => {
     const mainArticleThumbnail: JSX.Element = 
-        <MainArticleThumbnail 
-            article={articles[0]}   
-        />
+        <ArticleThumbnail className="main-article" article={articles[0]}/>
 
     const articleThumbnails: JSX.Element[] = articles.slice(1).map(
         (article: Article) => 
