@@ -1,0 +1,16 @@
+.subscribe{
+    padding-left: 350px;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+.subscribe--header{
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+
+.subscribe--subtext{
+    font-family: 'Roboto', sans-serif;
+}
