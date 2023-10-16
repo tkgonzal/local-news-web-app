@@ -1,18 +1,13 @@
-import { Article } from "../types/interfaces/Article";
+import { Article } from "../types/interfaces/Article"
 
-import { useNavigate } from "react-router-dom";
+import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
+import MainArticleThumbnail from "../components/ArticleThumbnails/MainArticleThumbnail"
 
-import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail";
-import MainArticleThumbnail from "../components/ArticleThumbnails/MainArticleThumbnail";
-
-import "./BreakingNews.css";
-import { string } from "prop-types";
-
-import { useUserContext } from '../contexts/UserContext';
+import "./BreakingNews.css"
 
 interface Props {
     articles: Article[]
-};
+}
 
 // Page component for the home page of the app which displays breaking news
 const BreakingNews: React.FC<Props> = ({ articles }) => {
@@ -23,34 +18,27 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
 
     const articleThumbnails: JSX.Element[] = articles.slice(1).map(
         (article: Article) => 
-            <ArticleThumbnail 
-                key={article.id} 
-                article={article}
-            />
-    );
-
-    const { user } = useUserContext();
-
-    const navigate = useNavigate();
+            <ArticleThumbnail key={article.id} article={article} />
+    )
 
     return (
         <main className="home">
-            {mainArticleThumbnail}
+            <div className="home--main-column">
+                {mainArticleThumbnail}
+                <section className="home--articles-carousel">
+                    <button>back</button>
 
-            <section className="home--articles-carosel">
-                <button>
-                    back
-                </button>
+                    <div className="home--articles">
+                        {articleThumbnails}
+                    </div>
 
-                <div className="home--articles">
-                    {articleThumbnails}
-                </div>
+                    <button>next</button>
+                </section>
+            </div>
 
-                <button>
-                    next
-                </button>
-            </section>
-
+            <div className="home--secondary-column">
+                this is the side column
+            </div>
         </main>
     )
 }

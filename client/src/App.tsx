@@ -18,7 +18,6 @@ import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
 
 import "./App.css"
 
-import Navbar from "./components/Navbar/Navbar";
 import SubscribePage from "./pages/SubscribePage"
 
 
@@ -31,7 +30,7 @@ function App() : JSX.Element {
 
   return (
     <>
-      <Navbar links={navLinks}/>
+      {/* <Navbar links={navLinks}/> */}
 
       <Routes>
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
