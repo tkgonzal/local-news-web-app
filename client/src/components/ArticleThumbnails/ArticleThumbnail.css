@@ -1,6 +1,6 @@
 .article-thumbnail {
     outline: 0.125rem solid black;
-    width: 30%;
+    width: 100%;
 }
 
 .article-thumbnail--img {

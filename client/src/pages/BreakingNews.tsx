@@ -2,6 +2,7 @@ import { Article } from "../types/interfaces/Article"
 
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import MainArticleThumbnail from "../components/ArticleThumbnails/MainArticleThumbnail"
+import ArticleCarousel from "../components/ArticleCarousel"
 
 import "./BreakingNews.css"
 
@@ -25,15 +26,10 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
         <main className="home">
             <div className="home--main-column">
                 {mainArticleThumbnail}
-                <section className="home--articles-carousel">
-                    <button>back</button>
 
-                    <div className="home--articles">
-                        {articleThumbnails}
-                    </div>
-
-                    <button>next</button>
-                </section>
+                <div className="home--article-carousel-container">
+                    <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                </div>
             </div>
 
             <div className="home--secondary-column">
