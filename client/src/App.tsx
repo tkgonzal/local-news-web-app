@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 
-import Navbar from "./components/Navbar/Navbar"
+// import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
@@ -23,10 +23,10 @@ import SubscribePage from "./pages/SubscribePage"
 
 function App() : JSX.Element {
 
-  const navLinks = [
-    { name: 'Login', url: '/login' },
-    { name: 'Subscribe', url: '/subscribe' },
-  ];
+  // const navLinks = [
+  //   { name: 'Login', url: '/login' },
+  //   { name: 'Subscribe', url: '/subscribe' },
+  // ];
 
   return (
     <>
