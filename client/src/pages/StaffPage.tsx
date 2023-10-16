@@ -22,7 +22,7 @@ const StaffPage: React.FC = () => {
             />
     );
     return (
-        <main className="home">
+        <main className="staff-page">
 
 
             <div className="staff--section">

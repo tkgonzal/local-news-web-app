@@ -17,9 +17,9 @@ const ArticleThumbnail: React.FC<Props> = ({ staff }) => {
             <img
                 className="staff-card--img"
                 src={staff.imgSrc}
-                alt={staff.name} 
+                alt={staff.staffName} 
             />
-            <h2 className="staff-card--name">{staff.name}</h2>
+            <h2 className="staff-card--name">{staff.staffName}</h2>
             <h3 className="staff-card--position">{staff.position}</h3>
         </div>
     )

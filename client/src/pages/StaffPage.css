@@ -1,0 +1,17 @@
+.staff-page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.staff--section{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 20rem;
+    row-gap:1rem;
+    margin-right: 10rem;
+}

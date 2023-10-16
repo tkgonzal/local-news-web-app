@@ -4,32 +4,32 @@ import testImage from "./assets/article-test-image.jpg"
 
 const StaffData : Staff[] = [
     {
-        name: "1",
+        staffName: "1",
         imgSrc: testImage,
         position: "idk",
     },
     {
-        name: "2",
+        staffName: "2",
         imgSrc: testImage,
         position: "idk",
     },
     {
-        name: "3",
+        staffName: "3",
         imgSrc: testImage,
         position: "idk",
     },
     {
-        name: "4",
+        staffName: "4",
         imgSrc: testImage,
         position: "idk",
     },
     {
-        name: "5",
+        staffName: "5",
         imgSrc: testImage,
         position: "idk",
     },
     {
-        name: "6",
+        staffName: "6",
         imgSrc: testImage,
         position: "idk",
     },
