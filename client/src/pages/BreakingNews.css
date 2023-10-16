@@ -14,9 +14,10 @@
 }
 
 .home--article-carousel-container {
-    width: 100%;
+    width: 90%;
 }
 
 .home--secondary-column {
     width: 25%;
+    padding: 1rem;
 }
