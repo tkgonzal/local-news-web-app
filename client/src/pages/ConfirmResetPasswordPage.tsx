@@ -29,7 +29,7 @@ const ConfirmResetPassword: React.FC = () => {
         try {
             if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
                 const response = await axios.post(
-                    'http://localhost:5000/api/confirm-password-reset/reset', 
+                    `${import.meta.env.VITE_SERVER_URL}/api/confirm-password-reset/reset`, 
                     {
                         newPassword: formData.password,
                     },

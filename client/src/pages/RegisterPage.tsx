@@ -62,7 +62,7 @@ const RegisterPage: React.FC = () => {
                     mobileNumber: formData.mobileNumber,
                 };
 
-                const response = await axios.post('http://localhost:5000/api/users/register', {
+                const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/register`, {
                 userData
                 });
 

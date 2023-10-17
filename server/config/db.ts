@@ -11,7 +11,7 @@ async function connectToDatabase() {
 
         try {
             await client.connect();
-            db = client.db('users_data');
+            db = client.db(process.env.DB_NAME);
         }
         catch (error) {
             console.error('Error connecting to MongoDB:', error);

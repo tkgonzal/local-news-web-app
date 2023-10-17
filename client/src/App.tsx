@@ -2,25 +2,22 @@ import { Route, Routes } from "react-router-dom"
 
 import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
+import StaffPage from "./pages/StaffPage"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
 import UsersTable from "./pages/BusinessPanel/UsersTable"
 import UserForm from "./pages/BusinessPanel/UserForm"
 import BusinessSettings from "./pages/BusinessPanel/BusinessSettings"
-import Error from "./pages/Error"
-
-import ArticleTestData from "./test/ArticleData"
-
+import SubscribePage from "./pages/SubscribePage"
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
-import StaffPage from "./pages/StaffPage"
-import SubscribePage from "./pages/SubscribePage"
+import Error from "./pages/Error"
+
+import ArticleTestData from "./test/ArticleData"
 
 import "./App.css"
-
-
 
 function App() : JSX.Element {
 
