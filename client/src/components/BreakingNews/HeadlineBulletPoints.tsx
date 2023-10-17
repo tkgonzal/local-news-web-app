@@ -8,9 +8,7 @@ interface Props {
 // that might not be as important as the other headlines
 const HeadlineBulletPoints: React.FC<Props> = ({articleThumbnails}) => {
     return (
-        <div className="headline-bullet-points">
-            {articleThumbnails}
-        </div>
+        <div className="headline-bullet-points">{articleThumbnails}</div>
     )
 }
 

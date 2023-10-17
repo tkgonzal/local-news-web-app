@@ -5,7 +5,21 @@
     padding: 0.25rem;
 }
 
+.headline-bullet-points .article-thumbnail--headings-div {
+    margin-bottom: 0.3;
+}
+
+.headline-bullet-points .article-thumbnail--heading {
+    font-size: 1rem;
+}
+
+.headline-bullet-points .article-thumbnail--date {
+    margin: 0;
+}
+
 .headline-bullet-points .article-thumbnail--subheading,
+.headline-bullet-points .article-thumbnail--author,
+.headline-bullet-points .article-thumbnail--body,
 .headline-bullet-points .article-thumbnail--img {
     display: none;
 }
