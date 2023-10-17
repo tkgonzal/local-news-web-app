@@ -38,7 +38,7 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
             <div className="home--secondary-column">
                 <h2 className="home--latest-header">LATEST HEADLINES</h2>
                 <HeadlineColumn articleThumbnails={articleThumbnails}/>
-                <h2>MORE NEWS</h2>
+                <h2 className="home--more-news">MORE NEWS</h2>
                 <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
             </div>
         </main>
