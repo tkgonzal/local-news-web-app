@@ -1,3 +1,6 @@
+import RightArrow from "../../public/assets/chevron-right-font-awesome.svg"
+import LeftArrow from "../../public/assets/chevron-left-font-awesome.svg"
+
 import "./ArticleCarousel.css"
 
 interface Props {
@@ -9,13 +12,17 @@ interface Props {
 const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
     return (
         <section className="articles-carousel">
-            <button>back</button>
+            <button>
+                <img src={LeftArrow} alt="Chevron Left from Font Awesome" />
+            </button>
 
             <div className="carousel-content">
                 {articleThumbnails}
             </div>
 
-            <button>next</button>
+            <button>
+                <img src={RightArrow} alt="Chevron Right from Font Awesome" />
+            </button>
         </section>
     )
 }
