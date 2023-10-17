@@ -57,5 +57,8 @@
 
 .article-thumbnail:hover {
     cursor: pointer;
+}
+
+.article-thumbnail:hover .article-thumbnail--headings-div {
     text-decoration: underline;
 }
