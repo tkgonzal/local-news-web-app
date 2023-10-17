@@ -1,0 +1,15 @@
+.staff-card{
+    outline: 0.125rem solid black;
+    width: 15%;
+}
+
+.staff-card--img{
+    object-fit: cover;
+    width: 100%;
+}
+.staff-card--name{
+    font-size: 1.5rem;
+}
+.staff-card--position{
+    font-size: 1rem;
+}
