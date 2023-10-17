@@ -15,7 +15,7 @@ async function getUserCollection(): Promise<Collection<User>> {
   if (!db) {
       throw new Error("Database connection not initialized");
   }
-  return db.collection<User>('users'); 
+  return db.collection<User>("User");
 };
 
 async function createUser(user: User): Promise<User | null> {
