@@ -1,6 +1,8 @@
 .home {
-    width: 100%;
+    width: calc(100% - 200px - 2rem);
     margin: 1rem 0rem;
+    padding: 2rem 2rem 0rem 0;
+    padding-left: 200px;
     display: flex;
     gap: 1rem;
 }
@@ -14,7 +16,7 @@
 }
 
 .home--breaking-container {
-    width: 90%;
+    width: 80%;
     display: flex;
 }
 
@@ -30,7 +32,8 @@
 
 .home--article-carousel-header {
     font-size: 2rem;
-    margin-bottom: .8rem;
+    width: 80%;
+    margin-bottom: .3rem;
 }
 
 .home--secondary-column {

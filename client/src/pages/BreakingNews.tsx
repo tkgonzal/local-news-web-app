@@ -29,8 +29,8 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
                 </div>
                 {mainArticleThumbnail}
 
+                <h2 className="home--article-carousel-header">TOP STORIES</h2>
                 <div className="home--article-carousel-container">
-                    <h2 className="home--article-carousel-header">TOP STORIES</h2>
                     <ArticleCarousel articleThumbnails={articleThumbnails}/>
                 </div>
             </div>
