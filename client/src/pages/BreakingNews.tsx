@@ -24,7 +24,9 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
     return (
         <main className="home">
             <div className="home--main-column">
-                <h1>BREAKING NEWS</h1>
+                <div className="home--breaking-container">
+                    <h1>BREAKING NEWS</h1>
+                </div>
                 {mainArticleThumbnail}
 
                 <div className="home--article-carousel-container">
