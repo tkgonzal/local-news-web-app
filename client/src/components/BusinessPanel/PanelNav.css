@@ -4,22 +4,31 @@
 }
 
 .business-panel--nav {
-    background-color: var(--bp-nav-bg-color, black);
-    color: var(--bp-nav-color, white);
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 1rem 0rem 1rem;
     width: calc(100% - 2rem);
 }
 
 .business-panel--nav ul {
-    padding-left: .5rem;
+    padding-left: 0rem;
     display: flex;
+    flex-wrap: wrap;
     gap: .5rem;
 }
 
 .business-panel--nav li {
+    background-color: var(--bp-nav-bg-color, black);
+    color: var(--bp-nav-color, white);
+    font-size: .8rem;
+    padding: .5rem 1rem;
+    border-radius: .25rem;
     list-style: none;
 }
 
 .business-panel--nav a {
+    text-decoration: none;
     color: var(--bp-nav-color, white);
+}
+
+.business-panel--nav li:hover {
+    outline: .125rem solid var(--bp-outline-color, gray);
 }

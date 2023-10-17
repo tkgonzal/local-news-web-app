@@ -16,7 +16,7 @@ const BusinessSettings: React.FC = () => {
                 onSubmit={handleSubmit(submitSettings)}
             >
                 <div className="business-panel--page-header">
-                    <h1>Settings</h1>
+                    <h1>SETTINGS</h1>
                     <button type="submit">Save</button>
                 </div>
 
