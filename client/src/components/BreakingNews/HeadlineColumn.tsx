@@ -9,9 +9,7 @@ interface Props {
 // breaking news
 const HeadlineColumn: React.FC<Props> = ({articleThumbnails}) => {
     return (
-        <div className="headline-column">
-            {articleThumbnails}
-        </div>
+        <div className="headline-column">{articleThumbnails}</div>
     )
 }
 

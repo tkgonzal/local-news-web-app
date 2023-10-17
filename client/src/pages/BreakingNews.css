@@ -28,7 +28,16 @@
     width: 90%;
 }
 
+.home--article-carousel-header {
+    font-size: 2rem;
+    margin-bottom: .8rem;
+}
+
 .home--secondary-column {
     width: 25%;
     padding: 1rem;
+}
+
+.home--latest-header {
+    margin: 1.5rem 0rem .5rem 0rem;
 }

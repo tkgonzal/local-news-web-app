@@ -30,13 +30,13 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
                 {mainArticleThumbnail}
 
                 <div className="home--article-carousel-container">
-                    <h2>TOP STORIES</h2>
+                    <h2 className="home--article-carousel-header">TOP STORIES</h2>
                     <ArticleCarousel articleThumbnails={articleThumbnails}/>
                 </div>
             </div>
 
             <div className="home--secondary-column">
-                <h2>LATEST HEADLINES</h2>
+                <h2 className="home--latest-header">LATEST HEADLINES</h2>
                 <HeadlineColumn articleThumbnails={articleThumbnails}/>
                 <h2>MORE NEWS</h2>
                 <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>

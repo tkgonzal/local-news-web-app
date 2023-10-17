@@ -39,7 +39,7 @@
 
 .main-article .article-thumbnail--date {
     margin-top: 0;
-    border-bottom: .0625rem solid var(--element-color, gray);
+    border-bottom: .0625rem solid var(--element-2-color, gray);
 }
 
 
