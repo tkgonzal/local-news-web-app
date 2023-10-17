@@ -1,0 +1,20 @@
+.staff-page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 5rem;
+}
+.staff--header{
+    font-size: 2.5rem;
+}
+.staff--section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 10rem;
+    row-gap:1rem;
+}
