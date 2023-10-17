@@ -33,6 +33,11 @@ const StaffData : Staff[] = [
         imgSrc: testImage,
         position: "idk",
     },
+    {
+        staffName: "7",
+        imgSrc: testImage,
+        position: "idk",
+    },
     
 ]
 

@@ -16,11 +16,10 @@ import RegisterPage from "./pages/RegisterPage"
 import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
 import StaffPage from "./pages/StaffPage"
+import SubscribePage from "./pages/SubscribePage"
 
 import "./App.css"
 
-import Navbar from "./components/Navbar/Navbar";
-import SubscribePage from "./pages/SubscribePage"
 
 
 function App() : JSX.Element {

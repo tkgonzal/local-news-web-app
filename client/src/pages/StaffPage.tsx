@@ -24,7 +24,7 @@ const StaffPage: React.FC = () => {
     return (
         <main className="staff-page">
 
-
+            <h1 className = "staff--header">Staff</h1>
             <div className="staff--section">
                 {staffCards}
             </div>

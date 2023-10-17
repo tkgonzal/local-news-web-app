@@ -4,14 +4,17 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    margin-left: 5rem;
+}
+.staff--header{
+    font-size: 2.5rem;
 }
 .staff--section{
     width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    column-gap: 20rem;
+    column-gap: 10rem;
     row-gap:1rem;
-    margin-right: 10rem;
 }
