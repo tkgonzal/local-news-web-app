@@ -20,15 +20,28 @@
 
 .article-thumbnail--heading {
     font-size: 2rem;
+    margin-bottom: 0;
 }
 
 .article-thumbnail--subheading {
     font-size: 1.3rem;
+    margin-top: 0;
+}
+
+.article-thumbnail--author {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .main-article {
     width: 90%;
 }
+
+.main-article .article-thumbnail--date {
+    margin-top: 0;
+    border-bottom: .0625rem solid var(--element-color, gray);
+}
+
 
 .main-article .article-thumbnail--img {
     max-height: 30rem !important;
