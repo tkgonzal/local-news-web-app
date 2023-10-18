@@ -39,7 +39,7 @@ const UserForm: React.FC = () => {
         <BusinessPanelPage>
             <form className="business-panel--form" onSubmit={handleSubmit(addUser)}>
                 <div className="business-panel--page-header">
-                    <h1>{isNewUser ? "New" : "Edit"} User</h1>
+                    <h1>{isNewUser ? "NEW" : "EDIT"} USER</h1>
                     <button>Add User</button>
                 </div>
 
