@@ -28,8 +28,21 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
                 src={article.imgSrc}
                 alt={article.heading} 
             />
-            <h2 className="article-thumbnail--heading">{article.heading}</h2>
-            <h3 className="article-thumbnail--subheading">{article.subHeading}</h3>
+            <div className="article-thumbnail--metadata">
+                <div className="article-thumbnail--headings-div">
+                    <h2 className="article-thumbnail--heading">
+                        {article.heading}
+                    </h2>
+                    <h3 className="article-thumbnail--subheading">
+                        {article.subHeading}
+                    </h3>
+                </div>
+                <p className="article-thumbnail--author">{article.author}</p>
+                <p className="article-thumbnail--date">{article.date}</p>
+                <p className="article-thumbnail--body">
+                    {article.body.length && article.body[0]}
+                </p>
+            </div>
         </div>
     )
 }

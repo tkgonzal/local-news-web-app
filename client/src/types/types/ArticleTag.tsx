@@ -4,7 +4,6 @@ type ArticleTag =
     "Crime" | 
     "Government" | 
     "Education" | 
-    "High School Sports" | 
-    "Local Sports"
+    "Sports"
 
 export type { ArticleTag }

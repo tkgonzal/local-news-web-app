@@ -7,6 +7,9 @@ interface Article {
     heading: string
     subHeading: string
     impressions: number
+    author: string
+    date: string
+    body: string[]
     tags: ArticleTag[]
 }
 
