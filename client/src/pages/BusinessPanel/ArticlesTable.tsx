@@ -11,7 +11,8 @@ const ArticlesTable: React.FC = () => {
     const formNavigate: NavigateFunction = useNavigate()
 
     // Event handlers
-    const makeNewArticle = () => {
+    // Event handler to navigate the user to a new article form
+    const makeNewArticle = (): void => {
         formNavigate("/business/articles/form/new")
     }
 
@@ -19,8 +20,8 @@ const ArticlesTable: React.FC = () => {
         <BusinessPanelPage>
             <>
                 <div className="business-panel--page-header">
-                    <h1>Articles</h1>
-                    <button onClick={makeNewArticle}>New Article</button>
+                    <h1>ARTICLES</h1>
+                    <button onClick={makeNewArticle}>+ New Article</button>
                 </div>
 
                 <PanelTable tableType="Article" tableContents={ArticleTestData}/>

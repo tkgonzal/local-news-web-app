@@ -11,7 +11,7 @@ const PanelNav: React.FC = () => {
                         <li>DASHBOARD</li>
                     </Link>
                     <Link to="/business/articles/form/new">
-                        <li>NEW POST</li>
+                        <li>NEW ARTICLE</li>
                     </Link>
                     <Link to="/business/users">
                         <li>USERS</li>
