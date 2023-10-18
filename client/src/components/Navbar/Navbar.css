@@ -1,14 +1,18 @@
 body {
   margin: 0;
 }
+
+.search-bar{
+  padding: 20px;
+}
 .search-bar > div {
-  background-color: rgba(0, 0, 0, 0.116);
-  width: 30em;
-  margin-left: 10rem;
+  border: 1px solid #D9D9D9;
+  width: 386px;
+  height: 49px;
+  margin-left: 20rem;
 }
 
 .custom-input {
-  background-color: rgba(0, 0, 0, 0);
   outline: none;
   border: none;
 }
@@ -18,7 +22,7 @@ body {
   align-items: center;
   position: relative;
   width: 100%;
-  background-color: rgb(253, 253, 253);
+  background-color: black
 }
 .nav-main {
   display: flex;
@@ -26,7 +30,7 @@ body {
   justify-content: space-around;
   align-items: center;
   margin: 0%;
-  height: 15vh;
+  height: 43px;
   top: 0;
   left: 0;
   width: 100%;
@@ -64,15 +68,20 @@ body {
   align-items: center;
   position: absolute;
   bottom: 0;
+  top: 0;
   right: 0;
 }
 .mglass {
   height: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
+
 .subscribe-link {
   background-color: black;
   padding: 0.5rem 2rem;
   color: white;
+  border: 1px solid white;
 }
 .main-links {
   display: flex;
@@ -80,11 +89,13 @@ body {
   align-items: center;
   list-style: none;
   margin-right: 1rem;
+  color: white;
 }
 
 .main-links > a {
   text-decoration: none;
   margin: 0 0.3rem;
+  color: white;
 }
 
 .sidebar-content {

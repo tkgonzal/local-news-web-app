@@ -38,10 +38,44 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
       <div className="nav-container">
         <div className="left-column">
           <Sidebar links={sideBarLinks} />
-          {/* <button onClick={toggleNav}>sidebar placeholder</button> */}
+          {/* <button onClick={toggleNav}>sidebar placeholder</button>  */}
         </div>
         <nav className="nav-main">
-          <div className="title">
+          
+
+          <div className="top-navbar-links">
+            <ul>
+              {links.map((link, index) => (
+                <li key={index} className="main-links">
+                  <a
+                    href={link.url}
+                    className={
+                      link.name === "Subscribe" ? "subscribe-link" : ""
+                    }
+                    
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* {navOpen && (  
+          <div className="sidebar-content">
+          <button onClick={toggleNav}>close sidebar</button>
+          <Sidebar links={sideBarLinks} />
+          </div>
+        )} */}
+        </nav>
+
+
+
+        
+      </div>
+
+
+      <div className="title">
             <form onSubmit={handleSearch} className="search-bar">
               <div className="">
                 <img src={SearchBar} alt="" className="mglass" />
@@ -60,32 +94,6 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
               </div>
             </form>
           </div>
-
-          <div className="top-navbar-links">
-            <ul>
-              {links.map((link, index) => (
-                <li key={index} className="main-links">
-                  <a
-                    href={link.url}
-                    className={
-                      link.name === "Subscribe" ? "subscribe-link" : ""
-                    }
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* {navOpen && (  
-          <div className="sidebar-content">
-          <button onClick={toggleNav}>close sidebar</button>
-          <Sidebar links={sideBarLinks} />
-          </div>
-        )} */}
-        </nav>
-      </div>
     </>
   );
 };
