@@ -11,7 +11,15 @@ body {
   height: 49px;
   margin-left: 20rem;
 }
-
+.weather-details{
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  margin-right: 300px;
+}
+.weather-details > p {
+  padding: 5px;
+}
 .custom-input {
   outline: none;
   border: none;
@@ -27,7 +35,7 @@ body {
 .nav-main {
   display: flex;
   position: relative;
-  justify-content: space-around;
+  justify-content: right;
   align-items: center;
   margin: 0%;
   height: 43px;
