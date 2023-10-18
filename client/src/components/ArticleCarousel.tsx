@@ -1,5 +1,5 @@
-import RightArrow from "../../public/assets/chevron-right-font-awesome.svg"
-import LeftArrow from "../../public/assets/chevron-left-font-awesome.svg"
+import RightArrow from "/assets/chevron-right-font-awesome.svg"
+import LeftArrow from "/assets/chevron-left-font-awesome.svg"
 
 import "./ArticleCarousel.css"
 
