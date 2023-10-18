@@ -1,6 +1,6 @@
 .article-thumbnail {
-    outline: 0.125rem solid black;
-    width: 30%;
+    /* outline: 0.125rem solid black; */
+    width: 100%;
 }
 
 .article-thumbnail--img {
@@ -12,6 +12,7 @@
 .article-thumbnail--heading,
 .article-thumbnail--subheading {
     margin: .5rem;
+    margin-left: 0rem;
     text-overflow: ellipsis;
     text-wrap: nowrap;
     cursor: pointer;
@@ -19,15 +20,28 @@
 
 .article-thumbnail--heading {
     font-size: 2rem;
+    margin-bottom: 0;
 }
 
 .article-thumbnail--subheading {
     font-size: 1.3rem;
+    margin-top: 0;
+}
+
+.article-thumbnail--author {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .main-article {
     width: 80%;
 }
+
+.main-article .article-thumbnail--date {
+    margin-top: 0;
+    border-bottom: .0625rem solid var(--element-2-color, gray);
+}
+
 
 .main-article .article-thumbnail--img {
     max-height: 30rem !important;
@@ -42,7 +56,9 @@
 }
 
 .article-thumbnail:hover {
-    outline: .3rem solid black;
     cursor: pointer;
+}
+
+.article-thumbnail:hover .article-thumbnail--headings-div {
     text-decoration: underline;
 }
