@@ -1,7 +1,8 @@
 :root {
-    --bp-primary-bg-color: #000;
+    --bp-primary-bg-color: #fbfbfb;
+    --bp-secondary-bg-color: #000;
     --bp-primary-color: #fff;
-    --bp-outline-color: #b3b3b3;
+    --bp-outline-color: #a5a5a5;
     --bp-input-accent-color: #000;
 }
 
@@ -9,6 +10,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: var(--bp-primary-bg-color, gray);
 }
 
 .business-panel--page-content {
@@ -48,7 +50,7 @@
 }
 
 .business-panel button {
-    background-color: var(--bp-primary-bg-color, black);
+    background-color: var(--bp-secondary-bg-color, black);
     color: var(--bp-primary-color, white);
     padding: .5rem 1rem;
     border-radius: .25rem;
