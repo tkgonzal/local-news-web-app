@@ -196,7 +196,22 @@
     }
 }
 
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
+    .business-panel--form {
+        flex-direction: column;
+    }
+
+    .business-panel--form-half.business-panel--article-editor,
+    .business-panel--form-half.business-panel--article-meta-data {
+        width: calc(100% - 0.125rem);
+        margin: 0.0625rem;
+    }
+
+    .business-panel--form-half.business-panel--article-meta-data {
+        padding-right: 0;
+    }
+
+    .business-panel--select-div select,
     .business-panel--user-first-half .business-panel--input input {
         width: 13rem;
     }
