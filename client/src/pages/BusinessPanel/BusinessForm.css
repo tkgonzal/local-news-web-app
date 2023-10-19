@@ -3,6 +3,9 @@
     --form-div-bg-color: #fff;
     --input-border-color: #000;
     --label-1-color: #808080;
+    --ql-editor-color: #fff;
+    --ql-picker-item-color: #000;
+    --ql-picker-active-color: #e1450f;
 }
 
 .business-panel--form {
@@ -70,4 +73,53 @@
 .business-panel--input:last-child,
 .business-panel--checkbox-span:last-child {
     margin-bottom: 0;
+}
+
+/* Styling React Quill Editor */
+.ql-toolbar {
+    background-color: var(--bp-secondary-bg-color, black);
+}
+
+.ql-snow .ql-picker {
+    color: #fff !important;
+}
+
+.ql-snow .ql-picker-item {
+    color: var(--ql-picker-item-color, black);
+}
+
+.ql-snow .ql-stroke,
+.ql-snow .ql-fill {
+    filter: invert(93%) sepia(100%) saturate(28%) hue-rotate(45deg) 
+        brightness(107%) contrast(109%);
+}
+
+.ql-snow .ql-picker.ql-expanded .ql-picker-label,
+.ql-picker-label:hover,
+.ql-picker-item:hover,
+.ql-picker-label.ql-active,
+.ql-picker-item.ql-selected {
+    color: var(--ql-picker-active-color, red) !important;
+}
+
+.ql-picker:hover svg,
+.ql-picker-label.ql-active svg,
+.ql-picker.ql-expanded svg {
+    filter: invert(37%) sepia(65%) saturate(6687%) hue-rotate(9deg) 
+        brightness(99%) contrast(91%);
+}
+
+.ql-snow button:hover .ql-stroke,
+.ql-snow button:hover .ql-fill,
+.ql-snow button.ql-active .ql-stroke,
+.ql-snow button.ql-active .ql-fill,
+.ql-snow button:focus .ql-stroke,
+.ql-snow button:focus .ql-fill {
+    filter: invert(76%) sepia(8%) saturate(1267%) hue-rotate(4deg) 
+        brightness(96%) contrast(88%);
+}
+
+.ql-editor {
+    background: var(--ql-editor-color, white);
+    min-height: 30rem;
 }
