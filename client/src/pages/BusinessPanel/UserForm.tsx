@@ -43,7 +43,7 @@ const UserForm: React.FC = () => {
             >
                 <div className="business-panel--page-header">
                     <h1>{isNewUser ? "NEW" : "EDIT"} USER</h1>
-                    <button>Add User</button>
+                    <button>{isNewUser ? "Add User" : "Save Changes"}</button>
                 </div>
 
                 <div className={
