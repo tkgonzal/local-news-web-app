@@ -45,7 +45,12 @@ const ArticleForm: React.FC = () => {
                     <button type="submit">{isNewArticle ? "Post" : "Save"}</button>
                 </div>
 
-                <div className="business-panel--form-half">
+                <div
+                    className={
+                        `business-panel--form-half 
+                         business-panel--article-meta-data`
+                    }
+                >
                     {/* Article Form Meta Data Section */}
                     <div className="business-panel--form-section">
                         <span className="business-panel--input">
@@ -97,7 +102,12 @@ const ArticleForm: React.FC = () => {
                 </div>
 
                 {/* Content Editor */}
-                <div className="business-panel--form-half">
+                <div
+                    className={
+                        `business-panel--form-half 
+                         business-panel--article-editor`
+                    }
+                >
                     <div className="business-panel--rte-container">
                         <ReactQuill 
                             theme="snow"

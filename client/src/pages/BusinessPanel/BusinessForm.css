@@ -27,6 +27,15 @@
     margin: 0.0625rem;
 }
 
+.business-panel--form-half.business-panel--article-meta-data {
+    width: calc(40% - 0.125rem - 3rem);
+    padding-right: 3rem;
+}
+
+.business-panel--form-half.business-panel--article-editor {
+    width: calc(60% - 0.125rem);
+}
+
 .business-panel--form-section {
     width: calc(100% - 0.25rem - 3rem);
     outline: 0.0625rem solid var(--form-div-outline-colour, black);
@@ -36,8 +45,7 @@
 }
 
 .business-panel--rte-container {
-    width: calc(100% - 0.25rem);
-    padding: 0.125rem;
+    width: 100%;
 }
 
 .business-panel--input {
