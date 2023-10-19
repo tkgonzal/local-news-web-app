@@ -72,7 +72,7 @@
 
 .business-panel--select-div select,
 .business-panel--user-first-half .business-panel--input input {
-    width: 25rem;
+    width: 20rem;
 }
 
 .business-panel--form-section .business-panel--input label {
@@ -172,10 +172,18 @@
     min-height: 30rem;
 }
 
+
+@media (max-width: 1370px) {
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 12rem;
+    }
+}
+
 @media (max-width: 1200px) {
     .business-panel--select-div select,
     .business-panel--user-first-half .business-panel--input input {
-        width: 15rem;
+        width: 8rem;
     }
 }
 
@@ -192,7 +200,7 @@
 
     .business-panel--select-div select,
     .business-panel--user-first-half .business-panel--input input {
-        width: 30rem;
+        width: 15rem;
     }
 }
 
@@ -213,6 +221,6 @@
 
     .business-panel--select-div select,
     .business-panel--user-first-half .business-panel--input input {
-        width: 13rem;
+        width: 10rem;
     }
 }
