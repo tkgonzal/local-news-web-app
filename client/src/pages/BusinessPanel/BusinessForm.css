@@ -1,6 +1,7 @@
 :root {
     --form-div-outline-colour: #d9d9d9;
     --form-div-bg-color: #fff;
+    --input-color: #fff;
     --input-border-color: #000;
     --label-1-color: #808080;
     --ql-editor-color: #fff;
@@ -36,6 +37,11 @@
     width: calc(60% - 0.125rem);
 }
 
+.business-panel--form-half.business-panel--user-first-half {
+    width: calc(50% - 0.125rem - 2rem);
+    padding-right: 2rem;
+}
+
 .business-panel--form-section {
     width: calc(100% - 0.25rem - 3rem);
     outline: 0.0625rem solid var(--form-div-outline-colour, black);
@@ -54,6 +60,21 @@
     margin-bottom: 1rem;
 }
 
+.business-panel--user-first-half .business-panel--input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.business-panel--user-first-half .business-panel--input label {
+    margin-right: 1rem;
+}
+
+.business-panel--select-div select,
+.business-panel--user-first-half .business-panel--input input {
+    width: 25rem;
+}
+
 .business-panel--form-section .business-panel--input label {
     color: var(--label-1-color, gray)
 }
@@ -62,6 +83,7 @@
     margin-bottom: .3rem;
 }
 
+.business-panel--form-half h2,
 .business-panel--form-section h2 {
     margin-bottom: .5rem;
 }
@@ -76,6 +98,24 @@
     display: flex;
     flex-direction: row;
     margin-bottom: .3rem;
+}
+
+.business-panel--select-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.business-panel--select-div select {
+    border: 0.0625rem solid var(--input-border-color, black);
+    border-radius: 0.25rem;
+    background-color: var(--input-color, white);
+}
+
+.business-panel--select-div:first-of-type {
+    margin-top: .5rem;
 }
 
 .business-panel--input:last-child,
@@ -130,4 +170,34 @@
 .ql-editor {
     background: var(--ql-editor-color, white);
     min-height: 30rem;
+}
+
+@media (max-width: 1200px) {
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 15rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .business-panel--user-form {
+        flex-direction: column;
+    }
+
+    .business-panel--form-half,
+    .business-panel--form-half.business-panel--user-first-half {
+        width: calc(100% - 0.125rem);
+        padding: 0rem;
+    }
+
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 30rem;
+    }
+}
+
+@media (max-width: 576px) { 
+    .business-panel--user-first-half .business-panel--input input {
+        width: 13rem;
+    }
 }
