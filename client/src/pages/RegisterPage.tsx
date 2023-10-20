@@ -100,89 +100,129 @@ const RegisterPage: React.FC = () => {
     }
 
     return (
-        <div className="register-container">
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required 
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required 
-                    />
-                </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required 
-                    />
-                </div>
-                <div>
-                    <label htmlFor="accType">Account Type:</label>
-                    <select
-                        name="accType"
-                        value={formData.accType}
-                        onChange={handleAccTypeChange}
-                    >
-                        <option value={'user'}>User</option>
-                        <option value={'business'}>Business</option>
-                    </select>
-                </div>
-                {formData.accType === 'business' && (
-                    <div>
-                        <label htmlFor="businessName">Business Name:</label>
-                        <input
-                            type="text"
-                            name="businessName"
-                            value={formData.businessName}
-                            onChange={handleChange}
-                            required 
-                        />
+        <div className="main-container">
+            <div className='header'>
+                <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
+            </div>
+            <div className="container">
+                <div className="register-container">
+                    <h1 className='title' >Register</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <input
+                                className='input'
+                                autoComplete='off'
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required 
+                            />
+                            <label className='user-label'>Email</label>
+                        </div>
+                        <div className="input-group">
+                            <input
+                                className='input'
+                                type="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required 
+                            />
+                            <label className='user-label'>Password:</label>
+                        </div>
+                        <div className="input-group">
+                            <input
+                                className='input'
+                                type="password"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required 
+                            />
+                            <label className='user-label'>Confirm Password:</label>
+                        </div>
+                        <div className="input-group">
+                            <select
+                                className='input'
+                                name="accType"
+                                value={formData.accType}
+                                onChange={handleAccTypeChange}
+                            >
+                                <option value={'user'}>User</option>
+                                <option value={'business'}>Business</option>
+                            </select>
+                            <label className='user-label-transparent'>Account Type</label>
+                        </div>
+                        {formData.accType === 'business' && (
+                            <div className="input-group">
+                                <input
+                                    className='input'
+                                    autoComplete='off'
+                                    type="text"
+                                    name="businessName"
+                                    value={formData.businessName}
+                                    onChange={handleChange}
+                                    required 
+                                />
+                                <label className='user-label'>Business Name:</label>
+                            </div>
+                        )}
+                        { formData.accType === 'business' && (
+                            <div className="input-group">
+                                <input
+                                    className='input'
+                                    autoComplete='off'
+                                    type="text"
+                                    name="businessWebsite"
+                                    value={formData.businessWebsite}
+                                    onChange={handleChange}
+                                    required 
+                                />
+                                <label className='user-label'>Business Website:</label>
+                            </div>
+                        )}
+                        {formData.accType === 'business' && (
+                            <div className="input-group">
+                                <input
+                                    className='input'
+                                    autoComplete='off'
+                                    type="text"
+                                    name="mobileNumber"
+                                    value={formData.mobileNumber}
+                                    onChange={handleChange}
+                                    required 
+                                />
+                                <label className='user-label'>Mobile Phone Number:</label>
+                            </div>
+                        )}
+                        <button type="submit" className="login-btn btn">Create Account</button>
+                    </form>
+                    <div className='footer'>
+                        <p className='footer-links'><strong>PRIVACY POLICY</strong></p>
+                        <p><strong>{String.fromCharCode(8226)}</strong></p>
+                        <p className='footer-links'><strong>TERMS & CONDITIONS</strong></p>
                     </div>
-                )}
-                { formData.accType === 'business' && (
-                    <div>
-                        <label htmlFor="businessWebsite">Business Website:</label>
-                        <input
-                            type="text"
-                            name="businessWebsite"
-                            value={formData.businessWebsite}
-                            onChange={handleChange}
-                            required 
-                        />
+                </div>
+                <div className='welcome-container'>
+                    <div className='right-container'>
+                        <div className='logo'>
+                            <h1>LOGO</h1>
+                        </div>
+                        <div className='welcome'>
+                            <h1>WELCOME</h1>
+                        </div>
+                        <div className='cta'>
+                            <h4>Sign up today and discover the latest articles locally.</h4>
+                        </div>
+                        <div className='inverse-button'>
+                            <button className='btn-inverse login-btn' onClick={() => navigate("/register")}>Sign Up</button>
+                        </div>
                     </div>
-                )}
-                {formData.accType === 'business' && (
-                    <div>
-                        <label htmlFor="mobileNumber">Mobile Phone Number:</label>
-                        <input
-                            type="text"
-                            name="mobileNumber"
-                            value={formData.mobileNumber}
-                            onChange={handleChange}
-                            required 
-                        />
-                    </div>
-                )}
-                <button type="submit">Register</button>
-            </form>
+                </div>
+            </div>
         </div>
+        
     )};
 
 export default RegisterPage;

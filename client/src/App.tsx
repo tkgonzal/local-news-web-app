@@ -1,6 +1,5 @@
 import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
@@ -44,9 +43,27 @@ function App() : JSX.Element {
     }
   }, [location])
 
+  // Side Effects
+  // Changes the background colour of the body if the sites loads any of the
+  // business panel pages
+  useEffect(() => {
+    if (location.pathname.includes("/business/") &&
+        !document.body.classList.contains("business-panel--body")) {
+      document.body.classList.add("business-panel--body")
+    }
+
+    if (!location.pathname.includes("/business/") && 
+        document.body.classList.contains("business-panel--body")) {
+      document.body.classList.remove("business-panel--body")
+    }
+  }, [location])
+
+  const shouldNotRenderNavbar = 
+    !['/login', '/register', '/reset-password', '/confirm-reset-password'].includes(location.pathname);
+
   return (
     <>
-      <Navbar links={navLinks}/>
+      {shouldNotRenderNavbar && <Navbar links={navLinks}/>}
 
       <Routes>
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
