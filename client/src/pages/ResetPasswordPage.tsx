@@ -12,7 +12,7 @@ const ResetPassword: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/request-password-reset/send-request-link', {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/request-password-reset/send-request-link`, {
                 email: email,
             });
 

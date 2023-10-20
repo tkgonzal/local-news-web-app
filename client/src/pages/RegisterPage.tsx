@@ -62,7 +62,7 @@ const RegisterPage: React.FC = () => {
                     mobileNumber: formData.mobileNumber,
                 };
 
-                const response = await axios.post('http://localhost:5000/api/users/register', {
+                const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/register`, {
                 userData
                 });
 
@@ -152,7 +152,7 @@ const RegisterPage: React.FC = () => {
                                 <option value={'user'}>User</option>
                                 <option value={'business'}>Business</option>
                             </select>
-                            <label className='user-label2'>Account Type</label>
+                            <label className='user-label-transparent'>Account Type</label>
                         </div>
                         {formData.accType === 'business' && (
                             <div className="input-group">

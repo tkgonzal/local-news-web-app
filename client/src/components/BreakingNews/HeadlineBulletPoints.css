@@ -1,0 +1,51 @@
+.headline-bullet-points ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    padding-left: .3rem;
+    margin-top: .3rem;
+    list-style: none;
+    /* gap: rem; */
+}
+
+.headline-bullet-points ul li::before {
+    content: "■";
+    color: var(--accent-color, red);
+    position: relative;
+    left: -.2rem;
+}
+
+.headline-bullet-points .article-thumbnail {
+    width: calc(100% - 1.45rem);
+    border-left: .15rem solid var(--border-color, black);
+    padding-left: 1rem;
+}
+
+.headline-bullet-points .article-thumbnail:hover {
+    width: calc(100% - 1.5rem);
+    border-left: .2rem solid var(--border-color, black);
+    padding-left: 1rem;
+}
+
+.headline-bullet-points .article-thumbnail--headings-div {
+    margin-bottom: 0.3;
+}
+
+.headline-bullet-points .article-thumbnail--heading {
+    margin-top: 0rem;
+    font-size: 1rem;
+}
+
+.headline-bullet-points .article-thumbnail--date {
+    font-size: .8rem;
+    color: var(--secondary-text-color, gray);
+    margin: 0;
+}
+
+.headline-bullet-points .article-thumbnail--subheading,
+.headline-bullet-points .article-thumbnail--author,
+.headline-bullet-points .article-thumbnail--body,
+.headline-bullet-points .article-thumbnail--img {
+    display: none;
+}
