@@ -38,7 +38,7 @@ function App() : JSX.Element {
       document.body.classList.add("business-panel--body")
     }
 
-    if (location.pathname.includes("/business/") && 
+    if (!location.pathname.includes("/business/") && 
         document.body.classList.contains("business-panel--body")) {
       document.body.classList.remove("business-panel--body")
     }

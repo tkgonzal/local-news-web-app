@@ -6,10 +6,6 @@
     --bp-input-accent-color: #000;
 }
 
-.business-panel-body {
-    background-color: var(--bp-primary-bg-color, gray);
-}
-
 .business-panel {
     width: calc(100% - 200px - 4rem);
     padding: 0rem 2rem 0rem 2rem;

@@ -5,10 +5,15 @@
     --border-color: #7d7d7d;
     --primary-text-color: #000;
     --secondary-text-color: #7d7d7d;
+    --bp-primary-bg-color: #fbfbfb;
 }
 
 #root {
     max-width: 100vw;
+}
+
+.business-panel--body {
+    background-color: var(--bp-primary-bg-color, gray);
 }
 
 html {
