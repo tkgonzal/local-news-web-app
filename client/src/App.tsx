@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
@@ -26,9 +26,13 @@ function App() : JSX.Element {
     { name: 'Subscribe', url: '/subscribe' },
   ];
 
+  const location = useLocation();
+  const shouldNotRenderNavbar = 
+    !['/login', '/register', '/reset-password', '/confirm-reset-password'].includes(location.pathname);
+
   return (
     <>
-      <Navbar links={navLinks}/>
+      {shouldNotRenderNavbar && <Navbar links={navLinks}/>}
 
       <Routes>
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
