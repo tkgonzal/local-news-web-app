@@ -37,14 +37,21 @@ const UserForm: React.FC = () => {
 
     return (
         <BusinessPanelPage>
-            <form className="business-panel--form" onSubmit={handleSubmit(addUser)}>
+            <form
+                className="business-panel--form business-panel--user-form" 
+                onSubmit={handleSubmit(addUser)}
+            >
                 <div className="business-panel--page-header">
-                    <h1>{isNewUser ? "New" : "Edit"} User</h1>
-                    <button>Add User</button>
+                    <h1>{isNewUser ? "NEW" : "EDIT"} USER</h1>
+                    <button>{isNewUser ? "Add User" : "Save Changes"}</button>
                 </div>
 
-                <div className="business-panel--form-half">
+                <div className={
+                    `business-panel--form-half
+                     business-panel--user-first-half`
+                }>
                     {/* Primary User Information */}
+                    <h2>User Info</h2>
                     <span className="business-panel--input">
                         <label htmlFor="firstName">First Name</label>
                         <input 
@@ -87,25 +94,34 @@ const UserForm: React.FC = () => {
                     <h2>User Permissions</h2>
                     <span className="business-panel--checkbox-span">
                         <input type="checkbox" {...register("disableLogin")} />
-                        <label htmlFor="disableLogin">Add Comments</label>
+                        <label htmlFor="disableLogin">Disable Login</label>
                     </span>
 
-                    <label htmlFor="articlePermissions">Articles</label>
-                    <select {...register("articlePermissions", { required: true })}>
-                        <option value={Permission.READ_ONLY}>Read Only</option>
-                        <option value={Permission.WRITE}>Write</option>
-                        <option value={Permission.DELETE}>Delete</option>
-                    </select>
+                    <div className="business-panel--select-div">
+                        <label htmlFor="articlePermissions">Articles</label>
+                        <select 
+                            {...register("articlePermissions", { required: true })}
+                        >
+                            <option value={Permission.READ_ONLY}>Read Only</option>
+                            <option value={Permission.WRITE}>Write</option>
+                            <option value={Permission.DELETE}>Delete</option>
+                        </select>
+                    </div>
 
-                    <label htmlFor="userPermissions">Users</label>
-                    <select {...register("userPermissions", { required: true })}>
-                        <option value={Permission.READ_ONLY}>Read Only</option>
-                        <option value={Permission.WRITE}>Write</option>
-                        <option value={Permission.DELETE}>Delete</option>
-                    </select>
+                    <div className="business-panel--select-div">
+                        <label htmlFor="userPermissions">Users</label>
+                        <select 
+                            {...register("userPermissions", { required: true })}
+                        >
+                            <option value={Permission.READ_ONLY}>Read Only</option>
+                            <option value={Permission.WRITE}>Write</option>
+                            <option value={Permission.DELETE}>Delete</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div className="business-panel--form-half">
+                    <h2>Notes</h2>
                     <div className="business-panel--rte-container">
                         <ReactQuill 
                             theme="snow"

@@ -10,7 +10,7 @@ interface Props {
 // the children its given undet the page content div
 const BusinessPanelPage: React.FC<Props> = ({ children }) => {
     return (
-        <main className="business-panel--main">
+        <main className="business-panel">
             <PanelNav />
             <div className="business-panel--page-content">
                 {children}

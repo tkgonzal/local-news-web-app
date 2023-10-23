@@ -1,7 +1,18 @@
-.business-panel--main {
-    width: 100%;
+:root {
+    --bp-primary-bg-color: #fbfbfb;
+    --bp-secondary-bg-color: #000;
+    --bp-primary-color: #fff;
+    --bp-outline-color: #a5a5a5;
+    --bp-input-accent-color: #000;
+}
+
+.business-panel {
+    width: calc(100% - 200px - 4rem);
+    padding: 0rem 2rem 0rem 2rem;
+    padding-left: calc(200px + 2rem);
     display: flex;
     flex-direction: column;
+    background-color: var(--bp-primary-bg-color, gray);
 }
 
 .business-panel--page-content {
@@ -12,7 +23,7 @@
     width: calc(100% - 2rem);
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 0rem 1rem 1rem 1rem;
     align-items: center;
 }
 
@@ -38,4 +49,22 @@
 
 .business-panel--settings-input label {
     font-size: 1.1rem;
+}
+
+.business-panel button {
+    background-color: var(--bp-secondary-bg-color, black);
+    color: var(--bp-primary-color, white);
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    border: none;
+    cursor: pointer;
+}
+
+.business-panel button:hover {
+    outline: 0.125rem solid var(--bp-outline-color, gray);
+}
+
+.business-panel input[type=checkbox] {
+    cursor: pointer;
+    accent-color: var(--bp-input-accent-color, black);
 }

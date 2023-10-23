@@ -7,21 +7,21 @@ const PanelNav: React.FC = () => {
     return (
         <nav className="business-panel--nav">
             <ul>
-                <li>
-                    <Link to="/business/articles">Dashboard</Link>
-                </li>
-                <li>
-                    <Link to="/business/articles/form/new">New Post</Link>
-                </li>
-                <li>
-                    <Link to="/business/users">Users</Link>
-                </li>
-                <li>
-                    <Link to="/business/users/form/new">Add User</Link>
-                </li>
-                <li>
-                    <Link to="/business/settings">Settings</Link>
-                </li>
+                    <Link to="/business/articles">
+                        <li>DASHBOARD</li>
+                    </Link>
+                    <Link to="/business/articles/form/new">
+                        <li>NEW ARTICLE</li>
+                    </Link>
+                    <Link to="/business/users">
+                        <li>USERS</li>
+                    </Link>
+                    <Link to="/business/users/form/new">
+                        <li>ADD USER</li>
+                    </Link>
+                    <Link to="/business/settings">
+                        <li>SETTINGS</li>
+                    </Link>
             </ul>
         </nav>
     )

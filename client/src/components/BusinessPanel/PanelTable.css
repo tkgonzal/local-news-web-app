@@ -1,14 +1,82 @@
 :root {
-    --bp-table-outline-color: #000;
+    --bp-table-bg-color: #fff;
+    --bp-table-secondary-color: #000;
+    --bp-table-border-color: #d5d5d5;
+}
+
+.business-panel--table-container {
+    width: 100%;
+}
+
+.business-panel--table {
+    width: 100%;
+}
+
+.business-panel--table-cells {
+    width: 100%;
+}
+
+.business-panel--table-top {
+    background-color: var(--bp-table-secondary-color, black);
+    width: calc(100% - 2rem + 0.125rem * 2);
+    margin: 0rem .875rem;
+    z-index: 3;
+    height: 2rem;
 }
 
 .business-panel--table {
     width: calc(100% - 2rem);
     margin: 0rem 1rem;
+    background-color: var(--bp-table-bg-color, white);
+    outline: 0.125rem solid var(--bp-table-border-color, gray);
+    border-collapse: collapse;
 }
 
-.business-panel--table td, th {
-    outline: 0.125rem solid var(--bp-table-outline-color, black);
+.business-panel--table td, 
+.business-panel--table th {
+    padding: 1rem;
     text-align: left;
     width: 25%;
+}
+
+.business-panel--table th {
+    font-size: .75rem;
+}
+
+.business-panel--table td {
+    font-size: .9rem;
+}
+
+.business-panel--table-button {
+    background: none !important;
+    width: 2rem !important;
+    padding: .5rem !important;
+    margin-right: .5rem;
+}
+
+.business-panel--table-button img {
+    width: 100%;
+}
+
+.business-panel--table tbody td {
+    background-image: linear-gradient(
+        var(--bp-table-border-color, gray), 
+        var(--bp-table-border-color, gray)
+    );
+    background-size: 100% 0.125rem;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+}
+
+.business-panel--table tbody tr td:first-child,
+.business-panel--table tbody tr td:last-child {
+    background-size: 95% 0.125rem;
+}
+
+.business-panel--table tbody tr td:last-child {
+    background-position: 0% 100%;
+}
+
+.business-panel--table tbody tr:last-child  td {
+    background-image: none;
 }

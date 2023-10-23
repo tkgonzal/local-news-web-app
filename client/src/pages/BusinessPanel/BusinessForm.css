@@ -1,12 +1,26 @@
 :root {
-    --form-dive-outline-colour: #000;
+    --form-div-outline-colour: #d9d9d9;
+    --form-div-bg-color: #fff;
+    --input-color: #fff;
+    --input-border-color: #000;
+    --label-1-color: #808080;
+    --ql-editor-color: #fff;
+    --ql-picker-item-color: #000;
+    --ql-picker-active-color: #e1450f;
 }
 
 .business-panel--form {
     width: calc(100% - 2rem);
     padding: 1rem;
+    padding-top: 0;
     display: flex;
     flex-wrap: wrap;
+}
+
+.business-panel--form .business-panel--page-header {
+    width: 100%;
+    padding: 0;
+    padding-bottom: 1rem;
 }
 
 .business-panel--form-half {
@@ -14,24 +28,199 @@
     margin: 0.0625rem;
 }
 
+.business-panel--form-half.business-panel--article-meta-data {
+    width: calc(40% - 0.125rem - 3rem);
+    padding-right: 3rem;
+}
+
+.business-panel--form-half.business-panel--article-editor {
+    width: calc(60% - 0.125rem);
+}
+
+.business-panel--form-half.business-panel--user-first-half {
+    width: calc(50% - 0.125rem - 2rem);
+    padding-right: 2rem;
+}
+
 .business-panel--form-section {
-    width: calc(100% - 0.25rem);
-    outline: 0.125rem solid var(--form-dive-outline-colour, black);
-    padding: 0.125rem;
+    width: calc(100% - 0.25rem - 3rem);
+    outline: 0.0625rem solid var(--form-div-outline-colour, black);
+    background-color: var(--form-div-bg-color, white);
+    padding: 2rem 1.5rem;
     margin-bottom: .5rem;
 }
 
 .business-panel--rte-container {
-    width: calc(100% - 0.25rem);
-    padding: 0.125rem;
+    width: 100%;
 }
 
 .business-panel--input {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.business-panel--user-first-half .business-panel--input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.business-panel--user-first-half .business-panel--input label {
+    margin-right: 1rem;
+}
+
+.business-panel--select-div select,
+.business-panel--user-first-half .business-panel--input input {
+    width: 20rem;
+}
+
+.business-panel--form-section .business-panel--input label {
+    color: var(--label-1-color, gray)
+}
+
+.business-panel--input label {
+    margin-bottom: .3rem;
+}
+
+.business-panel--form-half h2,
+.business-panel--form-section h2 {
+    margin-bottom: .5rem;
+}
+
+.business-panel--input input {
+    border-radius: 0.25rem;
+    border: 0.0625rem solid var(--input-border-color, black);
+    height: 1.5rem;
 }
 
 .business-panel--checkbox-span {
     display: flex;
     flex-direction: row;
+    margin-bottom: .3rem;
+}
+
+.business-panel--select-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.business-panel--select-div select {
+    border: 0.0625rem solid var(--input-border-color, black);
+    border-radius: 0.25rem;
+    background-color: var(--input-color, white);
+}
+
+.business-panel--select-div:first-of-type {
+    margin-top: .5rem;
+}
+
+.business-panel--input:last-child,
+.business-panel--checkbox-span:last-child {
+    margin-bottom: 0;
+}
+
+/* Styling React Quill Editor */
+.ql-toolbar {
+    background-color: var(--bp-secondary-bg-color, black);
+}
+
+.ql-snow .ql-picker {
+    color: #fff !important;
+}
+
+.ql-snow .ql-picker-item {
+    color: var(--ql-picker-item-color, black);
+}
+
+.ql-snow .ql-stroke,
+.ql-snow .ql-fill {
+    filter: invert(93%) sepia(100%) saturate(28%) hue-rotate(45deg) 
+        brightness(107%) contrast(109%);
+}
+
+.ql-snow .ql-picker.ql-expanded .ql-picker-label,
+.ql-picker-label:hover,
+.ql-picker-item:hover,
+.ql-picker-label.ql-active,
+.ql-picker-item.ql-selected {
+    color: var(--ql-picker-active-color, red) !important;
+}
+
+.ql-picker:hover svg,
+.ql-picker-label.ql-active svg,
+.ql-picker.ql-expanded svg {
+    filter: invert(37%) sepia(65%) saturate(6687%) hue-rotate(9deg) 
+        brightness(99%) contrast(91%);
+}
+
+.ql-snow button:hover .ql-stroke,
+.ql-snow button:hover .ql-fill,
+.ql-snow button.ql-active .ql-stroke,
+.ql-snow button.ql-active .ql-fill,
+.ql-snow button:focus .ql-stroke,
+.ql-snow button:focus .ql-fill {
+    filter: invert(76%) sepia(8%) saturate(1267%) hue-rotate(4deg) 
+        brightness(96%) contrast(88%);
+}
+
+.ql-editor {
+    background: var(--ql-editor-color, white);
+    min-height: 30rem;
+}
+
+
+@media (max-width: 1370px) {
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 12rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .business-panel--user-form {
+        flex-direction: column;
+    }
+
+    .business-panel--form-half,
+    .business-panel--form-half.business-panel--user-first-half {
+        width: calc(100% - 0.125rem);
+        padding: 0rem;
+    }
+
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 15rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .business-panel--form {
+        flex-direction: column;
+    }
+
+    .business-panel--form-half.business-panel--article-editor,
+    .business-panel--form-half.business-panel--article-meta-data {
+        width: calc(100% - 0.125rem);
+        margin: 0.0625rem;
+    }
+
+    .business-panel--form-half.business-panel--article-meta-data {
+        padding-right: 0;
+    }
+
+    .business-panel--select-div select,
+    .business-panel--user-first-half .business-panel--input input {
+        width: 10rem;
+    }
 }

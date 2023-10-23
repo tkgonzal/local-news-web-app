@@ -3,6 +3,9 @@ import { NavigateFunction, useNavigate } from "react-router-dom"
 import { User } from "../../types/interfaces/User"
 import { Article } from "../../types/interfaces/Article"
 
+import EditIcon from "/assets/BusinessPanel/pen-to-square.svg"
+import TrashIcon from "/assets/BusinessPanel/trash.svg"
+
 import "./PanelTable.css"
 
 type TableType = "User" | "Article"
@@ -47,7 +50,7 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
     const articleHeaderNames: string[] = [
         "ID", 
         "Title", 
-        "Impressions", 
+        "Engagements", 
         "Actions"
     ]
     const userHeaderNames: string[] = [
@@ -66,7 +69,8 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
         articleHeaderNames : userHeaderNames
 
     const tableHeaders: JSX.Element[] = tableHeaderNames.map(
-        headerName => <th key={headerName} colSpan={1}>{headerName}</th>
+        headerName => 
+            <th key={headerName} colSpan={1}>{headerName.toUpperCase()}</th>
     )
 
     const tableData: JSX.Element[] = tableContents.map(
@@ -82,21 +86,31 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     {isUser(row) && row.email || isArticle(row) && row.impressions}
                 </td>
                 <td>
-                    <button onClick={() => openEntryForm(row.id)}>Edit</button>
-                    <button>Delete</button>
+                    <button
+                        className="business-panel--table-button"
+                        onClick={() => openEntryForm(row.id)}
+                    >
+                        <img src={EditIcon} alt="Edit Button" />
+                    </button>
+                    <button className="business-panel--table-button">
+                        <img src={TrashIcon} alt="Trash Button" />
+                    </button>
                 </td>
             </tr>
-    );
+    )
 
     return (
-        <table className="business-panel--table">
-            <thead>
-                <tr>{tableHeaders}</tr>
-            </thead>
-            <tbody>
-                {tableData}
-            </tbody>
-        </table>
+        <div className="business-panel--table-container">
+            <div className="business-panel--table-top"></div>
+            <table className="business-panel--table">
+                <thead>
+                    <tr>{tableHeaders}</tr>
+                </thead>
+                <tbody>
+                    {tableData}
+                </tbody>
+            </table>
+        </div>
     )
 }
 

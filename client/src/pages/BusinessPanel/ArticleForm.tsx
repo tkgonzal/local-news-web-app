@@ -7,7 +7,7 @@ import BusinessPanelPage from "./BusinessPanelPage"
 
 import { ArticleInput } from "../../types/interfaces/BusinessPanel/ArticleInput"
 
-import "react-quill/dist/quill.snow.css"
+// import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
 
 // Page component that allows users to create new articles or edit existing ones
@@ -41,11 +41,16 @@ const ArticleForm: React.FC = () => {
                 onSubmit={handleSubmit(submitArticle)}
             >
                 <div className="business-panel--page-header">
-                    <h1>{isNewArticle ? "New" : "Edit"} Article</h1>
-                    <button type="submit">Save</button>
+                    <h1>{isNewArticle ? "NEW" : "EDIT"} ARTICLE</h1>
+                    <button type="submit">{isNewArticle ? "Post" : "Save"}</button>
                 </div>
 
-                <div className="business-panel--form-half">
+                <div
+                    className={
+                        `business-panel--form-half 
+                         business-panel--article-meta-data`
+                    }
+                >
                     {/* Article Form Meta Data Section */}
                     <div className="business-panel--form-section">
                         <span className="business-panel--input">
@@ -97,7 +102,12 @@ const ArticleForm: React.FC = () => {
                 </div>
 
                 {/* Content Editor */}
-                <div className="business-panel--form-half">
+                <div
+                    className={
+                        `business-panel--form-half 
+                         business-panel--article-editor`
+                    }
+                >
                     <div className="business-panel--rte-container">
                         <ReactQuill 
                             theme="snow"
