@@ -88,60 +88,72 @@ const SubscribePage: React.FC = () => {
         officiis.
       </p>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="type">Check all that apply:</label>
+        <div className="subscribe--checkbox-container">
+          <div className="subscribe--label-container">
+            <label htmlFor="type" className="subscribe--checkbox-label">
+              Check all that apply:
+            </label>
+          </div>
+          <div className="subscribe--checkbox-box">
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
+                name="local"
+                checked={formData.checkboxOptions.local}
+                onChange={handleCheckboxChange}
+              />
+              Local
+            </label>
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
+                name="crime"
+                checked={formData.checkboxOptions.crime}
+                onChange={handleCheckboxChange}
+              />
+              Crime
+            </label>
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
+                name="breakingNews"
+                checked={formData.checkboxOptions.breakingNews}
+                onChange={handleCheckboxChange}
+              />
+              Breaking News
+            </label>
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
+                name="sports"
+                checked={formData.checkboxOptions.sports}
+                onChange={handleCheckboxChange}
+              />
+              Sports
+            </label>
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
+                name="selectAll"
+                checked={formData.isCheckedAll}
+                onChange={handleCheckboxChange}
+              />
+              All
+            </label>
+          </div>
         </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="local"
-              checked={formData.checkboxOptions.local}
-              onChange={handleCheckboxChange}
-            />
-            Local
+        <div className="subscribe--frequency-container">
+          <label htmlFor="frequency" className="subscribe--frequency-label">
+            Frequency:
           </label>
-          <label>
-            <input
-              type="checkbox"
-              name="crime"
-              checked={formData.checkboxOptions.crime}
-              onChange={handleCheckboxChange}
-            />
-            Crime
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="breakingNews"
-              checked={formData.checkboxOptions.breakingNews}
-              onChange={handleCheckboxChange}
-            />
-            Breaking News
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="sports"
-              checked={formData.checkboxOptions.sports}
-              onChange={handleCheckboxChange}
-            />
-            Sports
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="selectAll"
-              checked={formData.isCheckedAll}
-              onChange={handleCheckboxChange}
-            />
-            All
-          </label>
-        </div>
-        <div>
-          <label htmlFor="frequency">Frequency:</label>
-          <select value={formData.frequency} onChange={handleFrequencyChange}>
-            <option value="">Select Frequency</option>
+          <select
+            value={formData.frequency}
+            onChange={handleFrequencyChange}
+            className="subscribe--frequency-option"
+          >
+            <option value="" selected disabled hidden>
+              Select Frequency
+            </option>
             <option value="hourly">Hourly</option>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -149,13 +161,14 @@ const SubscribePage: React.FC = () => {
             <option value="monthly">Monthly</option>
           </select>
         </div>
-        <div>
+        <div className="subscribe--email-container">
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleEmailChange}
             placeholder="Enter your email address"
+            className="subscribe--input-field"
           />
           <input
             type="tel"
@@ -163,8 +176,11 @@ const SubscribePage: React.FC = () => {
             value={formData.phoneNumber}
             onChange={handlePhoneNumberChange}
             placeholder="Mobile Number"
+            className="subscribe--input-field"
           />
-          <button type="submit">Subscribe</button>
+          <button type="submit" className="subscribe--form-button">
+            Subscribe
+          </button>
         </div>
       </form>
     </div>
