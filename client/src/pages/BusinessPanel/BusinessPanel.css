@@ -7,9 +7,9 @@
 }
 
 .business-panel {
-    width: calc(100% - 200px - 4rem);
+    width: calc(100% - 350px - 4rem);
     padding: 0rem 2rem 0rem 2rem;
-    padding-left: calc(200px + 2rem);
+    padding-left: calc(350px + 2rem);
     display: flex;
     flex-direction: column;
     background-color: var(--bp-primary-bg-color, gray);

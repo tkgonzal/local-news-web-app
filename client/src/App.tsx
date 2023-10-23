@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
+import AccessDenied from "./pages/AccessDenied";
 import Error from "./pages/Error"
 
 import ArticleTestData from "./test/ArticleData"
@@ -80,6 +81,7 @@ function App() : JSX.Element {
         <Route path="/business/users" element={<UsersTable />}/>
         <Route path="/business/users/form/:userId" element={<UserForm />}/>
         <Route path="/business/settings" element={<BusinessSettings />}/>
+        <Route path="/access-denied" element={<AccessDenied />}/>
         <Route path="*" element={<Error />}/>
       </Routes>
     </>
