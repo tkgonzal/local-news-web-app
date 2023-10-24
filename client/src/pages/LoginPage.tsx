@@ -6,6 +6,8 @@ import { useUserContext } from '../contexts/UserContext';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
+import moNewsLogoImg from "/assets/mo_news_logo_white.png"
+
 import './signin.css'
 
 const LoginPage: React.FC = () => {
@@ -16,15 +18,15 @@ const LoginPage: React.FC = () => {
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (user?.accType === 'business') {
-    //         navigate('/business/articles');
-    //     }
-    //     else {
-    //         navigate('/')
-    //     }
-    // }, [user])
-
+    useEffect(() => {
+        if (user && user?.accType === 'business') {
+            navigate('/business/articles');
+        }
+        else if (user) {
+            navigate('/')
+        }
+    }, [user])
+    
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -50,10 +52,11 @@ const LoginPage: React.FC = () => {
 
 return (
     <div className='main-container'>
-        <div className='header'>
+        {/* <div className='header'>
             <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
-        </div>
+        </div> */}
         <div className='container'>
+            <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
             <div className='login-container'>
                 <h1 className='title'>Sign In</h1>
                 <form onSubmit={handleLogin} className='form-Group'>
@@ -103,7 +106,11 @@ return (
             <div className='welcome-container'>
                 <div className='right-container'>
                     <div className='logo'>
-                        <h1>LOGO</h1>
+                        <img 
+                            src={moNewsLogoImg}
+                            onClick={() => navigate("/")}
+                            alt="MoNews Logo in White" 
+                        />
                     </div>
                     <div className='welcome'>
                         <h1>WELCOME</h1>
@@ -115,13 +122,8 @@ return (
                         <button className='btn-inverse login-btn' onClick={() => navigate("/register")}>Sign Up</button>
                     </div>
                 </div>
-                
-                
             </div>
-
         </div>
-        
-        
     </div>
 )};
 

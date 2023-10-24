@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./Navbar.css";
-import { NavbarProps } from "../../types/interfaces/NavInterface";
+import { Link } from "react-router-dom";
+
 import Sidebar from "../Sidebar/sidebar";
 import SearchBar from "./magnifying-glass-1976105_960_720.webp";
+
+import { NavbarProps } from "../../types/interfaces/NavInterface";
+
+import "./Navbar.css";
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
   //   const [navOpen, setNavOpen] = useState(false);
@@ -98,14 +102,14 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
             <ul>
               {links.map((link, index) => (
                 <li key={index} className="main-links">
-                  <a
-                    href={link.url}
-                    className={
-                      link.name === "Subscribe" ? "subscribe-link" : ""
-                    }
+                  <Link
+                    to={link.url}
+                    // className={
+                    //   link.name === "Subscribe" ? "subscribe-link" : ""
+                    // }
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -6,7 +6,11 @@ import { isStrongPassword } from '../utils/passwordUtils';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../contexts/UserContext';
 
+import moNewsLogoImg from "/assets/mo_news_logo_white.png"
+
 const RegisterPage: React.FC = () => {
+    const { user, setUser } = useUserContext();
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -16,21 +20,16 @@ const RegisterPage: React.FC = () => {
         businessWebsite: '',
         mobileNumber: '',
     });
-
-    // Uncomment useEffect When business panel page gets added. 
-
-    // useEffect(() => {
-    //     if (user?.accType === 'business') {
-    //         navigate('/business-panel');  *** just change the '/business-panel' to the correct route
-    //     }
-    //     else {
-    //         navigate('/')
-    //     }
-    // }, [user])
-
-    const { setUser } = useUserContext();
-
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user?.accType === 'business') {
+            navigate('/business/articles')
+        }
+        else if (user) {
+            navigate('/')
+        }
+    }, [user])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -101,10 +100,11 @@ const RegisterPage: React.FC = () => {
 
     return (
         <div className="main-container">
-            <div className='header'>
+            {/* <div className='header'>
                 <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
-            </div>
+            </div> */}
             <div className="container">
+                <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
                 <div className="register-container">
                     <h1 className='title' >Register</h1>
                     <form onSubmit={handleSubmit}>
@@ -207,7 +207,11 @@ const RegisterPage: React.FC = () => {
                 <div className='welcome-container'>
                     <div className='right-container'>
                         <div className='logo'>
-                            <h1>LOGO</h1>
+                            <img 
+                                src={moNewsLogoImg}
+                                onClick={() => navigate("/")}
+                                alt="MoNews Logo in White" 
+                            />
                         </div>
                         <div className='welcome'>
                             <h1>WELCOME</h1>

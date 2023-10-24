@@ -3,3 +3,7 @@
     padding: 1rem 2rem 0rem 0rem;
     padding-left: calc(350px + 2rem);
 }
+
+button, .logo {
+    cursor: pointer;
+}
