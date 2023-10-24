@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
+import NewsPage from "./pages/NewsPage";
 import StaffPage from "./pages/StaffPage"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
@@ -67,7 +68,7 @@ function App() : JSX.Element {
 
       <Routes>
         <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
-        <Route path="/news" element={<h1>news page</h1>}/>
+        <Route path="/news" element={<NewsPage articles={ArticleTestData}/>}/>
         <Route path="/article/:articleId" element={<Error />}/>
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/register" element={<RegisterPage />}/>

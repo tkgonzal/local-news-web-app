@@ -6,9 +6,9 @@ interface Props {
     staff: Staff
 }
 
-// Component to display on News Pages, which shows thumbnails of articles to 
-// display in each's carousel. Mean to be used for three article carousels
-const ArticleThumbnail: React.FC<Props> = ({ staff }) => {
+// Component to display on the Staff, which shows pictures of each member  
+// and a small description of their job.
+const StaffCard: React.FC<Props> = ({ staff }) => {
 
     return (
         <div 
@@ -25,4 +25,4 @@ const ArticleThumbnail: React.FC<Props> = ({ staff }) => {
     )
 }
 
-export default ArticleThumbnail
+export default StaffCard
