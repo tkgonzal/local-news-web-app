@@ -11,7 +11,8 @@ const UserData: User[] = [
         email: "frailty@swag.net",
         phone: "(555)555-555",
         articlePermissions: Permission.READ_ONLY,
-        userPermissions: Permission.READ_ONLY
+        userPermissions: Permission.READ_ONLY,
+        accType: "User",
     },
     {
         id: "2",
@@ -22,7 +23,8 @@ const UserData: User[] = [
         email: "jeff@quoteunquote.net",
         phone: "(666)666-6666",
         articlePermissions: Permission.WRITE,
-        userPermissions: Permission.WRITE
+        userPermissions: Permission.WRITE,
+        accType: "User",
     },
     {
         id: "3",
@@ -33,7 +35,8 @@ const UserData: User[] = [
         email: "seat@table.org",
         phone: "(777)777-7777",
         articlePermissions: Permission.DELETE,
-        userPermissions: Permission.DELETE
+        userPermissions: Permission.DELETE,
+        accType: "User",
     }
 ]
 

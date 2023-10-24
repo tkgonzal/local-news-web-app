@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user && user?.accType === 'business') {
+        if (user && user?.accType === 'Business') {
             navigate('/business/articles');
         }
         else if (user) {

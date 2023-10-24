@@ -1,14 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-
-interface User {
-    name: string;
-    email: string;
-    accType: string; 
-    businessName: string;
-    businessWebsite: string; 
-    mobileNumber: string;
-
-};
+import { User } from "../types/interfaces/User";
 
 interface UserContextType {
     user: User | null;

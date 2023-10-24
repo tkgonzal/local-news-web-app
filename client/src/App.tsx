@@ -1,8 +1,6 @@
 import { useEffect } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 
-import { useUserContext } from "./contexts/UserContext"
-
 import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
 import StaffPage from "./pages/StaffPage"
@@ -24,7 +22,6 @@ import "./App.css"
 
 function App() : JSX.Element {
   const location = useLocation()
-  const { user } = useUserContext()
 
   const navLinks = [
     { name: 'Login', url: '/login' },
@@ -61,14 +58,13 @@ function App() : JSX.Element {
     }
   }, [location])
 
-  const shouldNotRenderNavbar = 
-    !['/login', '/register', '/reset-password', '/confirm-reset-password'].includes(location.pathname);
+  const shouldRenderNavbar = !['/login', '/register'].includes(location.pathname)
 
   return (
     <>
-      {shouldNotRenderNavbar && <Navbar links={navLinks}/>}
+      {shouldRenderNavbar && <Navbar links={navLinks}/>}
 
-      <main className={shouldNotRenderNavbar ? "page-container": ""}>
+      <main className={shouldRenderNavbar ? "page-container": ""}>
         <Routes>
           <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
           <Route path="/news" element={<h1>news page</h1>}/>

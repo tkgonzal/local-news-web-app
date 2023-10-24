@@ -23,7 +23,7 @@ const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user?.accType === 'business') {
+        if (user?.accType === 'Business') {
             navigate('/business/articles')
         }
         else if (user) {
@@ -149,12 +149,12 @@ const RegisterPage: React.FC = () => {
                                 value={formData.accType}
                                 onChange={handleAccTypeChange}
                             >
-                                <option value={'user'}>User</option>
-                                <option value={'business'}>Business</option>
+                                <option value={'User'}>User</option>
+                                <option value={'Business'}>Business</option>
                             </select>
                             <label className='user-label-transparent'>Account Type</label>
                         </div>
-                        {formData.accType === 'business' && (
+                        {formData.accType === 'Business' && (
                             <div className="input-group">
                                 <input
                                     className='input'
@@ -168,7 +168,7 @@ const RegisterPage: React.FC = () => {
                                 <label className='user-label'>Business Name:</label>
                             </div>
                         )}
-                        { formData.accType === 'business' && (
+                        { formData.accType === 'Business' && (
                             <div className="input-group">
                                 <input
                                     className='input'
@@ -182,7 +182,7 @@ const RegisterPage: React.FC = () => {
                                 <label className='user-label'>Business Website:</label>
                             </div>
                         )}
-                        {formData.accType === 'business' && (
+                        {formData.accType === 'Business' && (
                             <div className="input-group">
                                 <input
                                     className='input'

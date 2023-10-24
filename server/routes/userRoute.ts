@@ -1,7 +1,10 @@
 import express from "express";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+
 import { createUser, getUserByEmail, User } from "../models/User";
+import Permission from "../types/enums/Permission";
+
 require('dotenv').config();
 
 const router = express.Router();
@@ -24,7 +27,11 @@ router.post('/register', async (req, res) => {
             accType: userData.accType, 
             businessName: userData.businessName, 
             businessWebsite: userData.businessWebsite, 
-            mobileNumber: userData.mobileNumber
+            phone: userData.mobileNumber,
+            articlePermissions: userData.accType === "Business" ?
+                Permission.DELETE : Permission.READ_ONLY,
+            userPermissions: userData.accType === "Business" ?
+                Permission.DELETE : Permission.READ_ONLY
         };
 
         const createdUser = await createUser(newUser);

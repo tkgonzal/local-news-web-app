@@ -1,14 +1,23 @@
 import { Collection, ObjectId } from 'mongodb';
+
 import { connectToDatabase } from '../config/db';
 
+import { Name } from '../types/interfaces/Name';
+import Permission from '../types/enums/Permission';
+import { UserAccountType } from '../types/types/UserAccountType';
+
 interface User {
-    password: string;
-    email: string;
-    accType: string; 
-    businessName: string;
-    businessWebsite: string; 
-    mobileNumber: string;
-};
+  id?: string | null;
+  name?: Name;
+  password: string;
+  email: string;
+  phone?: string;
+  accType: UserAccountType;
+  businessName?: string;
+  businessWebsite?: string;
+  articlePermissions?: Permission;
+  userPermissions?: Permission;
+}
 
 async function getUserCollection(): Promise<Collection<User>> {
   const db = await connectToDatabase();
