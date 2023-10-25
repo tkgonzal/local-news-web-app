@@ -1,7 +1,16 @@
 import { NavigateFunction, useNavigate } from "react-router-dom"
 
+import { useUserContext } from "../../contexts/UserContext"
+
 import { User } from "../../types/interfaces/User"
 import { Article } from "../../types/interfaces/Article"
+
+import {
+    hasUserEditPermissions,
+    hasUserDeletePermissions,
+    hasArticleEditPermissions,
+    hasArticleDeletePermissions
+} from "../../utils/permissionsUtils"
 
 import EditIcon from "/assets/BusinessPanel/pen-to-square.svg"
 import TrashIcon from "/assets/BusinessPanel/trash.svg"
@@ -42,10 +51,25 @@ const getUserFullname = (user: User): string => {
     return `${user.name?.first} ${user.name?.last}`
 }
 
+/**
+ * @param tableRow A row to generate for the table
+ * @param user A user, generally meant to be the user logged in and stored by the 
+ * userContext
+ * @returns {boolean} Whether or not the user has the permissions to edit a table
+ * entry
+ */
+const checkForEditPermissions = 
+    (tableType: TableType, user: User | null): boolean | null => {
+        // console.log(tableType === "Article")
+        return user && ((tableType === "User" && hasUserEditPermissions(user))
+        || (tableType === "Article" && hasArticleEditPermissions(user)))
+}
+
 // Table to display either users or articles for a Business as well as their
 // actions the business can take on each one
 const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
-    const formNavigate: NavigateFunction = useNavigate();
+    const { user } = useUserContext()
+    const formNavigate: NavigateFunction = useNavigate()
 
     const articleHeaderNames: string[] = [
         "ID", 
@@ -61,7 +85,7 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
     ]
 
     // Event Handlers
-    const openEntryForm = (id: string) => {
+    const openEntryForm = (id: string | null) => {
         formNavigate(`/business/${tableType.toLowerCase()}s/form/${id}`)
     }
 
@@ -72,6 +96,9 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
         headerName => 
             <th key={headerName} colSpan={1}>{headerName.toUpperCase()}</th>
     )
+
+    const hasEditPermissions: boolean | null = 
+        checkForEditPermissions(tableType, user)
 
     const tableData: JSX.Element[] = tableContents.map(
         row => 
@@ -86,12 +113,15 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     {isUser(row) && row.email || isArticle(row) && row.impressions}
                 </td>
                 <td>
-                    <button
-                        className="business-panel--table-button"
-                        onClick={() => openEntryForm(row.id)}
-                    >
-                        <img src={EditIcon} alt="Edit Button" />
-                    </button>
+                    {
+                        hasEditPermissions &&
+                        <button
+                            className="business-panel--table-button"
+                            onClick={() => openEntryForm(row.id)}
+                        >
+                            <img src={EditIcon} alt="Edit Button" />
+                        </button>
+                    }
                     <button className="business-panel--table-button">
                         <img src={TrashIcon} alt="Trash Button" />
                     </button>
