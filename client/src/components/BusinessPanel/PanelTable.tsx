@@ -60,9 +60,21 @@ const getUserFullname = (user: User): string => {
  */
 const checkForEditPermissions = 
     (tableType: TableType, user: User | null): boolean | null => {
-        // console.log(tableType === "Article")
         return user && ((tableType === "User" && hasUserEditPermissions(user))
         || (tableType === "Article" && hasArticleEditPermissions(user)))
+}
+
+/**
+ * @param tableRow A row to generate for the table
+ * @param user A user, generally meant to be the user logged in and stored by the 
+ * userContext
+ * @returns {boolean} Whether or not the user has the permissions to delete a table
+ * entry
+ */
+const checkForDeletePermissions = 
+    (tableType: TableType, user: User | null): boolean | null => {
+        return user && ((tableType === "User" && hasUserDeletePermissions(user))
+        || (tableType === "Article" && hasArticleDeletePermissions(user)))
 }
 
 // Table to display either users or articles for a Business as well as their
@@ -99,6 +111,8 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
 
     const hasEditPermissions: boolean | null = 
         checkForEditPermissions(tableType, user)
+    const hasDeletePermissions: boolean | null =
+        checkForDeletePermissions(tableType, user)
 
     const tableData: JSX.Element[] = tableContents.map(
         row => 
@@ -122,9 +136,12 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                             <img src={EditIcon} alt="Edit Button" />
                         </button>
                     }
-                    <button className="business-panel--table-button">
-                        <img src={TrashIcon} alt="Trash Button" />
-                    </button>
+                    {
+                        hasDeletePermissions && 
+                        <button className="business-panel--table-button">
+                            <img src={TrashIcon} alt="Trash Button" />
+                        </button>
+                    }
                 </td>
             </tr>
     )
