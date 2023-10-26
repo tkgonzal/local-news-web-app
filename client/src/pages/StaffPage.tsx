@@ -8,7 +8,7 @@ import StaffCard from "../components/StaffDisplay/StaffCard"
 import "./StaffPage.css";
 
 
-// Page component for the home page of the app which displays breaking news
+// Page component for the staff page of the app which displays staff members
 const StaffPage: React.FC = () => {
 
     const { user } = useUserContext();
