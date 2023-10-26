@@ -36,8 +36,8 @@ const NewsSubPage: React.FC<Props> = ({ articles, category }) => {
 
             </div>
                 
-            <h2 className="home--article-carousel-header">Featured</h2>
-            <div className="home--article-carousel-container">
+            <h2 className="subpage--article-carousel-header">Featured</h2>
+            <div className="subpage--article-carousel-container">
                 <ArticleCarousel articleThumbnails={articleThumbnails}/>
             </div>
 

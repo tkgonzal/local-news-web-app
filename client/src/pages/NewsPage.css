@@ -1,3 +1,5 @@
+/* CSS used for both main news page, and the subpages */
+
 .subpage {
     display:flex;
     flex-direction: column;
@@ -11,6 +13,8 @@
 .subpage--main-article{
     width:70%;
 }
+
+
 .subpage--secondary-articles{
     width:30%;
     display:flex;
@@ -34,3 +38,10 @@
     display:none;
 }
 
+
+.subpage--article-carousel-header{
+    padding-top: 1rem;
+}
+.subpage--article-carousel-container{
+    border-bottom: .0625rem solid var(--element-2-color, gray);
+}
