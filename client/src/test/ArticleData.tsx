@@ -15,7 +15,7 @@ const ArticleTestData : Article[] = [
         tags: ["Breaking News", "Local News"],
         heading: "test article 1",
         subHeading: "this is the 1st test article",
-        authors: ["author 1"],
+        authors: ["author 1", "author 2", "author 3"],
         publishedDate: "2023-10-26T21:31:38.461Z",
         body: ["this is the body of article 1"],
         images: [testImage],

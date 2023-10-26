@@ -14,6 +14,7 @@ interface Article {
     heading: string
     subHeading?: string
     engagements?: number
+    // String must be in Date ISO format
     publishedDate: string
     body: string[] | string
 }

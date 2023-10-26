@@ -1,6 +1,7 @@
 import { useNavigate, NavigateFunction } from "react-router-dom"
 
 import { Article } from "../../types/interfaces/Article"
+import { ArticleImage } from "../../types/interfaces/ArticleImage"
 
 import "./ArticleThumbnail.css"
 
@@ -9,14 +10,25 @@ interface Props {
     article: Article
 }
 
+const dateStringOptions: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+}
+
 // Component to display on News Pages, which shows thumbnails of articles to 
 // display in each's carousel. Mean to be used for three article carousels
 const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
     const articleNavigate: NavigateFunction = useNavigate();
 
     const navigateToArticle = (): void => {
-        articleNavigate(`/article/${article.id}`);
+        articleNavigate(`/article/${article._id}`);
     }
+
+    const mainArticleImage: ArticleImage = article.images[0]
+    const authorsText: string = article.authors.join(", ")
+    const dateString: string = (new Date(article.publishedDate))
+        .toLocaleDateString("en-us", dateStringOptions)
 
     return (
         <div 
@@ -25,8 +37,8 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
         >
             <img
                 className="article-thumbnail--img"
-                src={article.imgSrc}
-                alt={article.heading} 
+                src={mainArticleImage.url}
+                alt={mainArticleImage.caption} 
             />
             <div className="article-thumbnail--metadata">
                 <div className="article-thumbnail--headings-div">
@@ -37,8 +49,8 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
                         {article.subHeading}
                     </h3>
                 </div>
-                <p className="article-thumbnail--author">{article.author}</p>
-                <p className="article-thumbnail--date">{article.date}</p>
+                <p className="article-thumbnail--author">{authorsText}</p>
+                <p className="article-thumbnail--date">{dateString}</p>
                 <p className="article-thumbnail--body">
                     {article.body.length && article.body[0]}
                 </p>
