@@ -7,11 +7,11 @@ import "./NewsPage.css"
 
 interface Props {
     articles: Article[],
-    pathname: string
+    category: string
 }
 
 // Page component for the news page of the app when displaying a single subcategory
-const NewsSubPage: React.FC<Props> = ({ articles,pathname }) => {
+const NewsSubPage: React.FC<Props> = ({ articles, category }) => {
     const mainArticleThumbnail: JSX.Element = 
         <ArticleThumbnail className="main-article" article={articles[0]}/>
 
@@ -23,7 +23,7 @@ const NewsSubPage: React.FC<Props> = ({ articles,pathname }) => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">`${pathname}`</h1>
+            <h1 className="subpage--header">{`${category}`}</h1>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}

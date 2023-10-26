@@ -65,7 +65,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
     { name: ["HOME"], url: "/" },
     {
       name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION"],
-      url: ["/news", "/news/local", "/news/crime","/news/government","/news/educations"],
+      url: ["/news", "/news/local", "/news/crime","/news/government","/news/education"],
     },
     { name: ["SPORTS", "HIGHSCHOOL"], url: ["/", "/"] },
     { name: ["LOCAL", "CRIME"], url: ["/", "/"] },

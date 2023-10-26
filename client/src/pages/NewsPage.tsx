@@ -22,7 +22,7 @@ const NewsPage: React.FC<Props> = ({ articles }) => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">Filler</h1>
+            <h1 className="subpage--header">BREAKING</h1>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}
