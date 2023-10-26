@@ -69,12 +69,11 @@ function App() : JSX.Element {
       <main className={shouldRenderNavbar ? "page-container": ""}>
         <Routes>
           <Route path="/" element={<BreakingNews articles={ArticleTestData}/>}/>
-          <Route path="/news" element={<h1>news page</h1>}/>
           <Route path="/news" element={<NewsPage articles={ArticleTestData}/>}/>
-          <Route path="/news/local" element={<NewsSubPage articles={ArticleTestData} category = {'LOCAL'}/>}/>
-          <Route path="/news/crime" element={<NewsSubPage articles={ArticleTestData} category = {'CRIME'}/>}/>
-          <Route path="/news/government" element={<NewsSubPage articles={ArticleTestData} category = {'GOVERNMENT'}/>}/>
-          <Route path="/news/education" element={<NewsSubPage articles={ArticleTestData} category = {'EDUCATION'}/>}/>
+          <Route path="/news/local" element={<NewsSubPage articles={ArticleTestData} category={"LOCAL"}/>}/>
+          <Route path="/news/crime" element={<NewsSubPage articles={ArticleTestData} category={"CRIME"}/>}/>
+          <Route path="/news/government" element={<NewsSubPage articles={ArticleTestData} category={"GOVERNMENT"}/>}/>
+          <Route path="/news/education" element={<NewsSubPage articles={ArticleTestData} category={"EDUCATION"}/>}/>
           <Route path="/article/:articleId" element={<Error />}/>
           <Route path="/login" element={<LoginPage />}/>
           <Route path="/register" element={<RegisterPage />}/>
