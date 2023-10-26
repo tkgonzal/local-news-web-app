@@ -22,16 +22,19 @@ router.post('/register', async (req, res) => {
         const hashedPassword: string = await bcrypt.hash(userData.password, 10);
 
         const newUser: User = { 
-            email: userData.email, 
-            password: hashedPassword, 
-            accType: userData.accType, 
-            businessName: userData.businessName, 
-            businessWebsite: userData.businessWebsite, 
+            email: userData.email,
+            password: hashedPassword,
             phone: userData.mobileNumber,
+            accType: userData.accType,
+            businessId: "",
+            businessName: userData.businessName,
+            businessWebsite: userData.businessWebsite,
             articlePermissions: userData.accType === "Business" ?
                 Permission.DELETE : Permission.READ_ONLY,
             userPermissions: userData.accType === "Business" ?
-                Permission.DELETE : Permission.READ_ONLY
+                Permission.DELETE : Permission.READ_ONLY,
+            hasDisabledLogin: false,
+            receivesCommentNotifications: false
         };
 
         const createdUser = await createUser(newUser);
