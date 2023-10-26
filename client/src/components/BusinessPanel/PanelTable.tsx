@@ -97,7 +97,7 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
     ]
 
     // Event Handlers
-    const openEntryForm = (id: string | null) => {
+    const openEntryForm = (id: string | null | undefined) => {
         formNavigate(`/business/${tableType.toLowerCase()}s/form/${id}`)
     }
 
@@ -116,22 +116,25 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
 
     const tableData: JSX.Element[] = tableContents.map(
         row => 
-            <tr key={row.id}>
+            <tr key={row._id}>
                 <td>
-                    {isUser(row) && getUserFullname(row) || row.id}    
+                    {isUser(row) && getUserFullname(row) || row._id}    
                 </td>
                 <td>
                     {isUser(row) && row.phone || isArticle(row) && row.heading}
                 </td>
                 <td>
-                    {isUser(row) && row.email || isArticle(row) && row.impressions}
+                    {isUser(row) && row.email || isArticle(row) && row.engagements}
                 </td>
                 <td>
+                    <button className="business-panel--table-button">
+                        
+                    </button>
                     {
                         hasEditPermissions &&
                         <button
                             className="business-panel--table-button"
-                            onClick={() => openEntryForm(row.id)}
+                            onClick={() => openEntryForm(row._id)}
                         >
                             <img src={EditIcon} alt="Edit Button" />
                         </button>
