@@ -12,6 +12,7 @@ import {
     hasArticleDeletePermissions
 } from "../../utils/permissionsUtils"
 
+import ReadIcon from "/assets/BusinessPanel/book.svg"
 import EditIcon from "/assets/BusinessPanel/pen-to-square.svg"
 import TrashIcon from "/assets/BusinessPanel/trash.svg"
 
@@ -81,7 +82,7 @@ const checkForDeletePermissions =
 // actions the business can take on each one
 const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
     const { user } = useUserContext()
-    const formNavigate: NavigateFunction = useNavigate()
+    const tableNavigate: NavigateFunction = useNavigate()
 
     const articleHeaderNames: string[] = [
         "ID", 
@@ -98,7 +99,7 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
 
     // Event Handlers
     const openEntryForm = (id: string | null | undefined) => {
-        formNavigate(`/business/${tableType.toLowerCase()}s/form/${id}`)
+        tableNavigate(`/business/${tableType.toLowerCase()}s/form/${id}`)
     }
 
     let tableHeaderNames = tableType == "Article" ? 
@@ -127,9 +128,15 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     {isUser(row) && row.email || isArticle(row) && row.engagements}
                 </td>
                 <td>
-                    <button className="business-panel--table-button">
-                        
-                    </button>
+                    {
+                        tableType === "Article" && 
+                        <button
+                            className="business-panel--table-button"
+                            onClick={() => tableNavigate(`/article/${row._id}`)}
+                        >
+                            <img src={ReadIcon} alt="Read Article Button" />
+                        </button>
+                    }
                     {
                         hasEditPermissions &&
                         <button
