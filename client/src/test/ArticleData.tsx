@@ -1,59 +1,61 @@
 import { Article } from "../types/interfaces/Article"
+import { ArticleImage } from "../types/interfaces/ArticleImage"
 
-import testImage from "./assets/article-test-image.jpg"
+import testImageUrl from "./assets/article-test-image.jpg"
+
+const testImage: ArticleImage =  {
+    url: testImageUrl,
+    caption: "The album cover of Jeff Rosenstock's Worry, used as a test image"
+}
 
 const ArticleTestData : Article[] = [
     {
-        id: "1",
-        imgSrc: testImage,
+        _id: "1",
+        source: "Test Data",
+        tags: ["Breaking News", "Local News"],
         heading: "test article 1",
         subHeading: "this is the 1st test article",
-        author: "author 1",
-        date: "October 1, 2023",
-        body: [
-            "this is the body of article 1"
-        ],
-        impressions: 0,
-        tags: ["Breaking News", "Local News"]
+        authors: ["author 1"],
+        publishedDate: "2023-10-26T21:31:38.461Z",
+        body: ["this is the body of article 1"],
+        images: [testImage],
+        engagements: 0,
     },
     {
-        id: "2",
-        imgSrc: testImage,
+        _id: "2",
+        source: "Test Data",
+        tags: ["Government", "Local News"],
         heading: "test article 2",
         subHeading: "this is the 2nd test article",
-        author: "author 2",
-        date: "October 2, 2023",
-        body: [
-            "asfdasdfasedf"
-        ],
-        impressions: 1,
-        tags: ["Government", "Local News"]
+        authors: ["author 2"],
+        publishedDate: "2023-10-26T21:31:38.461Z",
+        body: ["asdfasdfasdffff"],
+        images: [testImage],
+        engagements: 0,
     },
     {
-        id: "3",
-        imgSrc: testImage,
+        _id: "3",
+        source: "Test Data",
+        tags: ["Sports"],
         heading: "test article 3",
         subHeading: "this is the 3rd test article",
-        author: "author 3",
-        date: "October 3, 2023",
-        body: [
-            "12341234123421"
-        ],
-        impressions: 3,
-        tags: ["Sports"]
+        authors: ["author 3"],
+        publishedDate: "2023-10-26T21:31:38.461Z",
+        body: ["12331423123412"],
+        images: [testImage],
+        engagements: 0,
     },
     {
-        id: "4",
-        imgSrc: testImage,
+        _id: "4",
+        source: "Test Data",
+        tags: ["Crime"],
         heading: "test article 4",
         subHeading: "this is the 4th test article",
-        author: "author 4",
-        date: "October 4, 2023",
-        body: [
-            "October 4, 2023"
-        ],
-        impressions: 4,
-        tags: ["Crime"]
+        authors: ["author 4"],
+        publishedDate: "2023-10-26T21:31:38.461Z",
+        body: ["October 4, 2023"],
+        images: [testImage],
+        engagements: 0,
     }
 ]
 
