@@ -3,7 +3,7 @@ import Permission from "../types/enums/Permission"
 
 const UserData: User[] = [
     {
-        id: "1",
+        _id: "1",
         name: {
             first: "Jane",
             last: "Remover"
@@ -15,7 +15,7 @@ const UserData: User[] = [
         accType: "User",
     },
     {
-        id: "2",
+        _id: "2",
         name: {
             first: "Jeff",
             last: "Rosenstock"
@@ -27,7 +27,7 @@ const UserData: User[] = [
         accType: "User",
     },
     {
-        id: "3",
+        _id: "3",
         name: {
             first: "Solange",
             last: "Knowles"
