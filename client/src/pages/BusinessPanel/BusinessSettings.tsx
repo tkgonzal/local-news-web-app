@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import axios from "axios"
+import Cookies from "js-cookie"
 
 import { useUserContext } from "../../contexts/UserContext"
 
@@ -23,8 +24,14 @@ const BusinessSettings: React.FC = () => {
                     "valuesToUpdate": {
                         "receivesCommentNotifications": data.enableCommentNotifications
                     }
+                },
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${Cookies.get("access_token")}`
+                    }
                 }
             )
+
             alert("Notifications settings successfully updated")
         } catch (error: any) {
             if (error.response && 

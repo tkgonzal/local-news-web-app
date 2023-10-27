@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction, Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import loginRoute from './routes/authRoute';
+import loginRoute, { authenticateToken } from './routes/authRoute';
 import userRoutes from './routes/userRoute';
 import passwordResetRoute from './routes/passwordResetRoute';
 import confirmResetPassword from './routes/confirmResetPassword';
@@ -26,7 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/request-password-reset', passwordResetRoute);
 app.use('/api/confirm-password-reset', confirmResetPassword);
 // Business Endpoints
-app.use("/api/business", businessRoute);
+app.use("/api/business", authenticateToken, businessRoute);
 
 app.listen(PORT, () => {
     console.log(`Local news web app server starting on port ${PORT}`)

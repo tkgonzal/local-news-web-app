@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getUserByEmail, User } from "../models/User";
@@ -7,11 +7,40 @@ require('dotenv').config();
 const router = express.Router();
 const secretKey = process.env.JWT_SECRET as string;
 
+// Middleware
+// Middleware to authenticate an access token given with a request
+const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+        return res.json({
+            status: 401,
+            message: "No access token given, please login"
+        });
+    }
+
+    jwt.verify(token, secretKey,
+        (err) => {
+            if (err) {
+                return res.json({
+                    status: 403,
+                    message: "Invalid access token given"
+                });
+            }
+
+            next();
+        }
+    );
+}
+
+// Endpoints
+// Endpoint to log user in
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await getUserByEmail(email);
+        const user: User | null = await getUserByEmail(email);
 
         if (!user) {
             return res.status(400).json({ message: 'Email address does not exist' });
@@ -42,3 +71,4 @@ router.post('/login', async (req, res) => {
 });
 
 export default router;
+export { authenticateToken };
