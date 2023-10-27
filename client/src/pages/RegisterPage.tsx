@@ -62,7 +62,7 @@ const RegisterPage: React.FC = () => {
                 };
 
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/register`, {
-                userData
+                    userData
                 });
 
                 const { userWithoutPassword, accessToken } = response.data;
@@ -214,10 +214,12 @@ const RegisterPage: React.FC = () => {
                             <h1>WELCOME</h1>
                         </div>
                         <div className='cta'>
-                            <h4>Sign up today and discover the latest articles locally.</h4>
+                            <h4>
+                                Already have an account? Login and discover the latest articles locally.
+                            </h4>
                         </div>
                         <div className='inverse-button'>
-                            <button className='btn-inverse login-btn' onClick={() => navigate("/register")}>Sign Up</button>
+                            <button className='btn-inverse login-btn' onClick={() => navigate("/login")}>Login</button>
                         </div>
                     </div>
                 </div>

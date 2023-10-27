@@ -45,21 +45,6 @@ function App() : JSX.Element {
     }
   }, [location])
 
-  // Side Effects
-  // Changes the background colour of the body if the sites loads any of the
-  // business panel pages
-  useEffect(() => {
-    if (location.pathname.includes("/business/") &&
-        !document.body.classList.contains("business-panel--body")) {
-      document.body.classList.add("business-panel--body")
-    }
-
-    if (!location.pathname.includes("/business/") && 
-        document.body.classList.contains("business-panel--body")) {
-      document.body.classList.remove("business-panel--body")
-    }
-  }, [location])
-
   const shouldRenderNavbar = !['/login', '/register'].includes(location.pathname)
 
   return (
