@@ -1,4 +1,4 @@
-import { Collection, ObjectId } from 'mongodb';
+import { Collection, MatchKeysAndValues, ObjectId } from 'mongodb';
 
 import { connectToDatabase } from '../config/db';
 
@@ -7,7 +7,7 @@ import Permission from '../types/enums/Permission';
 import { UserAccountType } from '../types/types/UserAccountType';
 
 interface User {
-  _id?: string | null;
+  _id?: string | null | ObjectId;
   name?: Name;
   password: string;
   email: string;
@@ -47,6 +47,10 @@ async function createUser(user: User): Promise<User | null> {
   }
 };
 
+/**
+ * @param email Returns u
+ * @returns {Promise<User | null>} Returns User based on associated email
+ */
 async function getUserByEmail(email: string): Promise<User | null> {
     const userCollection = await getUserCollection();
     return userCollection.findOne({ email: email });
@@ -67,6 +71,26 @@ async function updateUserPassword(email: string, newPassword: string): Promise<U
   }
 };
 
+/**
+ * Finds a user based on a given userId and updates its corresponding members
+ * based on a passed members object
+ * @param userId {string} The string representing the Object of of a User's _id
+ * @param valuesToUpdate {Object} The pairs of keys and values to update for the 
+ * given User of _id ObjectId(userId)
+ */
+async function updateUserMembersById(userId: string, valuesToUpdate: MatchKeysAndValues<User>) {
+  const userCollection = await getUserCollection();
+  await userCollection.findOneAndUpdate(
+    { _id: new ObjectId(userId) },
+    { $set: valuesToUpdate }
+  );
+}
 
-
-export { createUser, getUserByEmail, User, getUserCollection, updateUserPassword };
+export { 
+  User, 
+  createUser, 
+  getUserByEmail, 
+  getUserCollection, 
+  updateUserPassword, 
+  updateUserMembersById 
+};

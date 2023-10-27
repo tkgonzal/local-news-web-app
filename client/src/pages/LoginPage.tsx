@@ -46,9 +46,9 @@ const LoginPage: React.FC = () => {
             if (error.response && 
                 error.response.data && 
                 error.response.data.message) {
-                setErrorMessage(error.response.data.message)
+                setErrorMessage(error.response.data.message);
             } else {
-                setErrorMessage(error.message)
+                setErrorMessage(error.message);
             }
         }
         finally {
