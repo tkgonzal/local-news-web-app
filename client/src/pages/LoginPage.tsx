@@ -13,6 +13,7 @@ import './signin.css'
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const { user, setUser } = useUserContext();
 
@@ -38,10 +39,17 @@ const LoginPage: React.FC = () => {
 
             const { accessToken, userWithoutPassword } = response.data;
             Cookies.set('access_token', accessToken);
+            setErrorMessage("");
             setUser(userWithoutPassword);
         }
-        catch (error) {
-            console.error('Error', error);
+        catch (error: any) {
+            if (error.response && 
+                error.response.data && 
+                error.response.data.message) {
+                setErrorMessage(error.response.data.message)
+            } else {
+                setErrorMessage(error.message)
+            }
         }
         finally {
             setEmail('');
@@ -85,6 +93,7 @@ return (
                         />
                         <label className='user-label'>Password</label>
                     </div>
+                    <span className="error-message">{errorMessage}</span>
                     <div className='forgot-password'>
                         <div className='remember'>
                             <input type="checkbox" name="remember-me" id="remember-me" />

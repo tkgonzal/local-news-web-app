@@ -75,7 +75,7 @@ const RegisterPage: React.FC = () => {
             }  
         }
         catch (error: any) {
-            console.error('Error registering user.', error);
+            // console.error('Error registering user.', error);
             if (error.response && error.response.data && error.response.data.message) {
                 alert(`${error.response.data.message}.`);
             }
@@ -91,9 +91,6 @@ const RegisterPage: React.FC = () => {
                 businessWebsite: '',
                 mobileNumber: '',
             });
-            // remove below when business panel page gets pushed and uncomment useEffect
-            navigate('/');
-            // remove above when business panel page gets pushed and uncomment useEffect
         }
 
     }

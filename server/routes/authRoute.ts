@@ -17,6 +17,12 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Email address does not exist' });
         }
 
+        if (user.hasDisabledLogin) {
+            return res.status(401).json({
+                message: "Your login has been disabled. Please contact the system administrator"
+            });
+        }
+
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {

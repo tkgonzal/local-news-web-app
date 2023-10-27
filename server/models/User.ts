@@ -22,7 +22,7 @@ interface User {
   userPermissions?: Permission;
   hasDisabledLogin?: boolean;
   // For Business Accounts, Indicates whether or not the account should receive
-    // an email about new comment notifcation
+  // an email about new comment notifcation
   receivesCommentNotifications?: boolean;
 }
 
@@ -63,7 +63,7 @@ async function updateUserPassword(email: string, newPassword: string): Promise<U
   if (updatedUser) {
     return updatedUser;
   } else {
-      return null;
+    return null;
   }
 };
 

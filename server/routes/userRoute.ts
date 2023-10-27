@@ -10,6 +10,7 @@ require('dotenv').config();
 const router = express.Router();
 const secretKey = process.env.JWT_SECRET as string;
 
+// Registers users to the app
 router.post('/register', async (req, res) => {
     try {
         const { userData } = req.body;
