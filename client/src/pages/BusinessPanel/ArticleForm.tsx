@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useParams } from "react-router-dom"
-import ReactQuill from "react-quill"
+import { useParams, useNavigate } from "react-router-dom"
 
+import ReactQuill from "react-quill"
 import BusinessPanelPage from "./BusinessPanelPage"
 
 import { ArticleInput } from "../../types/interfaces/BusinessPanel/ArticleInput"
@@ -13,6 +13,7 @@ import "./BusinessForm.css"
 // Page component that allows users to create new articles or edit existing ones
 const ArticleForm: React.FC = () => {
     const { register, handleSubmit, setValue, watch } = useForm<ArticleInput>()
+    const formNavigate = useNavigate()
     const { articleId } = useParams()
     const [isNewArticle] = useState<boolean>(articleId === "new")
 
@@ -24,12 +25,23 @@ const ArticleForm: React.FC = () => {
         register("content", { required: true })
     }, [register])
 
+    // Event handlers
     /**
      * onChange handler for ReactQuill element
      * @param editorState The state of the react quill input
      */
     const onEditorStateChange = (editorState: string) => {
         setValue("content", editorState)
+    }
+
+    /**
+     * Cancels whatever changes are being made to the user and navigates the 
+     * user to the users table
+     * @param event {React.FormEvent} A form event
+     */
+    const cancelFormChanges: React.FormEventHandler = (event: React.FormEvent) => {
+        event.preventDefault()
+        formNavigate("/business/users")
     }
 
     const richTextEditorContent = watch("content")
@@ -42,7 +54,13 @@ const ArticleForm: React.FC = () => {
             >
                 <div className="business-panel--page-header">
                     <h1>{isNewArticle ? "NEW" : "EDIT"} ARTICLE</h1>
-                    <button type="submit">{isNewArticle ? "Post" : "Save"}</button>
+
+                    <span className="business-panel--header-buttons">
+                        <button type="submit">
+                            {isNewArticle ? "Post" : "Save"}
+                        </button>
+                        <button onClick={cancelFormChanges}>Cancel</button>
+                    </span>
                 </div>
 
                 <div

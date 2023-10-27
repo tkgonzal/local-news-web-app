@@ -1,7 +1,7 @@
+import { useUserContext } from "../../contexts/UserContext"
+
 import PanelNav from "../../components/BusinessPanel/PanelNav"
 import AccessDenied from "../AccessDenied"
-
-import { useUserContext } from "../../contexts/UserContext"
 
 import "./BusinessPanel.css"
 

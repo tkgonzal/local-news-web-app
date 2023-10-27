@@ -23,6 +23,10 @@
     padding-bottom: 1rem;
 }
 
+.business-panel--header-buttons button:first-child {
+    margin-right: 0.3rem;
+}
+
 .business-panel--form-half {
     width: calc(50% - 0.125rem);
     margin: 0.0625rem;

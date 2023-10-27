@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useParams } from "react-router-dom"
-import ReactQuill from "react-quill"
+import { useParams, useNavigate } from "react-router-dom"
 
+import ReactQuill from "react-quill"
 import BusinessPanelPage from "./BusinessPanelPage"
 
 import { UserInput } from "../../types/interfaces/BusinessPanel/UserInput"
@@ -14,6 +14,7 @@ import "./BusinessForm.css"
 // Form that allows for the creation of new Users or editing of existing ones
 const UserForm: React.FC = () => {
     const { register, handleSubmit, setValue, watch } = useForm<UserInput>()
+    const formNavigate = useNavigate()
     const { userId } = useParams()
     const [isNewUser] = useState<boolean>(userId === "new")
 
@@ -25,12 +26,23 @@ const UserForm: React.FC = () => {
         register("notes", { required: true })
     }, [register])
 
+    // Event Handlers
     /**
      * onChange handler for ReactQuill element
      * @param editorState The state of the react quill input
      */
     const onEditorStateChange = (editorState: string) => {
         setValue("notes", editorState)
+    }
+
+    /**
+     * Cancels whatever changes are being made to the user and navigates the 
+     * user to the users table
+     * @param event {React.FormEvent} A form event
+     */
+    const cancelFormChanges: React.FormEventHandler = (event: React.FormEvent) => {
+        event.preventDefault()
+        formNavigate("/business/users")
     }
 
     const richTextEditorContent = watch("notes")
@@ -43,7 +55,13 @@ const UserForm: React.FC = () => {
             >
                 <div className="business-panel--page-header">
                     <h1>{isNewUser ? "NEW" : "EDIT"} USER</h1>
-                    <button>{isNewUser ? "Add User" : "Save Changes"}</button>
+
+                    <span className="business-panel--header-buttons">
+                        <button type="submit">
+                            {isNewUser ? "Add User" : "Save Changes"}
+                        </button>
+                        <button onClick={cancelFormChanges}>Cancel</button>
+                    </span>
                 </div>
 
                 <div className={
