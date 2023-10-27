@@ -26,6 +26,10 @@ interface User {
   receivesCommentNotifications?: boolean;
 }
 
+/**
+ * @returns {Promise<Collection<User>>} A Promise meant to return the DB's
+ * collection of Users
+ */
 async function getUserCollection(): Promise<Collection<User>> {
   const db = await connectToDatabase();
   if (!db) {
@@ -34,6 +38,11 @@ async function getUserCollection(): Promise<Collection<User>> {
   return db.collection<User>("User");
 };
 
+/**
+ * @param user {User} A User to insert into the collection
+ * @returns {Promise<User | null>} A Promise meant to return the user inserted
+ * into the collection
+ */
 async function createUser(user: User): Promise<User | null> {
   const userCollection = await getUserCollection();
   const result = await userCollection.insertOne(user);
@@ -48,14 +57,20 @@ async function createUser(user: User): Promise<User | null> {
 };
 
 /**
- * @param email Returns u
- * @returns {Promise<User | null>} Returns User based on associated email
+ * @param email {string} Email to find user from
+ * @returns {Promise<User | null>} Promise meant to return User based on email
  */
 async function getUserByEmail(email: string): Promise<User | null> {
     const userCollection = await getUserCollection();
     return userCollection.findOne({ email: email });
 };
 
+/**
+ * Updates User of email's password to the newPassword
+ * @param email {string} Email to find User from
+ * @param newPassword {string} new password to update User's password to
+ * @returns The User with their password updated
+ */
 async function updateUserPassword(email: string, newPassword: string): Promise<User | null> {
   const userCollection = await getUserCollection();
 
@@ -78,7 +93,10 @@ async function updateUserPassword(email: string, newPassword: string): Promise<U
  * @param valuesToUpdate {Object} The pairs of keys and values to update for the 
  * given User of _id ObjectId(userId)
  */
-async function updateUserMembersById(userId: string, valuesToUpdate: MatchKeysAndValues<User>) {
+async function updateUserMembersById(
+  userId: string, 
+  valuesToUpdate: MatchKeysAndValues<User>
+) {
   const userCollection = await getUserCollection();
   await userCollection.findOneAndUpdate(
     { _id: new ObjectId(userId) },
