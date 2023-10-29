@@ -1,7 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import { getUserByEmail, User } from "../models/User";
+
 require('dotenv').config();
 
 const router = express.Router();
@@ -10,8 +12,8 @@ const secretKey = process.env.JWT_SECRET as string;
 // Middleware
 // Middleware to authenticate an access token given with a request
 const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+    const authHeader: string | undefined = req.headers["authorization"];
+    const token: string | undefined = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
         return res.json({
