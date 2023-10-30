@@ -5,6 +5,7 @@ import loginRoute from './routes/authRoute';
 import userRoutes from './routes/userRoute';
 import passwordResetRoute from './routes/passwordResetRoute';
 import confirmResetPassword from './routes/confirmResetPassword';
+import articleRoute from './routes/articleRoute'
 
 dotenv.config();
 
@@ -23,6 +24,8 @@ app.use('/api/auth', loginRoute);
 app.use('/api/users', userRoutes);
 app.use('/api/request-password-reset', passwordResetRoute);
 app.use('/api/confirm-password-reset', confirmResetPassword);
+app.use('/api/article', articleRoute);
+
 
 app.listen(PORT, () => {
     console.log(`Local news web app server starting on port ${PORT}`)
