@@ -9,9 +9,10 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:uid', async (req, res) => {
-    const article = getArticleByID(req.params.uid)
+    const id = req.params.uid
+    const article = await getArticleByID(id)
     if (article == null) {
-        return res.status(500).json({ message: 'Internal Server Error' })
+        return res.status(500).json({ message: 'Article Not Found' })
     }
     res.status(201).json(article)
 })

@@ -1,8 +1,9 @@
 import { ArticleTag } from "../types/ArticleTag"
 import { ArticleImage } from "./ArticleImage"
+import { ObjectId } from "mongodb"
 
 interface Article {
-    _id?: string
+    _id?: string | ObjectId
     tags: (ArticleTag)[]
     source: string
     // For scraped articles, indicates the url of the original article

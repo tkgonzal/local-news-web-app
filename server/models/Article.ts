@@ -25,7 +25,7 @@ async function getArticlesByTag(tag: ArticleTag): Promise<FindCursor<Article> | 
 
 async function getArticleByID(id: string): Promise<Article | null> {
     const articleCollection = await getArticleCollection()
-    return articleCollection.findOne<Article>({_id:id})
+    return articleCollection.findOne<Article>({_id: new ObjectId(id)})
   };
 
 async function createArticle(article: Article): Promise<Article | null> {
