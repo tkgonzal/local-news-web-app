@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUserByEmail, User } from "../models/User";
+import { getArticleByID, createArticle } from "../models/Article";
 require('dotenv').config();
 
 const router = express.Router();
@@ -9,7 +9,11 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:uid', async (req, res) => {
-    
+    const article = getArticleByID(req.params.uid)
+    if (article == null) {
+        return res.status(500).json({ message: 'Internal Server Error' })
+    }
+    res.status(201).json(article)
 })
 
 router.post('/:uid', async (req, res) => {
