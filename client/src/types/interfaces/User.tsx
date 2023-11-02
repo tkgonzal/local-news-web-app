@@ -20,6 +20,7 @@ interface User {
     // For Business Accounts, Indicates whether or not the account should receive
     // an email about new comment notifcation
     receivesCommentNotifications?: boolean
+    notes?: string
 }
 
 export type { User }

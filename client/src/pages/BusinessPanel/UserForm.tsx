@@ -11,22 +11,35 @@ import Permission from "../../types/enums/Permission"
 import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
 
+// Constants 
+const MIN_NAME_LEN: number = 2
+const MAX_NAME_LEN: number = 30
+
 // Form that allows for the creation of new Users or editing of existing ones
 const UserForm: React.FC = () => {
-    const { register, handleSubmit, setValue, watch } = useForm<UserInput>()
+    const { register, 
+        handleSubmit, 
+        setValue, 
+        watch, 
+        formState: { errors } 
+    } = useForm<UserInput>()
     const formNavigate = useNavigate()
     const { userId } = useParams()
     const [isNewUser] = useState<boolean>(userId === "new")
 
-    const addUser: SubmitHandler<UserInput> = data => console.log(data)
-
+    
     // Side effects
     // Use effect to control the content of the react quill notes editor 
     useEffect(() => {
         register("notes", { required: true })
     }, [register])
-
+    
     // Event Handlers
+    // Form Submit Handler, attempts to either add or update user
+    const submitUser: SubmitHandler<UserInput> = data => {
+        console.log(data)
+    }
+
     /**
      * onChange handler for ReactQuill element
      * @param editorState The state of the react quill input
@@ -51,7 +64,7 @@ const UserForm: React.FC = () => {
         <BusinessPanelPage>
             <form
                 className="business-panel--form business-panel--user-form" 
-                onSubmit={handleSubmit(addUser)}
+                onSubmit={handleSubmit(submitUser)}
             >
                 <div className="business-panel--page-header">
                     <h1>{isNewUser ? "NEW" : "EDIT"} USER</h1>
@@ -74,18 +87,52 @@ const UserForm: React.FC = () => {
                         <label htmlFor="firstName">First Name</label>
                         <input 
                             {...register(
-                                "firstName", { required: "Required" }
+                                "firstName", 
+                                { 
+                                    required: "User must have a first name",
+                                    minLength: {
+                                        value: MIN_NAME_LEN,
+                                        message: `First name must be at least ${MIN_NAME_LEN} characters long`
+                                    },
+                                    maxLength: {
+                                        value: MAX_NAME_LEN,
+                                        message: `First name must be no more than ${MAX_NAME_LEN} characters long`
+                                    }
+                                }
                             )}
                         />
                     </span>
+                    {errors.firstName && 
+                        <span className="error-message">
+                            {errors.firstName.message}
+                        </span>
+                    }
+
                     <span className="business-panel--input">
                         <label htmlFor="lastName">Last Name</label>
                         <input 
                             {...register(
-                                "lastName", { required: "Required" }
+                                "lastName", 
+                                { 
+                                    required: "User must have last name",
+                                    minLength: {
+                                        value: MIN_NAME_LEN,
+                                        message: `Last name must be at least ${MIN_NAME_LEN} characters long`
+                                    },
+                                    maxLength: {
+                                        value: MAX_NAME_LEN,
+                                        message: `Last name must be no more than ${MAX_NAME_LEN} characters long`
+                                    }
+                                }
                             )}
                         />
                     </span>
+                    {errors.lastName && 
+                        <span className="error-message">
+                            {errors.lastName.message}
+                        </span>
+                    }
+
                     <span className="business-panel--input">
                         <label htmlFor="email">Email</label>
                         <input
