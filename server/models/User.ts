@@ -24,6 +24,7 @@ interface User {
   // For Business Accounts, Indicates whether or not the account should receive
   // an email about new comment notifcation
   receivesCommentNotifications?: boolean;
+  notes?: string;
 }
 
 /**
@@ -98,6 +99,7 @@ async function updateUserMembersById(
   valuesToUpdate: MatchKeysAndValues<User>
 ) {
   const userCollection = await getUserCollection();
+
   await userCollection.findOneAndUpdate(
     { _id: new ObjectId(userId) },
     { $set: valuesToUpdate }

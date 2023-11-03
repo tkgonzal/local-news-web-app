@@ -2,13 +2,14 @@ import { useState, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useParams, useNavigate } from "react-router-dom"
 
+import { useUserContext } from "../../contexts/UserContext"
+
 import axios from "axios"
 import Cookies from "js-cookie"
 
 import ReactQuill from "react-quill"
 import BusinessPanelPage from "./BusinessPanelPage"
 
-import { User } from "../../types/interfaces/User"
 import { UserInput } from "../../types/interfaces/BusinessPanel/UserInput"
 import Permission from "../../types/enums/Permission"
 
@@ -28,6 +29,7 @@ const UserForm: React.FC = () => {
         setError,
         formState: { errors } 
     } = useForm<UserInput>()
+    const { user } = useUserContext()
     const formNavigate = useNavigate()
     const { userId } = useParams()
     const [isNewUser] = useState<boolean>(userId === "new")
@@ -56,25 +58,33 @@ const UserForm: React.FC = () => {
                 )
 
                 const { userByEmail } = emailResponse.data
-                
+
                 if (userByEmail) {
                     if (userByEmail.accType === "Business" || userByEmail.businessId !== "") {
                         setError("email", {
                             type: "manual",
                             message: `Email is either already associated with a business or a business account, cannot be added`
                         })
-                    } else {
 
+                        return 
+                    } else {
+                        submitUserValues(userByEmail._id, data)
                     }
                 } else {
                     setError("email", {
                         type: "manual",
                         message: `No user by email of ${data.email} exists`
                     })
+
+                    return
                 }
             }
+
+            alert(`User successfully ${isNewUser ? "added": "updated"}`)
+            formNavigate("/business/users")
         } catch (error: any) {
             console.log(error)
+            alert("An error occured while make changes to user")
         }
     }
 
@@ -94,6 +104,36 @@ const UserForm: React.FC = () => {
     const cancelFormChanges: React.FormEventHandler = (event: React.FormEvent) => {
         event.preventDefault()
         formNavigate("/business/users")
+    }
+
+    // Utility Functions
+    const submitUserValues = async (id: string, data: UserInput) => {
+        await axios.put(`${import.meta.env.VITE_SERVER_URL}/api/users/id/${id}`,
+            {
+                "userId": id,
+                "userValues": {
+                    "name": {
+                        "first": data.firstName,
+                        "last": data.lastName 
+                    },
+                    "email": data.email,
+                    "phone": data.phoneNumber,
+                    "businessId": user?.accType === "Business" ? 
+                        user._id : user?.businessId,
+                    "businessName": user?.businessName,
+                    "businessWebsite": user?.businessWebsite,
+                    "articlePermissions": Permission[data.articlePermissions],
+                    "userPermissions": Permission[data.userPermissions],
+                    "hasDisabledLogin": data.disableLogin,
+                    "notes": data.notes
+                }
+            },
+            {
+                "headers": {
+                    "Authorization": `Bearer ${Cookies.get("access_token")}`
+                }
+            }
+        )
     }
 
     const richTextEditorContent = watch("notes")
@@ -199,8 +239,8 @@ const UserForm: React.FC = () => {
                                 { 
                                     required: "Phone Number is required",
                                     pattern: {
-                                        value: /(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}/,
-                                        message: "Phone Number must be in format (XXX)XXX-XXX or XXX-XXX-XXXX"
+                                        value: /^(((\([0-9]{3}\)|([0-9]{3}-))[0-9]{3}-[0-9]{4})|[0-9]{10})$/,
+                                        message: "Phone Number must be in format (XXX)XXX-XXX, XXX-XXX-XXXX, XXXXXXXXXX"
                                     }
 
                                 }
@@ -226,9 +266,9 @@ const UserForm: React.FC = () => {
                         <select 
                             {...register("articlePermissions", { required: true })}
                         >
-                            <option value={Permission.READ_ONLY}>Read Only</option>
-                            <option value={Permission.WRITE}>Write</option>
-                            <option value={Permission.DELETE}>Delete</option>
+                            <option value={"READ_ONLY"}>Read Only</option>
+                            <option value={"WRITE"}>Write</option>
+                            <option value={"DELETE"}>Delete</option>
                         </select>
                     </div>
 
@@ -237,9 +277,9 @@ const UserForm: React.FC = () => {
                         <select 
                             {...register("userPermissions", { required: true })}
                         >
-                            <option value={Permission.READ_ONLY}>Read Only</option>
-                            <option value={Permission.WRITE}>Write</option>
-                            <option value={Permission.DELETE}>Delete</option>
+                            <option value={"READ_ONLY"}>Read Only</option>
+                            <option value={"WRITE"}>Write</option>
+                            <option value={"DELETE"}>Delete</option>
                         </select>
                     </div>
                 </div>

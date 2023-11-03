@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
-import { createUser, getUserByEmail, User } from "../models/User";
+import { createUser, getUserByEmail, updateUserMembersById, User } from "../models/User";
 import { authenticateToken } from "./authRoute";
 import Permission from "../types/enums/Permission";
 
@@ -76,5 +76,20 @@ router.post("/email", authenticateToken, async (req, res) => {
         });
     }
 });
+
+// Endpoint to update a user's (found based on _id) values
+router.put("/id/:userId", authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { userValues } = req.body;
+        
+        updateUserMembersById(userId, userValues);
+    } catch (error: any) {
+        console.log(`Error updating user by id`);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+})
 
 export default router;
