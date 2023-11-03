@@ -22,7 +22,8 @@ const MAX_NAME_LEN: number = 30
 
 // Form that allows for the creation of new Users or editing of existing ones
 const UserForm: React.FC = () => {
-    const { register, 
+    const { 
+        register, 
         handleSubmit, 
         setValue, 
         watch,
