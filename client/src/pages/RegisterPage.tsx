@@ -15,7 +15,7 @@ const RegisterPage: React.FC = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        accType: 'user',
+        accType: 'User',
         businessName: '',
         businessWebsite: '',
         mobileNumber: '',

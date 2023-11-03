@@ -44,7 +44,7 @@ const UserForm: React.FC = () => {
     const submitUser: SubmitHandler<UserInput> = async data => {
         try {
             if (isNewUser) {
-                const userInfo: User = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/email`,
+                const emailResponse = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/email`,
                     {
                         "email": data.email
                     },
@@ -55,7 +55,23 @@ const UserForm: React.FC = () => {
                     }
                 )
 
-                console.log(userInfo)
+                const { userByEmail } = emailResponse.data
+                
+                if (userByEmail) {
+                    if (userByEmail.accType === "Business" || userByEmail.businessId !== "") {
+                        setError("email", {
+                            type: "manual",
+                            message: `Email is either already associated with a business or a business account, cannot be added`
+                        })
+                    } else {
+
+                    }
+                } else {
+                    setError("email", {
+                        type: "manual",
+                        message: `No user by email of ${data.email} exists`
+                    })
+                }
             }
         } catch (error: any) {
             console.log(error)
