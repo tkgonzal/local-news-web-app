@@ -58,14 +58,12 @@ router.post("/email", authenticateToken, async (req, res) => {
         const userByEmail: User | null = await getUserByEmail(email);
         
         if (userByEmail) {
-            res.json({
-                status: 200,
+            res.status(200).json({
                 message: `User for email ${email} found`,
-                data: { ...userByEmail, password: undefined }
+                userByEmail: { ...userByEmail, password: undefined }
             });
         } else {
-            res.json({
-                status: 201,
+            res.status(201).json({
                 message: `No user for email ${email} found`,
                 data: null
             });

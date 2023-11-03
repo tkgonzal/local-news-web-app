@@ -36,7 +36,7 @@ const UserForm: React.FC = () => {
     // Side effects
     // Use effect to control the content of the react quill notes editor 
     useEffect(() => {
-        register("notes", { required: true })
+        register("notes")
     }, [register])
     
     // Event Handlers
@@ -44,7 +44,10 @@ const UserForm: React.FC = () => {
     const submitUser: SubmitHandler<UserInput> = async data => {
         try {
             if (isNewUser) {
-                const userInfo: User = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/users/email/${data.email}`,
+                const userInfo: User = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/email`,
+                    {
+                        "email": data.email
+                    },
                     {
                         "headers": {
                             "Authorization": `Bearer ${Cookies.get("access_token")}`
@@ -54,9 +57,8 @@ const UserForm: React.FC = () => {
 
                 console.log(userInfo)
             }
-            console.log(data)
         } catch (error: any) {
-
+            console.log(error)
         }
     }
 
@@ -122,7 +124,8 @@ const UserForm: React.FC = () => {
                             )}
                         />
                     </span>
-                    {errors.firstName && 
+                    {
+                        errors.firstName && 
                         <span className="error-message">
                             {errors.firstName.message}
                         </span>
@@ -147,7 +150,8 @@ const UserForm: React.FC = () => {
                             )}
                         />
                     </span>
-                    {errors.lastName && 
+                    {
+                        errors.lastName && 
                         <span className="error-message">
                             {errors.lastName.message}
                         </span>
@@ -158,22 +162,41 @@ const UserForm: React.FC = () => {
                         <input
                             type="email"
                             {...register(
-                                "email", { required: "Required" }
+                                "email", { 
+                                    required: "User email is required" 
+                                }
                             )}
                         />
                     </span>
+                    {
+                        errors.email &&
+                        <span className="error-message">
+                            {errors.email.message}
+                        </span>
+                    }
+
                     <span className="business-panel--input">
                         <label htmlFor="phoneNumber">Mobile Phone Number</label>
                         <input
                             {...register(
                                 "phoneNumber", 
                                 { 
-                                    required: "Required",
-                                    pattern: /(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}/
+                                    required: "Phone Number is required",
+                                    pattern: {
+                                        value: /(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}/,
+                                        message: "Phone Number must be in format (XXX)XXX-XXX or XXX-XXX-XXXX"
+                                    }
+
                                 }
                             )}
                         />
                     </span>
+                    {
+                        errors.phoneNumber &&
+                        <span className="error-message">
+                            {errors.phoneNumber.message}
+                        </span>
+                    }
 
                     {/* User Permissions */}
                     <h2>User Permissions</h2>
