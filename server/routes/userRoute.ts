@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
 import { createUser, getUserByEmail, User } from "../models/User";
+import { authenticateToken } from "./authRoute";
 import Permission from "../types/enums/Permission";
 
 require('dotenv').config();
@@ -47,6 +48,34 @@ router.post('/register', async (req, res) => {
     catch (error) {
         console.error('Error creating user:', error);
         res.status(500).send('Internal Server Error');
+    }
+});
+
+// Endpoint to retrieve a user by their email
+router.post("/email", authenticateToken, async (req, res) => {
+    try {
+        const { email } = req.body;
+        const userByEmail: User | null = await getUserByEmail(email);
+        
+        if (userByEmail) {
+            res.json({
+                status: 200,
+                message: `User for email ${email} found`,
+                data: { ...userByEmail, password: undefined }
+            });
+        } else {
+            res.json({
+                status: 201,
+                message: `No user for email ${email} found`,
+                data: null
+            });
+        }
+    } catch (error: any) {
+        console.log("Error finding user by email");
+        res.json({
+            status: 500,
+            message: "Internal Server Error"
+        });
     }
 });
 

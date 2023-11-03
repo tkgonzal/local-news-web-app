@@ -2,9 +2,13 @@ import { useState, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useParams, useNavigate } from "react-router-dom"
 
+import axios from "axios"
+import Cookies from "js-cookie"
+
 import ReactQuill from "react-quill"
 import BusinessPanelPage from "./BusinessPanelPage"
 
+import { User } from "../../types/interfaces/User"
 import { UserInput } from "../../types/interfaces/BusinessPanel/UserInput"
 import Permission from "../../types/enums/Permission"
 
@@ -20,7 +24,8 @@ const UserForm: React.FC = () => {
     const { register, 
         handleSubmit, 
         setValue, 
-        watch, 
+        watch,
+        setError,
         formState: { errors } 
     } = useForm<UserInput>()
     const formNavigate = useNavigate()
@@ -36,8 +41,23 @@ const UserForm: React.FC = () => {
     
     // Event Handlers
     // Form Submit Handler, attempts to either add or update user
-    const submitUser: SubmitHandler<UserInput> = data => {
-        console.log(data)
+    const submitUser: SubmitHandler<UserInput> = async data => {
+        try {
+            if (isNewUser) {
+                const userInfo: User = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/users/email/${data.email}`,
+                    {
+                        "headers": {
+                            "Authorization": `Bearer ${Cookies.get("access_token")}`
+                        }
+                    }
+                )
+
+                console.log(userInfo)
+            }
+            console.log(data)
+        } catch (error: any) {
+
+        }
     }
 
     /**
