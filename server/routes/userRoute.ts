@@ -90,6 +90,6 @@ router.put("/id/:userId", authenticateToken, async (req, res) => {
             message: "Internal Server Error"
         });
     }
-})
+});
 
 export default router;

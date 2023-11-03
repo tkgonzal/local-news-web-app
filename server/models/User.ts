@@ -1,4 +1,4 @@
-import { Collection, MatchKeysAndValues, ObjectId } from 'mongodb';
+import { Collection, FindCursor, MatchKeysAndValues, ObjectId, WithId } from 'mongodb';
 
 import { connectToDatabase } from '../config/db';
 
@@ -38,6 +38,21 @@ async function getUserCollection(): Promise<Collection<User>> {
   }
   return db.collection<User>("User");
 };
+
+/**
+ * @param businessId {string} The businessId to search for
+ * @returns The array of all users associated with the businessId
+ */
+async function getUsersForBusinessId(businessId: string): Promise<WithId<User>[]> {
+  const users = await getUserCollection();
+  const businessObjectId: ObjectId = new ObjectId(businessId);
+
+  const usersForBusiness = await users.find(
+    { $or: [{ _id: businessObjectId }, { businessId }]}
+  );
+
+  return usersForBusiness.toArray();
+}
 
 /**
  * @param user {User} A User to insert into the collection
@@ -110,6 +125,7 @@ export {
   User, 
   createUser, 
   getUserByEmail, 
+  getUsersForBusinessId,
   getUserCollection, 
   updateUserPassword, 
   updateUserMembersById 
