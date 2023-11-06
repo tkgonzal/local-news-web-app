@@ -41,6 +41,12 @@ const UserForm: React.FC = () => {
     useEffect(() => {
         register("notes")
     }, [register])
+
+    useEffect(() => {
+        if (!isNewUser) {
+            
+        }
+    }, [userId])
     
     // Event Handlers
     // Form Submit Handler, attempts to either add or update user

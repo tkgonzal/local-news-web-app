@@ -2,7 +2,12 @@ import express from "express";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
-import { createUser, getUserByEmail, updateUserMembersById, User } from "../models/User";
+import { createUser, 
+    getUserByEmail,
+    getUserById,
+    updateUserMembersById, 
+    User 
+} from "../models/User";
 import { authenticateToken } from "./authRoute";
 import Permission from "../types/enums/Permission";
 
@@ -10,6 +15,32 @@ require('dotenv').config();
 
 const router = express.Router();
 const secretKey = process.env.JWT_SECRET as string;
+
+// Retrieves the information of a user of a given id
+router.get("/id/:userId", authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await getUserById(userId);
+
+        if (user) {
+            res.status(200).json({
+                message: "User succesfully retrieved",
+                user: {...user, password: undefined}
+            });
+        } else {
+            res.status(201).json({
+                message: `No user for id ${userId} found`,
+                user: null 
+            });
+        }
+    } catch (error: any) {
+        console.log("Error occurred while retrieving user", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred while retrieving user",
+            error
+        });
+    }
+});
 
 // Registers users to the app
 router.post('/register', async (req, res) => {

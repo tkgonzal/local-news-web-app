@@ -82,6 +82,15 @@ async function getUserByEmail(email: string): Promise<User | null> {
 };
 
 /**
+ * @param id {string} The id of a user
+ * @returns Either the user based on the id or null if the user doesn't exist
+ */
+async function getUserById(id: string): Promise<User | null> {
+  const userCollection = await getUserCollection();
+  return userCollection.findOne({_id: new ObjectId(id)});
+}
+
+/**
  * Updates User of email's password to the newPassword
  * @param email {string} Email to find User from
  * @param newPassword {string} new password to update User's password to
@@ -124,7 +133,8 @@ async function updateUserMembersById(
 export { 
   User, 
   createUser, 
-  getUserByEmail, 
+  getUserByEmail,
+  getUserById,
   getUsersForBusinessId,
   getUserCollection, 
   updateUserPassword, 
