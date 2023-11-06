@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { NavigateFunction, useNavigate } from "react-router-dom"
+import { NavigateFunction, useNavigate, useLocation } from "react-router-dom"
 
 import { useUserContext } from "../../contexts/UserContext"
 
@@ -18,6 +18,7 @@ import { User } from "../../types/interfaces/User"
 const UsersTable: React.FC = () => {
     const { user } = useUserContext()
     const [businessUsers, setBusinessUsers] = useState<User[]>([])
+    const location = useLocation()
     const formNavigate: NavigateFunction = useNavigate()
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const UsersTable: React.FC = () => {
 
         getUsersForBusinsess()
 
-    }, [user])
+    }, [user, location])
 
     // Event Handlers
     // Event handler to navigate the user to the new user form
