@@ -11,6 +11,7 @@ import ArticleForm from "./pages/BusinessPanel/ArticleForm"
 import UsersTable from "./pages/BusinessPanel/UsersTable"
 import UserForm from "./pages/BusinessPanel/UserForm"
 import BusinessSettings from "./pages/BusinessPanel/BusinessSettings"
+import ArticlePage from "./pages/ArticlePage"
 import SubscribePage from "./pages/SubscribePage"
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
@@ -74,7 +75,7 @@ function App() : JSX.Element {
         <Route path="/news/crime" element={<NewsSubPage articles={ArticleTestData} category = {'CRIME'}/>}/>
         <Route path="/news/government" element={<NewsSubPage articles={ArticleTestData} category = {'GOVERNMENT'}/>}/>
         <Route path="/news/education" element={<NewsSubPage articles={ArticleTestData} category = {'EDUCATION'}/>}/>
-        <Route path="/article/:articleId" element={<Error />}/>
+        <Route path="/article/:articleUID" element={<ArticlePage />}/>
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/register" element={<RegisterPage />}/>
         <Route path="/reset-password" element={<ResetPassword />}/>
