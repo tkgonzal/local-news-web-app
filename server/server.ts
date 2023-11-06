@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, NextFunction, Application } from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import loginRoute, { authenticateToken } from './routes/authRoute';
@@ -19,17 +19,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
   
-app.get('/', (req: Request, res: Response) => {
-    res.send('API is running SMOOOOOTHLY');
-});
+// app.get('/', (req: Request, res: Response) => {
+//     res.send('API is running SMOOOOOTHLY');
+// });
 
 // Login/Authentication Endpoints
 app.use('/api/auth', loginRoute);
-app.use('/api/users', userRoutes);
 app.use('/api/request-password-reset', passwordResetRoute);
 app.use('/api/confirm-password-reset', confirmResetPassword);
+// User Endpoints
+app.use('/api/users', userRoutes);
 // Business Endpoints
 app.use("/api/business", authenticateToken, businessRoute);
+// Article endpoints
 app.use('/api/article', articleRoute);
 app.use('/api/articles', articlesRoute);
 
