@@ -25,12 +25,12 @@ router.get("/id/:userId", authenticateToken, async (req, res) => {
         if (user) {
             res.status(200).json({
                 message: "User succesfully retrieved",
-                user: {...user, password: undefined}
+                userById: {...user, password: undefined}
             });
         } else {
             res.status(201).json({
                 message: `No user for id ${userId} found`,
-                user: null 
+                userById: null 
             });
         }
     } catch (error: any) {

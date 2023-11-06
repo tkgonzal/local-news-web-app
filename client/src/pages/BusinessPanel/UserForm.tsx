@@ -19,6 +19,23 @@ import "./BusinessForm.css"
 // Constants 
 const MIN_NAME_LEN: number = 2
 const MAX_NAME_LEN: number = 30
+const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
+
+// Utility Functions
+/**
+ * @param permission {Permission} A permission set for the user's permissions
+ * @returns A string literal value to use for the permissions drop down
+ */
+const convertPermissionToStringLiteral = (permission: Permission): 
+    "READ_ONLY" | "WRITE" | "DELETE" => {
+    if (permission === Permission.READ_ONLY) {
+        return "READ_ONLY"
+    } else if (permission === Permission.WRITE) {
+        return "WRITE"
+    } else {
+        return "DELETE"
+    }
+}
 
 // Form that allows for the creation of new Users or editing of existing ones
 const UserForm: React.FC = () => {
@@ -43,8 +60,37 @@ const UserForm: React.FC = () => {
     }, [register])
 
     useEffect(() => {
+        // Helper function for filling in the form with existing user data if
+        // editing an existing user
+        const fillInFormForUser = async () => {
+            const userResponse = await axios.get(`${BASE_SERVER_URL}/api/users/id/${userId}`,
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${Cookies.get("access_token")}`
+                    }
+                }
+            )
+
+            const { userById } = userResponse.data
+
+            if (userById) {
+                setValue("firstName", userById.name.first)
+                setValue("lastName", userById.name.last)
+                setValue("email", userById.email)
+                setValue("phoneNumber", userById.phone)
+                setValue("disableLogin", userById.hasDisabledLogin)
+                setValue("articlePermissions", 
+                    convertPermissionToStringLiteral(userById.articlePermissions)
+                )
+                setValue("userPermissions", 
+                    convertPermissionToStringLiteral(userById.userPermissions)
+                )
+                userById.notes && setValue("notes", userById.notes)
+            }
+        }
+
         if (!isNewUser) {
-            
+            fillInFormForUser()
         }
     }, [userId])
     
@@ -53,7 +99,7 @@ const UserForm: React.FC = () => {
     const submitUser: SubmitHandler<UserInput> = async data => {
         try {
             if (isNewUser) {
-                const emailResponse = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/email`,
+                const emailResponse = await axios.post(`${BASE_SERVER_URL}/api/users/email`,
                     {
                         "email": data.email
                     },
@@ -85,6 +131,11 @@ const UserForm: React.FC = () => {
 
                     return
                 }
+            } else if (userId) {
+                submitUserValues(userId, data)
+            } else {
+                alert(`No valid user id for form could be found. Returning to users table`)
+                formNavigate("/business/users")
             }
 
             alert(`User successfully ${isNewUser ? "added": "updated"}`)
@@ -115,7 +166,7 @@ const UserForm: React.FC = () => {
 
     // Utility Functions
     const submitUserValues = async (id: string, data: UserInput) => {
-        await axios.put(`${import.meta.env.VITE_SERVER_URL}/api/users/id/${id}`,
+        await axios.put(`${BASE_SERVER_URL}/api/users/id/${id}`,
             {
                 "userId": id,
                 "userValues": {
