@@ -201,3 +201,9 @@ button:active {
 .inverse-button {
     width: 100%;
 }
+
+.pseudo-link {
+    color: #0066cc;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -99,12 +99,12 @@ return (
                             <input type="checkbox" name="remember-me" id="remember-me" />
                             <p>Remember me</p>
                         </div>
-                        <a href='' onClick={() => navigate("/reset-password")}>Forgot Password?</a>
+                        <span className="pseudo-link" onClick={() => navigate("/reset-password")}>Forgot Password?</span>
                     </div>
                     <button type='submit' className='login-btn btn'>Sign In</button>
                 </form>
                 <div>
-                    <p>Don't have an account? <a href='' onClick={() => navigate("/register")}>Create one</a></p>
+                    <p>Don't have an account? <span className="pseudo-link" onClick={() => navigate("/register")}>Create one</span></p>
                 </div>
                 <div className='footer'>
                     <p className='footer-links'><strong>PRIVACY POLICY</strong></p>
