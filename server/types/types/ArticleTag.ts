@@ -12,4 +12,4 @@ type SectionTags =
 
 type ArticleTag = SectionTags | SportsArticleTag
 
-export type { ArticleTag }
+export type { ArticleTag, SectionTags }
