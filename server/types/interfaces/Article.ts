@@ -3,7 +3,7 @@ import { ArticleImage } from "./ArticleImage"
 import { ObjectId } from "mongodb"
 
 interface Article {
-    _id?: string | ObjectId
+    _id?: ObjectId
     tags: (ArticleTag)[]
     source: string
     // For scraped articles, indicates the url of the original article
