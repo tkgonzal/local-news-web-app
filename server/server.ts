@@ -6,6 +6,9 @@ import userRoutes from './routes/userRoute';
 import passwordResetRoute from './routes/passwordResetRoute';
 import confirmResetPassword from './routes/confirmResetPassword';
 import businessRoute from "./routes/business";
+import articleRoute from './routes/articleRoute'
+import articlesRoute from './routes/articlesRoute'
+
 
 dotenv.config();
 
@@ -27,6 +30,9 @@ app.use('/api/request-password-reset', passwordResetRoute);
 app.use('/api/confirm-password-reset', confirmResetPassword);
 // Business Endpoints
 app.use("/api/business", authenticateToken, businessRoute);
+app.use('/api/article', articleRoute);
+app.use('/api/articles', articlesRoute);
+
 
 app.listen(PORT, () => {
     console.log(`Local news web app server starting on port ${PORT}`)
