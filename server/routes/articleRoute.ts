@@ -5,7 +5,7 @@ require('dotenv').config();
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    res.status(400).json({ message: 'Specify an article with api/article/:uid or use api/articles' })
+    res.status(400).json({ message: 'Specify an article with api/article/:uid or use api/articles to get all' })
 })
 
 router.get('/:uid', async (req, res) => {
