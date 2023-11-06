@@ -5,7 +5,7 @@ import Permission from "../enums/Permission";
 import { UserAccountType } from "../types/UserAccountType";
 
 interface User {
-    _id?: string | null | ObjectId;
+    _id?: ObjectId;
     name?: Name;
     password: string;
     email: string;
