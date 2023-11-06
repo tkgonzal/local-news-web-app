@@ -1,0 +1,5 @@
+.page-container {
+    width: calc(100% - 350px - 4rem);
+    padding: 1rem 2rem 0rem 0rem;
+    padding-left: calc(350px + 2rem);
+}
