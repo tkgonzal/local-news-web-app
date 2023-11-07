@@ -76,10 +76,9 @@ const ArticlePage: React.FC = () => {
             {body}
         </div>
         <div className='more-news'>
-            <h2 className="home--latest-header">LATEST HEADLINES</h2>
-            <HeadlineColumn articleThumbnails={articleThumbnails}/>
-            <h2 className="home--more-news">MORE NEWS</h2>
+            <h2 className="home--more-news">MORE NEWS: {articleObj?.tags[0].toUpperCase()} </h2>
             <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
+            <HeadlineColumn articleThumbnails={articleThumbnails}/>
         </div>
     </main>
     )
