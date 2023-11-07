@@ -1,62 +1,75 @@
 import { Article } from "../types/interfaces/Article"
-import { ArticleImage } from "../types/interfaces/ArticleImage"
-
-import testImageUrl from "./assets/article-test-image.jpg"
-
-const testImage: ArticleImage =  {
-    url: testImageUrl,
-    caption: "The album cover of Jeff Rosenstock's Worry, used as a test image"
-}
+import testImage from "./assets/article-test-image.jpg"
 
 const ArticleTestData : Article[] = [
     {
         _id: "1",
-        source: "Test Data",
-        tags: ["Breaking News", "Local News"],
         heading: "test article 1",
+        images: [{
+            url: testImage,
+            caption: "test caption"
+        }],
         subHeading: "this is the 1st test article",
-        authors: ["author 1", "author 2", "author 3"],
-        publishedDate: "2023-10-26T21:31:38.461Z",
-        body: ["this is the body of article 1"],
-        images: [testImage],
+        source: "monews",
+        authors: ["author 1"],
+        publishedDate: "October 1, 2023",
+        body: [
+            "this is the body of article 1"
+        ],
         engagements: 0,
+        tags: ["Breaking News", "Local News"]
     },
     {
         _id: "2",
-        source: "Test Data",
-        tags: ["Government", "Local News"],
         heading: "test article 2",
+        images: [{
+            url: testImage,
+            caption: "test caption"
+        }],
         subHeading: "this is the 2nd test article",
+        source: "monews",
         authors: ["author 2"],
-        publishedDate: "2023-10-26T21:31:38.461Z",
-        body: ["asdfasdfasdffff"],
-        images: [testImage],
+        publishedDate: "October 1, 2023",
+        body: [
+            "this is the body of article 2"
+        ],
         engagements: 0,
+        tags: ["Government", "Local News"]
     },
     {
         _id: "3",
-        source: "Test Data",
-        tags: ["Sports"],
         heading: "test article 3",
+        images: [{
+            url: testImage,
+            caption: "test caption"
+        }],
         subHeading: "this is the 3rd test article",
+        source: "monews",
         authors: ["author 3"],
-        publishedDate: "2023-10-26T21:31:38.461Z",
-        body: ["12331423123412"],
-        images: [testImage],
+        publishedDate: "October 1, 2023",
+        body: [
+            "this is the body of article 3"
+        ],
         engagements: 0,
+        tags: ["Sports"]
     },
     {
         _id: "4",
-        source: "Test Data",
-        tags: ["Crime"],
         heading: "test article 4",
+        images: [{
+            url: testImage,
+            caption: "test caption"
+        }],
         subHeading: "this is the 4th test article",
+        source: "monews",
         authors: ["author 4"],
-        publishedDate: "2023-10-26T21:31:38.461Z",
-        body: ["October 4, 2023"],
-        images: [testImage],
+        publishedDate: "October 1, 2023",
+        body: [
+            "this is the body of article 4"
+        ],
         engagements: 0,
-    }
+        tags: ["Crime"]
+    },
 ]
 
 export default ArticleTestData

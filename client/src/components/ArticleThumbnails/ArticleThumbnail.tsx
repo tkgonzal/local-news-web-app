@@ -2,6 +2,7 @@ import { useNavigate, NavigateFunction } from "react-router-dom"
 
 import { Article } from "../../types/interfaces/Article"
 import { ArticleImage } from "../../types/interfaces/ArticleImage"
+import formattedDate from "../../utils/formattedDate"
 
 import "./ArticleThumbnail.css"
 
@@ -19,10 +20,10 @@ const dateStringOptions: Intl.DateTimeFormatOptions = {
 // Component to display on News Pages, which shows thumbnails of articles to 
 // display in each's carousel. Mean to be used for three article carousels
 const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
-    const articleNavigate: NavigateFunction = useNavigate();
+    const articleNavigate: NavigateFunction = useNavigate()
 
     const navigateToArticle = (): void => {
-        articleNavigate(`/article/${article._id}`);
+        articleNavigate(`/article/${article._id}`)
     }
 
     const mainArticleImage: ArticleImage = article.images[0]
@@ -38,7 +39,7 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
             <img
                 className="article-thumbnail--img"
                 src={mainArticleImage.url}
-                alt={mainArticleImage.caption} 
+                alt={article.heading} 
             />
             <div className="article-thumbnail--metadata">
                 <div className="article-thumbnail--headings-div">
@@ -51,6 +52,7 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
                 </div>
                 <p className="article-thumbnail--author">{authorsText}</p>
                 <p className="article-thumbnail--date">{dateString}</p>
+                <p className="article-thumbnail--date">{formattedDate(article)}</p>
                 <p className="article-thumbnail--body">
                     {article.body.length && article.body[0]}
                 </p>

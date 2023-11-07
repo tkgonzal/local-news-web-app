@@ -1,15 +1,30 @@
-// Types denoting the different types of valid article types
-import { SportsArticleTag } from "./SportsArticleTag"
-
-
-type SectionTags = 
-    "Breaking News" | 
-    "Local News" | 
-    "Crime" | 
-    "Government" | 
-    "Education" | 
+const SectionTags = [
+    "Breaking News",
+    "Local News",
+    "Crime",
+    "Government",
+    "Education" ,
     "Sports"
+]
+type SectionTag =  typeof SectionTags[number]
 
-type ArticleTag = SectionTags | SportsArticleTag
+// Types denoting the different types of valid sports article types
+const SportsArticleTags = [
+    "Soccer",
+    "Basketball",
+    "Tennis",
+    "Football",
+    "Golf",
+    "Fishing"
+]
+type SportsArticleTag =  typeof SportsArticleTags[number]
 
-export type { ArticleTag, SectionTags }
+
+type ArticleTag = SectionTag | SportsArticleTag
+
+function isArticleTag(value: string): value is ArticleTag {
+    return SectionTags.includes(value) || SportsArticleTags.includes(value)
+}
+
+export type { ArticleTag, SectionTag, SectionTags, SportsArticleTag, SportsArticleTags }
+export { isArticleTag }
