@@ -4,6 +4,10 @@ import { useUserContext } from "../../contexts/UserContext"
 
 import { User } from "../../types/interfaces/User"
 import { Article } from "../../types/interfaces/Article"
+import Permission from "../../types/enums/Permission"
+
+import axios from "axios"
+import Cookies from "js-cookie"
 
 import {
     hasUserEditPermissions,
@@ -19,12 +23,19 @@ import TrashIcon from "/assets/BusinessPanel/trash.svg"
 
 import "./PanelTable.css"
 
+// Types
 type TableType = "User" | "Article"
 
 interface Props {
     tableType: TableType
     tableContents: User[] | Article[]
+    // state setter from usePanelTableState hook, used for re-retrieving
+    // data from db after deleting
+    setShouldRefresh?: React.Dispatch<React.SetStateAction<boolean>>
 }
+
+// Constants
+const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
 
 // Table Utils
 /**
@@ -92,7 +103,11 @@ const isBusinessAccount = (userRowData: User | Article): boolean => {
 
 // Table to display either users or articles for a Business as well as their
 // actions the business can take on each one
-const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
+const PanelTable: React.FC<Props> = ({ 
+    tableType, 
+    tableContents, 
+    setShouldRefresh 
+}) => {
     const { user } = useUserContext()
     const tableNavigate: NavigateFunction = useNavigate()
 
@@ -110,8 +125,44 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
     ]
 
     // Event Handlers
+    /**
+     * @param id Opens the form for the corressponding Article or User based
+     * on its id
+     */
     const openEntryForm = (id: string | null | undefined) => {
         tableNavigate(`/business/${tableType.toLowerCase()}s/form/${id}`)
+    }
+
+    /**
+     * Deletes a user from a business by reseting their relevant user values
+     * related to the business panel
+     * @param id {string} The id for a User 
+     */
+    const deleteUserFromBusiness = async (id: string | null | undefined) => {
+        try {
+            axios.put(`${BASE_SERVER_URL}/api/users/id/${id}`,
+                {
+                    "userId": id,
+                    "userValues": {
+                        "businessId": "",
+                        "businessName": "",
+                        "businessWebsite": "",
+                        "articlePermission": Permission.READ_ONLY,
+                        "userPermission": Permission.READ_ONLY
+                    }
+                },
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${Cookies.get("access_token")}`
+                    }
+                }
+            )
+        } catch (error: any) {
+            console.log("Error occurred deleting user: ", error)
+            alert("Error occurred while deleting user")
+        }
+        alert("User successfully deleted from business")
+        setShouldRefresh && setShouldRefresh(true)
     }
 
     let tableHeaderNames = tableType == "Article" ? 
@@ -164,7 +215,14 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                         hasDeletePermissions && 
                         (tableType === "User" && isBusinessAccount(row) ?
                             hasBusinessAdminPermissions(user) : true) && 
-                        <button className="business-panel--table-button">
+                        <button 
+                            className="business-panel--table-button"
+                            onClick={
+                                tableType === "User" ? 
+                                () => deleteUserFromBusiness(row._id) :
+                                () => console.log("This is for articles")
+                            }
+                        >
                             <img src={TrashIcon} alt="Trash Button" />
                         </button>
                     }

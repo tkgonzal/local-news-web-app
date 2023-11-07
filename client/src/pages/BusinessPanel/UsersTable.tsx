@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { NavigateFunction, useNavigate, useLocation } from "react-router-dom"
-
-import { useUserContext } from "../../contexts/UserContext"
+import { NavigateFunction, useNavigate } from "react-router-dom"
 
 import axios from "axios"
 import Cookies from "js-cookie"
+
+import usePanelTableState from "../../hooks/usePanelTableState"
 
 import BusinessPanelPage from "./BusinessPanelPage"
 import PanelTable from "../../components/BusinessPanel/PanelTable"
@@ -16,14 +16,13 @@ import { User } from "../../types/interfaces/User"
 // Page to display the users of a business as well as actions one may take on 
 // them
 const UsersTable: React.FC = () => {
-    const { user } = useUserContext()
+    const { user, location, shouldRefresh, setShouldRefresh } = usePanelTableState()
     const [businessUsers, setBusinessUsers] = useState<User[]>([])
-    const location = useLocation()
     const formNavigate: NavigateFunction = useNavigate()
 
     useEffect(() => {
         // Helper Function for getting users for a business
-        const getUsersForBusinsess = async () => {
+        const getUserForBusiness = async () => {
             if (user) {
                 const businessId = user.accType === "Business" ? user._id : user?.businessId
         
@@ -37,12 +36,13 @@ const UsersTable: React.FC = () => {
     
                 const { users } = businessUsersResponse.data
                 setBusinessUsers(users)
+                setShouldRefresh(false)
             }
         }
 
-        getUsersForBusinsess()
+        getUserForBusiness()
 
-    }, [user, location])
+    }, [user, location, shouldRefresh])
 
     // Event Handlers
     // Event handler to navigate the user to the new user form
@@ -59,7 +59,11 @@ const UsersTable: React.FC = () => {
                     <button onClick={makeNewUser}>+ New User</button>
                 </div>
 
-                <PanelTable tableType="User" tableContents={businessUsers}/>
+                <PanelTable 
+                    tableType="User" 
+                    tableContents={businessUsers}
+                    setShouldRefresh={setShouldRefresh}
+                />
             </>
         </BusinessPanelPage>
     )

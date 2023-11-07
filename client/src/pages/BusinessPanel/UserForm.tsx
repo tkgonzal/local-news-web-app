@@ -165,6 +165,12 @@ const UserForm: React.FC = () => {
     }
 
     // Utility Functions
+    /**
+     * Submits the values to update for the user of a given id
+     * @param id {string} The id for a user
+     * @param data {UserInput} The data to reference when updating the user's 
+     * values
+     */
     const submitUserValues = async (id: string, data: UserInput) => {
         await axios.put(`${BASE_SERVER_URL}/api/users/id/${id}`,
             {
