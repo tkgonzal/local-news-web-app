@@ -3,7 +3,7 @@ import { Article, formattedDate } from '../types/interfaces/Article'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import HeadlineBulletPoints from '../components/BreakingNews/HeadlineBulletPoints';
-import HeadlineColumn from '../components/BreakingNews/HeadlineBulletPoints';
+import HeadlineColumn from '../components/BreakingNews/HeadlineColumn';
 import ArticleThumbnail from '../components/ArticleThumbnails/ArticleThumbnail';
 
 import './ArticlePage.css'
