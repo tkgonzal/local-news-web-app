@@ -10,9 +10,19 @@ import { ArticleInput } from "../../types/interfaces/BusinessPanel/ArticleInput"
 // import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
 
+// Constants 
+const MIN_TEXT_LEN: number = 2
+const MAX_TEXT_LEN: number = 100
+
 // Page component that allows users to create new articles or edit existing ones
 const ArticleForm: React.FC = () => {
-    const { register, handleSubmit, setValue, watch } = useForm<ArticleInput>()
+    const { 
+        register, 
+        handleSubmit, 
+        setValue, 
+        watch,
+        formState: { errors }
+    } = useForm<ArticleInput>()
     const formNavigate = useNavigate()
     const { articleId } = useParams()
     const [isNewArticle] = useState<boolean>(articleId === "new")
@@ -22,7 +32,7 @@ const ArticleForm: React.FC = () => {
     // Side Effects
     // Use effect to control the content of the react quill content editor
     useEffect(() => {
-        register("content", { required: true })
+        register("content", { required: "Articles must have content" })
     }, [register])
 
     // Event handlers
@@ -75,29 +85,79 @@ const ArticleForm: React.FC = () => {
                             <label htmlFor="heading">Heading</label>
                             <input 
                                 {...register(
-                                    "heading", { required: "Required" }
+                                    "heading", 
+                                    { 
+                                        required: "Article must have a heading",
+                                        minLength: {
+                                            value: MIN_TEXT_LEN,
+                                            message: `Heading must be at least ${MIN_TEXT_LEN} characters long`
+                                        },
+                                        maxLength: {
+                                            value: MAX_TEXT_LEN,
+                                            message: `Heading must be no more than ${MAX_TEXT_LEN} characters long`
+                                        }
+                                    }
                                 )}
                             />
                         </span>
+                        {
+                            errors.heading &&
+                            <span className="error-message">
+                                {errors.heading.message}
+                            </span>
+                        }
 
                         <span className="business-panel--input">
                             <label htmlFor="subHeading">Sub-Heading</label>
                             <input 
                                 {...register(
                                     
-                                    "subHeading", { required: "Required" }
+                                    "subHeading", 
+                                    { 
+                                        minLength: {
+                                            value: MIN_TEXT_LEN,
+                                            message: `Subheading must be at least ${MIN_TEXT_LEN} characters long`
+                                        },
+                                        maxLength: {
+                                            value: MAX_TEXT_LEN,
+                                            message: `Subheading must be no more than ${MAX_TEXT_LEN} characters long`
+                                        }
+                                    }
                                 )}
                             />
                         </span>
+                        {
+                            errors.subHeading &&
+                            <span className="error-message">
+                                {errors.subHeading.message}
+                            </span>
+                        }
 
                         <span className="business-panel--input">
                             <label htmlFor="author">Author</label>
                             <input 
                                 {...register(
-                                    "author", { required: "Required" }
+                                    "author", 
+                                    { 
+                                        required: "Articles are required to have an author",
+                                        minLength: {
+                                            value: MIN_TEXT_LEN,
+                                            message: `Authors for articles must be at least ${MIN_TEXT_LEN} characters long`
+                                        },
+                                        maxLength: {
+                                            value: MAX_TEXT_LEN,
+                                            message: `Authors for article must be no more than ${MAX_TEXT_LEN} characters long`
+                                        }
+                                    }
                                 )}
                             />
                         </span>
+                        {
+                            errors.author &&
+                            <span className="error-message">
+                                {errors.author.message}
+                            </span>
+                        }
                     </div>
 
                     {/* Article Form Comment Settings */}
@@ -126,6 +186,12 @@ const ArticleForm: React.FC = () => {
                          business-panel--article-editor`
                     }
                 >
+                    {
+                        errors.content &&
+                        <span className="error-message">
+                            {errors.content.message}
+                        </span>
+                    }
                     <div className="business-panel--rte-container">
                         <ReactQuill 
                             theme="snow"
