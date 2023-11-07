@@ -59,6 +59,8 @@ const UserForm: React.FC = () => {
         register("notes")
     }, [register])
 
+    // If the form is being used to edit an existing user, fills the form with 
+    // the user's existing information
     useEffect(() => {
         // Helper function for filling in the form with existing user data if
         // editing an existing user
