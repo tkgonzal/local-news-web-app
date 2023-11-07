@@ -16,7 +16,7 @@ const NewsPage: React.FC<Props> = ({ articles }) => {
 
     const articleThumbnails: JSX.Element[] = articles.slice(1).map(
         (article: Article) => 
-            <ArticleThumbnail key={article.id} article={article} />
+            <ArticleThumbnail key={article._id} article={article} />
     )
 
     return (

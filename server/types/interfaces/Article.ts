@@ -8,14 +8,14 @@ interface Article {
     source: string
     // For scraped articles, indicates the url of the original article
     sourceUrl?: ""
-    authors: string[]
-    images: ArticleImage[]
     heading: string
-    subHeading?: string
-    engagements?: number
+    authors: string[]
     // String must be in Date ISO format
     publishedDate: string
+    images: ArticleImage[]
     body: string[] | string
+    subHeading?: string
+    engagements?: number
 }
 
 export type { Article }

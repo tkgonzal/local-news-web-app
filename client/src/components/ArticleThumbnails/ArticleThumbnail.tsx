@@ -1,6 +1,7 @@
 import { useNavigate, NavigateFunction } from "react-router-dom"
 
 import { Article } from "../../types/interfaces/Article"
+import formattedDate from "../../utils/formattedDate"
 
 import "./ArticleThumbnail.css"
 
@@ -15,7 +16,7 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
     const articleNavigate: NavigateFunction = useNavigate();
 
     const navigateToArticle = (): void => {
-        articleNavigate(`/article/${article.id}`);
+        articleNavigate(`/article/${article._id}`);
     }
 
     return (
@@ -25,7 +26,7 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
         >
             <img
                 className="article-thumbnail--img"
-                src={article.imgSrc}
+                src={article.images[0].url}
                 alt={article.heading} 
             />
             <div className="article-thumbnail--metadata">
@@ -37,8 +38,8 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
                         {article.subHeading}
                     </h3>
                 </div>
-                <p className="article-thumbnail--author">{article.author}</p>
-                <p className="article-thumbnail--date">{article.date}</p>
+                <p className="article-thumbnail--author">{article.authors}</p>
+                <p className="article-thumbnail--date">{formattedDate(article)}</p>
                 <p className="article-thumbnail--body">
                     {article.body.length && article.body[0]}
                 </p>
