@@ -78,6 +78,27 @@ const checkForDeletePermissions =
         || (tableType === "Article" && hasArticleDeletePermissions(user)))
 }
 
+/**
+ * @param userRowData {User} The data for a User to be rendered on a row in
+ * the table. Only set to User | Article for typescript compilation
+ * @returns {boolean} Whether or not the account is for a business account
+ */
+const isBusinessAccount = (userRowData: User | Article): boolean => {
+    // If the user is pulled for table but has a blank business id, then their
+    // business id is their own id and they are a business account
+    return (userRowData as User).businessId === ""
+}
+
+/**
+ * @param user {User} A user, generally meant to be the user logged in and 
+ * stored by the userContext
+ * @returns {boolean | null} Whether or not the current user as business admin
+ * permissions to edit a business account
+ */
+const hasBusinessAdminPermissions = (user: User | null): boolean | null => {
+    return user && user.businessId === ""
+}
+
 // Table to display either users or articles for a Business as well as their
 // actions the business can take on each one
 const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
@@ -139,6 +160,8 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     }
                     {
                         hasEditPermissions &&
+                        (tableType === "User" && isBusinessAccount(row) ?
+                            hasBusinessAdminPermissions(user) : true) && 
                         <button
                             className="business-panel--table-button"
                             onClick={() => openEntryForm(row._id)}
@@ -148,6 +171,8 @@ const PanelTable: React.FC<Props> = ({ tableType, tableContents }) => {
                     }
                     {
                         hasDeletePermissions && 
+                        (tableType === "User" && isBusinessAccount(row) ?
+                            hasBusinessAdminPermissions(user) : true) && 
                         <button className="business-panel--table-button">
                             <img src={TrashIcon} alt="Trash Button" />
                         </button>
