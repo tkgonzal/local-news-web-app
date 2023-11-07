@@ -38,9 +38,20 @@ const hasArticleDeletePermissions = (user: User) => {
     return (user.articlePermissions as Permission) === Permission.DELETE
 }
 
+/**
+ * @param user {User} A user, generally meant to be the user logged in and 
+ * stored by the userContext
+ * @returns {boolean | null} Whether or not the current user as business admin
+ * permissions to edit a business account
+ */
+const hasBusinessAdminPermissions = (user: User | null): boolean | null => {
+    return user && user.businessId === ""
+}
+
 export {
     hasUserEditPermissions,
     hasUserDeletePermissions,
     hasArticleEditPermissions,
-    hasArticleDeletePermissions
+    hasArticleDeletePermissions,
+    hasBusinessAdminPermissions
 }

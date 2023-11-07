@@ -9,7 +9,8 @@ import {
     hasUserEditPermissions,
     hasUserDeletePermissions,
     hasArticleEditPermissions,
-    hasArticleDeletePermissions
+    hasArticleDeletePermissions,
+    hasBusinessAdminPermissions
 } from "../../utils/permissionsUtils"
 
 import ReadIcon from "/assets/BusinessPanel/book.svg"
@@ -87,16 +88,6 @@ const isBusinessAccount = (userRowData: User | Article): boolean => {
     // If the user is pulled for table but has a blank business id, then their
     // business id is their own id and they are a business account
     return (userRowData as User).businessId === ""
-}
-
-/**
- * @param user {User} A user, generally meant to be the user logged in and 
- * stored by the userContext
- * @returns {boolean | null} Whether or not the current user as business admin
- * permissions to edit a business account
- */
-const hasBusinessAdminPermissions = (user: User | null): boolean | null => {
-    return user && user.businessId === ""
 }
 
 // Table to display either users or articles for a Business as well as their
