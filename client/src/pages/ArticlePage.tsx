@@ -5,6 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 import HeadlineBulletPoints from '../components/BreakingNews/HeadlineBulletPoints';
 import HeadlineColumn from '../components/BreakingNews/HeadlineColumn';
 import ArticleThumbnail from '../components/ArticleThumbnails/ArticleThumbnail';
+import titleCase from '../utils/titleCase';
 
 import './ArticlePage.css'
 
@@ -12,12 +13,6 @@ const ArticlePage: React.FC = () => {
     const [articleObj, setArticleObj] = useState<Article>()
     const [recommendedArticles, setRecommendedArticles] = useState<Article[]>([])
     const { articleUID } = useParams()
-    
-    function titleCase(str: string) {
-        let title = str.toLowerCase().split(' ');
-        title = title.map((word)=>word.charAt(0).toLocaleUpperCase() + word.slice(1))
-        return title.join(' ');
-      }
 
     useEffect(()=>{
         (async () => {
