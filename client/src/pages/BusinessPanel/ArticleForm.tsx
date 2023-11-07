@@ -27,7 +27,8 @@ const ArticleForm: React.FC = () => {
     const { articleId } = useParams()
     const [isNewArticle] = useState<boolean>(articleId === "new")
 
-    const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
+    const richTextEditorContent = watch("content")
+    const allowCommentsWatch = watch("allowComments")
 
     // Side Effects
     // Use effect to control the content of the react quill content editor
@@ -35,7 +36,17 @@ const ArticleForm: React.FC = () => {
         register("content", { required: "Articles must have content" })
     }, [register])
 
+    // If allow comments is set to false, then the allow anonymous comments
+    // checkbox is set to false and also disabled
+    useEffect(() => {
+        if (!allowCommentsWatch) {
+            setValue("allowAnonymousComments", false)
+        }
+    }, [allowCommentsWatch])
+
     // Event handlers
+    const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
+
     /**
      * onChange handler for ReactQuill element
      * @param editorState The state of the react quill input
@@ -53,8 +64,6 @@ const ArticleForm: React.FC = () => {
         event.preventDefault()
         formNavigate("/business/users")
     }
-
-    const richTextEditorContent = watch("content")
 
     return (
         <BusinessPanelPage>
@@ -169,10 +178,15 @@ const ArticleForm: React.FC = () => {
                         </span>
                         <span className="business-panel--checkbox-span">
                             <input
+                                disabled={!allowCommentsWatch}
                                 type="checkbox"
                                 {...register("allowAnonymousComments")}
                             />
-                            <label htmlFor="allowAnonymousComments">
+                            <label 
+                                className={`${
+                                    !allowCommentsWatch && "disabled"
+                                }`}
+                                htmlFor="allowAnonymousComments">
                                 Allow Anonymous Comments
                             </label>
                         </span>

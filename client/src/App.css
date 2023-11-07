@@ -4,6 +4,10 @@
     padding-left: calc(350px + 2rem);
 }
 
+.disabled {
+    color: var(--secondary-text-color, gray);
+}
+
 button, .logo {
     cursor: pointer;
 }
