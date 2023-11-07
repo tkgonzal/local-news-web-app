@@ -1,6 +1,7 @@
 import { useNavigate, NavigateFunction } from "react-router-dom"
 
-import { Article, formattedDate } from "../../types/interfaces/Article"
+import { Article } from "../../types/interfaces/Article"
+import formattedDate from "../../utils/formattedDate"
 
 import "./ArticleThumbnail.css"
 

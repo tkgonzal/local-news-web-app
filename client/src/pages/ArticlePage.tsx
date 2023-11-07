@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Article, formattedDate } from '../types/interfaces/Article'
+import { Article } from '../types/interfaces/Article'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import HeadlineBulletPoints from '../components/BreakingNews/HeadlineBulletPoints';
 import HeadlineColumn from '../components/BreakingNews/HeadlineColumn';
 import ArticleThumbnail from '../components/ArticleThumbnails/ArticleThumbnail';
 import titleCase from '../utils/titleCase';
+import formattedDate from '../utils/formattedDate'
 
 import './ArticlePage.css'
 
