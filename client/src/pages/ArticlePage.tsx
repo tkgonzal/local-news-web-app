@@ -1,34 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import {Article} from '../../../server/models/Article'
+import { Article, formattedDate } from '../types/interfaces/Article'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
+import HeadlineBulletPoints from '../components/BreakingNews/HeadlineBulletPoints';
+import HeadlineColumn from '../components/BreakingNews/HeadlineBulletPoints';
+import ArticleThumbnail from '../components/ArticleThumbnails/ArticleThumbnail';
 
 import './ArticlePage.css'
 
 const ArticlePage: React.FC = () => {
     const [articleObj, setArticleObj] = useState<Article>()
+    const [recommendedArticles, setRecommendedArticles] = useState<Article[]>([])
     const { articleUID } = useParams()
     
-    function formatDate(dateString: string) {
-        const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-        const timeOptions:Intl.DateTimeFormatOptions = {hour12: true, hour: 'numeric', minute: '2-digit' };
-        
-        const date = new Date(dateString);
-        const formattedDate = date.toLocaleDateString('en-US', options).toUpperCase();
-        const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
-      
-        return `${formattedDate} ${formattedTime}`;
-      }
     function titleCase(str: string) {
         let title = str.toLowerCase().split(' ');
         title = title.map((word)=>word.charAt(0).toLocaleUpperCase() + word.slice(1))
         return title.join(' ');
       }
-    
+
     useEffect(()=>{
         (async () => {
             try {
-                
                 const article : AxiosResponse<Article> = await axios.get<Article>(`${import.meta.env.VITE_SERVER_URL}/api/article/${articleUID}`)
                 setArticleObj(article.data)
             } catch (err) {
@@ -36,6 +29,26 @@ const ArticlePage: React.FC = () => {
             }
         })()
     },[articleUID])
+
+    useEffect(()=>{
+        if (articleObj == undefined) {return}
+        (async () => {
+            try {
+                const response : AxiosResponse<Article[]> = await axios.get<Article[]>(`${import.meta.env.VITE_SERVER_URL}/api/articles`,{
+                    params: {
+                        tag: articleObj?.tags[0]
+                    }
+                })
+                
+                const articles = response.data.filter((article)=>{
+                    return article._id != articleObj._id
+                })
+                setRecommendedArticles(articles)
+            } catch (err) {
+                console.log(err)
+            }
+        })()
+    },[articleObj])
 
     if (articleObj == undefined) {
         return (<>
@@ -46,18 +59,27 @@ const ArticlePage: React.FC = () => {
     const mainImage = articleObj.images[0]
     const body = typeof articleObj.body == "string" ? <p>{articleObj.body}</p> : articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
 
+    const articleThumbnails = [<ArticleThumbnail key={articleObj._id?.toString()} className="main-article" article={articleObj}/>].concat(
+        recommendedArticles.map((article)=><ArticleThumbnail key={article._id?.toString()} article={article}/>)
+    )
+
+    
+
     return (
     <main className='page-container'>
         <div className='article'>
             <h1 className="article--header">{titleCase(articleObj.heading)}</h1>
             <h5 className="article--author">BY {articleObj.authors.map((author)=>author.toUpperCase()).join(",")}</h5>
-            <h5 className="article--date">{formatDate(articleObj.publishedDate)}</h5>
+            <h5 className="article--date">{formattedDate(articleObj)}</h5>
             <img src={mainImage.url} />
             <h5 className='image--caption'>{mainImage.caption}</h5>
             {body}
         </div>
         <div className='more-news'>
-            <h4 className="article--date">More News</h4>
+            <h2 className="home--latest-header">LATEST HEADLINES</h2>
+            <HeadlineColumn articleThumbnails={articleThumbnails}/>
+            <h2 className="home--more-news">MORE NEWS</h2>
+            <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
         </div>
     </main>
     )
