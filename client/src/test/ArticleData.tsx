@@ -1,10 +1,9 @@
 import { Article } from "../types/interfaces/Article"
-import { ObjectId } from "../../../server/models/Article"
 import testImage from "./assets/article-test-image.jpg"
 
 const ArticleTestData : Article[] = [
     {
-        _id: new ObjectId("1"),
+        _id: "1",
         heading: "test article 1",
         images: [{
             url: testImage,
@@ -21,7 +20,7 @@ const ArticleTestData : Article[] = [
         tags: ["Breaking News", "Local News"]
     },
     {
-        _id: new ObjectId("2"),
+        _id: "2",
         heading: "test article 2",
         images: [{
             url: testImage,
@@ -38,7 +37,7 @@ const ArticleTestData : Article[] = [
         tags: ["Government", "Local News"]
     },
     {
-        _id: new ObjectId("3"),
+        _id: "3",
         heading: "test article 3",
         images: [{
             url: testImage,
@@ -55,7 +54,7 @@ const ArticleTestData : Article[] = [
         tags: ["Sports"]
     },
     {
-        _id: new ObjectId("4"),
+        _id: "4",
         heading: "test article 4",
         images: [{
             url: testImage,

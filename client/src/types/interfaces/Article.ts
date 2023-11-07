@@ -1,5 +1,7 @@
-import { Article } from "../../../../server/models/Article"
-
+import { Article as backendArticle } from "../../../../server/models/Article"
+interface Article extends Omit<backendArticle,"_id"> {
+    _id: string
+}
 function formattedDate(article: Article) {
     const dateString = article.publishedDate
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -11,6 +13,8 @@ function formattedDate(article: Article) {
   
     return `${formattedDate} ${formattedTime}`;
   }
+
+
 
 export type { Article }
 export { formattedDate }
