@@ -1,11 +1,19 @@
 import express from "express";
 import { Article, getArticles, getArticlesByTag } from "../models/Article";
+import { isArticleTag } from "../types/types/ArticleTag";
 require('dotenv').config();
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const { tag } = req.body
+    const { tag } = req.query
+    if (typeof tag !== "string") {
+        return res.status(400).json({ message: 'Invalid Tag Type' })
+    }
+    if (!isArticleTag(tag)) {
+        return res.status(400).json({ message: 'Invalid Article Type' })
+    }
+
     let cursor;
     if (tag) {
         cursor = await getArticlesByTag(tag)
