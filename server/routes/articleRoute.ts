@@ -1,5 +1,9 @@
 import express from "express";
-import { getArticleByID, createArticle } from "../models/Article";
+
+import { Article, getArticleByID, createArticle } from "../models/Article";
+
+import { authenticateToken } from "./authRoute";
+
 require('dotenv').config();
 
 const router = express.Router();
@@ -17,8 +21,43 @@ router.get('/:uid', async (req, res) => {
     res.status(201).json(article)
 })
 
+// Endpoint to add a new article to the DB. Should only be called on from the
+// client
+router.post("/new", authenticateToken, async (req, res) => {
+    try {
+        const { articleData } = req.body;
+
+        const newArticle: Article = {
+            tags: ["Local News"],
+            source: articleData.source,
+            heading: articleData.heading,
+            authors: articleData.authors,
+            subHeading: articleData.subheading || undefined,
+            engagements: 0,
+            body: articleData.body,
+            publishedDate: (new Date()).toISOString(),
+            businessId: articleData.businessId,
+            allowComments: articleData.allowComments || false,
+            allowAnonymousComments: articleData.allowAnonymousComments || false,
+            images: []
+        };
+
+        await createArticle(newArticle);
+
+        res.status(200).json({
+            message: "Article succesfully created"
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            message: "Internal Server Error Occurred Adding New Article",
+            error
+        });      
+    }
+});
+
 router.post('/:uid', async (req, res) => {
 
 })
+
 
 export default router;

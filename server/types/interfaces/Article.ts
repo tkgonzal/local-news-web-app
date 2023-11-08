@@ -15,7 +15,10 @@ interface Article {
     images: ArticleImage[]
     body: string[] | string
     subHeading?: string
-    engagements?: number
+    engagements?: number,
+    businessId?: ObjectId,
+    allowComments?: boolean,
+    allowAnonymousComments?: boolean,
 }
 
 export type { Article }
