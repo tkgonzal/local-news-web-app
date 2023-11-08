@@ -2,10 +2,16 @@ import { useState, useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useParams, useNavigate } from "react-router-dom"
 
+import { useUserContext } from "../../contexts/UserContext"
+
 import ReactQuill from "react-quill"
 import BusinessPanelPage from "./BusinessPanelPage"
 
+import axios from "axios"
+import Cookies from "js-cookie"
+
 import { ArticleInput } from "../../types/interfaces/BusinessPanel/ArticleInput"
+import { ArticleRequestData } from "../../types/interfaces/BusinessPanel/ArticleRequestData"
 
 // import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
@@ -13,6 +19,7 @@ import "./BusinessForm.css"
 // Constants 
 const MIN_TEXT_LEN: number = 2
 const MAX_TEXT_LEN: number = 100
+const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL 
 
 // Page component that allows users to create new articles or edit existing ones
 const ArticleForm: React.FC = () => {
@@ -23,6 +30,7 @@ const ArticleForm: React.FC = () => {
         watch,
         formState: { errors }
     } = useForm<ArticleInput>()
+    const { user } = useUserContext()
     const formNavigate = useNavigate()
     const { articleId } = useParams()
     const [isNewArticle] = useState<boolean>(articleId === "new")
@@ -45,7 +53,30 @@ const ArticleForm: React.FC = () => {
     }, [allowCommentsWatch])
 
     // Event handlers
-    const submitArticle: SubmitHandler<ArticleInput> = data => console.log(data)
+    // The event handler for submitting the form.
+    const submitArticle: SubmitHandler<ArticleInput> = async data => {
+        try {
+            const articleRequestData: ArticleRequestData = {
+                "source": "MoNews",
+                "heading": data.heading,
+                "subHeading": data.subHeading || undefined,
+                "body": data.content,
+                "businessId": user?.businessId || user?._id,
+                "allowComments": data.allowComments,
+                "allowAnonymousComments": data.allowAnonymousComments,
+                "authors": [data.author]
+            }
+
+            if (isNewArticle) {
+                await submitNewArticle(articleRequestData)
+            }
+
+            alert(`Article was successfully ${isNewArticle ? "posted": "updated"}`)
+        } catch (error: any) {
+            console.log("Error occurred while submitting Article", error)
+            alert("An error occurred while submitting the article")
+        }
+    }
 
     /**
      * onChange handler for ReactQuill element
@@ -63,6 +94,20 @@ const ArticleForm: React.FC = () => {
     const cancelFormChanges: React.FormEventHandler = (event: React.FormEvent) => {
         event.preventDefault()
         formNavigate("/business/users")
+    }
+
+    // Utility Functions
+    const submitNewArticle = async (article: ArticleRequestData) => {
+        axios.post(`${BASE_SERVER_URL}/api/article/new`,
+            {
+                "articleData": article
+            },
+            {
+                "headers": {
+                    "Authorization": `Bearer ${Cookies.get("access_token")}`
+                }
+            }
+        )
     }
 
     return (
