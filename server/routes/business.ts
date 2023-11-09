@@ -2,7 +2,7 @@ import express from "express";
 
 import { 
     updateUserMembersById,
-    getUsersForBusinessId
+    getUsersByBusinessId
 } from "../models/User";
 
 import {
@@ -17,7 +17,7 @@ const router = express.Router();
 router.get("/users/:businessId", async (req, res) => {
     try {
         const { businessId } = req.params;
-        const users = await getUsersForBusinessId(businessId);
+        const users = await getUsersByBusinessId(businessId);
 
         res.status(200).json({
             message: "Users for business succesfully found",

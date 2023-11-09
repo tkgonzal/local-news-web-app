@@ -13,7 +13,7 @@ interface User {
     accType: UserAccountType;
     // For non-Business User accounts, indicates the _id of 
     // a Business User account they're associated with
-    businessId?: string;
+    businessId?: ObjectId;
     businessName?: string;
     businessWebsite?: string;
     articlePermissions?: Permission;

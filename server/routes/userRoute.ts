@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 
 import { createUser, 
     getUserByEmail,
@@ -63,7 +64,7 @@ router.post('/register', async (req, res) => {
             password: hashedPassword,
             phone: userData.mobileNumber,
             accType: userData.accType,
-            businessId: "",
+            businessId: undefined,
             businessName: userData.businessName,
             businessWebsite: userData.businessWebsite,
             articlePermissions: userData.accType === "Business" ?
@@ -117,8 +118,16 @@ router.put("/id/:userId", authenticateToken, async (req, res) => {
     try {
         const { userId } = req.params;
         const { userValues } = req.body;
+
+        // Converts businessId to an ObjectId for the puprposes of the update
+        // function
+        const filteredValuesToUpdate = {
+            ...userValues,
+            businessId: userValues["businessId"] ? 
+              new ObjectId(userValues["businessId"]) : undefined
+        }
         
-        updateUserMembersById(userId, userValues);
+        updateUserMembersById(userId, filteredValuesToUpdate);
     } catch (error: any) {
         console.log(`Error updating user by id`);
         res.status(500).json({
