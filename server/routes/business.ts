@@ -44,7 +44,7 @@ router.get("/articles/:businessId", async (req, res) => {
 
         res.status(200).json({
             message: "Articles succesfully retrieved",
-            businessArticles
+            articles: businessArticles
         });
     } catch (error: any) {
         console.log(

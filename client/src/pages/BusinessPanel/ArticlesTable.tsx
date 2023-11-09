@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react"
 import { NavigateFunction, useNavigate } from "react-router-dom"
 
+import axios from "axios"
+import Cookies from "js-cookie"
+
 import usePanelTableState from "../../hooks/usePanelTableState"
 
 import BusinessPanelPage from "./BusinessPanelPage"
@@ -26,7 +29,7 @@ const ArticlesTable: React.FC = () => {
             if (user) {
                 const businessId = user.businessId || user._id
 
-                // const businessArticlesResponse
+                const businessArticlesResponse = axios.get()
             }
         }
     }, [user, location, shouldRefresh])
