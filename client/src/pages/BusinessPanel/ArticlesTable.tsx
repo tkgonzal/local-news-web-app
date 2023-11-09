@@ -43,11 +43,11 @@ const ArticlesTable: React.FC = () => {
 
                 const { articles } = businessArticlesResponse.data
                 setBusinessArticles(articles)
+                setShouldRefresh(false)
             }
         }
 
         getArticlesForBusiness()
-        setShouldRefresh(false)
     }, [user, location, shouldRefresh])
 
     // Event handlers

@@ -115,7 +115,7 @@ const UserForm: React.FC = () => {
                 const { userByEmail } = emailResponse.data
 
                 if (userByEmail) {
-                    if (userByEmail.accType === "Business" || userByEmail.businessId !== "") {
+                    if (userByEmail.accType === "Business" || userByEmail.businessId) {
                         setError("email", {
                             type: "manual",
                             message: `Email is either already associated with a business or a business account, cannot be added`
