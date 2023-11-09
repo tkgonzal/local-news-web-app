@@ -15,7 +15,8 @@ const BusinessPanelPage: React.FC<Props> = ({ children }) => {
     const { user } = useUserContext()
 
     const userHasBusinessPanelPermissions: boolean | null = user && 
-        (user.accType === "Business" || user.businessId !== null)
+        (user.accType === "Business" || 
+         ("businessId" in user && user.businessId !== null))
 
     return (
         <main className="business-panel">
