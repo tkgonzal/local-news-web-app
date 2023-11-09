@@ -28,12 +28,12 @@ async function getArticleByID(id: string): Promise<Article | null> {
     return articleCollection.findOne<Article>({_id: new ObjectId(id)})
   };
 
-  /**
-   * @param businessId {string} The string representing the ObjectId for a 
-   * business
-   * @returns A promise meant to return an array of all Article objects that 
-   * match the provided businessId
-   */
+/**
+ * @param businessId {string} The string representing the ObjectId for a 
+ * business
+ * @returns A promise meant to return an array of all Article objects that 
+ * match the provided businessId
+ */
 async function getArticlesByBusinessId(businessId: string): Promise<WithId<Article>[]> {
   const articles = await getArticleCollection();
   const businessObjectId: ObjectId = new ObjectId(businessId);
@@ -55,11 +55,25 @@ async function createArticle(article: Article): Promise<Article | null> {
         }
   };
 
+/**
+ * Deletes an article from the collection based on a given articleId
+ * @param articleId {string} The articleId of the article to delete as a string
+ */
+async function deleteArticle(articleId: string) {
+  const articleCollection = await getArticleCollection();
+
+  const articleObjectId: ObjectId = new ObjectId(articleId);
+
+  const result = await articleCollection.deleteOne({ _id: articleObjectId });
+  console.log(result);
+}
+
 export {
   Article, 
   getArticles, 
   getArticlesByTag, 
   getArticleByID, 
   getArticlesByBusinessId,
-  createArticle
+  createArticle,
+  deleteArticle
 }

@@ -1,6 +1,11 @@
 import express from "express";
 
-import { Article, getArticleByID, createArticle } from "../models/Article";
+import { 
+    Article, 
+    getArticleByID, 
+    createArticle, 
+    deleteArticle 
+} from "../models/Article";
 
 import { authenticateToken } from "./authRoute";
 
@@ -58,6 +63,24 @@ router.post("/new", authenticateToken, async (req, res) => {
 router.post('/:uid', async (req, res) => {
 
 })
+
+router.delete("/:articleId", authenticateToken, async (req, res) => {
+    try {
+        const { articleId } = req.params;
+
+        await deleteArticle(articleId);
+
+        res.status(200).json({
+            message: "Successfully deleted article"
+        });
+    } catch (error: any) {
+        console.log("An error occurred deleting the article", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred Adding New Article",
+            error
+        });
+    }
+});
 
 
 export default router;
