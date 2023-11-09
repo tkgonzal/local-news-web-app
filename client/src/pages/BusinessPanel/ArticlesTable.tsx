@@ -13,6 +13,9 @@ import { Article } from "../../types/interfaces/Article"
 
 // import ArticleTestData from "../../test/ArticleData"
 
+// Constants
+const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
+
 // Page used for dashboard, displaying a business's articles and options
 // to edit/delete them or make new ones
 const ArticlesTable: React.FC = () => {
@@ -29,9 +32,22 @@ const ArticlesTable: React.FC = () => {
             if (user) {
                 const businessId = user.businessId || user._id
 
-                const businessArticlesResponse = axios.get()
+                const businessArticlesResponse = await axios.get(
+                    `${BASE_SERVER_URL}/api/business/articles/${businessId}`,
+                    {
+                        "headers": {
+                            "Authorization": `Bearer ${Cookies.get("access_token")}`
+                        }
+                    }
+                )
+
+                const { articles } = businessArticlesResponse.data
+                setBusinessArticles(articles)
             }
         }
+
+        getArticlesForBusiness()
+        setShouldRefresh(false)
     }, [user, location, shouldRefresh])
 
     // Event handlers
