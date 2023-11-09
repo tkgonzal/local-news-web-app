@@ -157,12 +157,35 @@ const PanelTable: React.FC<Props> = ({
                     }
                 }
             )
+
+            alert("User successfully deleted from business")
+            setShouldRefresh && setShouldRefresh(true)
         } catch (error: any) {
             console.log("Error occurred deleting user: ", error)
             alert("Error occurred while deleting user")
         }
-        alert("User successfully deleted from business")
-        setShouldRefresh && setShouldRefresh(true)
+    }
+
+    /**
+     * Deletes an article
+     */
+    const deleteArticle = async (id: string | null ) => {
+        try {
+            axios.delete(
+                `${BASE_SERVER_URL}/api/article/${id}`,
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${Cookies.get("access_token")}`
+                    }
+                }
+            )
+
+            alert("Article successfully deleted")
+            setShouldRefresh && setShouldRefresh(true)
+        } catch (error: any) {
+            console.log("Error occurred deleting article", error)
+            alert("Error occurred while deleting user")
+        }
     }
 
     let tableHeaderNames = tableType == "Article" ? 
@@ -220,7 +243,7 @@ const PanelTable: React.FC<Props> = ({
                             onClick={
                                 tableType === "User" ? 
                                 () => deleteUserFromBusiness(row._id) :
-                                () => console.log("This is for articles")
+                                () => deleteArticle(row._id)
                             }
                         >
                             <img src={TrashIcon} alt="Trash Button" />
