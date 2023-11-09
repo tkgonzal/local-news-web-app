@@ -72,6 +72,7 @@ const ArticleForm: React.FC = () => {
             }
 
             alert(`Article was successfully ${isNewArticle ? "posted": "updated"}`)
+            formNavigate("/business/articles")
         } catch (error: any) {
             console.log("Error occurred while submitting Article", error)
             alert("An error occurred while submitting the article")

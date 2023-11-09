@@ -8,6 +8,7 @@ import {
 } from "../models/Article";
 
 import { authenticateToken } from "./authRoute";
+import { ObjectId } from "mongodb";
 
 require('dotenv').config();
 
@@ -41,7 +42,7 @@ router.post("/new", authenticateToken, async (req, res) => {
             engagements: 0,
             body: articleData.body,
             publishedDate: (new Date()).toISOString(),
-            businessId: articleData.businessId,
+            businessId: new ObjectId(articleData.businessId),
             allowComments: articleData.allowComments || false,
             allowAnonymousComments: articleData.allowAnonymousComments || false,
             images: []
