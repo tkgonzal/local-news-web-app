@@ -64,7 +64,11 @@ const ArticlesTable: React.FC = () => {
                     <button onClick={makeNewArticle}>+ New Article</button>
                 </div>
 
-                <PanelTable tableType="Article" tableContents={businessArticles}/>
+                <PanelTable 
+                    tableType="Article" 
+                    tableContents={businessArticles}
+                    setShouldRefresh={setShouldRefresh}
+                />
             </>
         </BusinessPanelPage>
     )
