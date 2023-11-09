@@ -1,4 +1,4 @@
-import { Collection, ObjectId, FindCursor } from 'mongodb';
+import { Collection, ObjectId, FindCursor, WithId } from 'mongodb';
 import { connectToDatabase } from '../config/db';
 import { Article } from '../types/interfaces/Article';
 import { ArticleTag } from '../types/types/ArticleTag';
@@ -28,6 +28,21 @@ async function getArticleByID(id: string): Promise<Article | null> {
     return articleCollection.findOne<Article>({_id: new ObjectId(id)})
   };
 
+  /**
+   * @param businessId {string} The string representing the ObjectId for a 
+   * business
+   * @returns A promise meant to return an array of all Article objects that 
+   * match the provided businessId
+   */
+async function getArticlesByBusinessId(businessId: string): Promise<WithId<Article>[]> {
+  const articles = await getArticleCollection();
+  const businessObjectId: ObjectId = new ObjectId(businessId);
+
+  const articlesForBusiness = await articles.find({ businessId: businessObjectId });
+
+  return articlesForBusiness.toArray();
+}
+
 async function createArticle(article: Article): Promise<Article | null> {
     const articleCollection = await getArticleCollection()
     const result = await articleCollection.insertOne(article)
@@ -40,4 +55,11 @@ async function createArticle(article: Article): Promise<Article | null> {
         }
   };
 
-export {Article, getArticles, getArticlesByTag, getArticleByID, createArticle}
+export {
+  Article, 
+  getArticles, 
+  getArticlesByTag, 
+  getArticleByID, 
+  getArticlesByBusinessId,
+  createArticle
+}

@@ -5,6 +5,10 @@ import {
     getUsersForBusinessId
 } from "../models/User";
 
+import {
+    getArticlesByBusinessId
+} from "../models/Article"
+
 require("dotenv").config();
 
 const router = express.Router();
@@ -18,6 +22,29 @@ router.get("/users/:businessId", async (req, res) => {
         res.status(200).json({
             message: "Users for business succesfully found",
             users: users.map(user => ({...user, password: undefined}))
+        });
+    } catch (error: any) {
+        console.log(
+            "Error retrieving users for the businessId: ",
+            error
+        );
+        res.status(500).json({ 
+            message: "Interal Server Error Occurred Retrieving Users",
+            error
+        });
+    }
+});
+
+// Retrieves the articles for a given business based on the businessId
+router.get("/articles/:businessId", async (req, res) => {
+    try {
+        const { businessId } = req.params;
+
+        const businessArticles = await getArticlesByBusinessId(businessId);
+
+        res.status(200).json({
+            message: "Articles succesfully retrieved",
+            businessArticles
         });
     } catch (error: any) {
         console.log(
