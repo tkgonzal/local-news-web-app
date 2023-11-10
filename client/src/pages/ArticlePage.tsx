@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Article } from '../types/interfaces/Article'
+import { ArticleImage } from '../types/interfaces/ArticleImage'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import HeadlineBulletPoints from '../components/BreakingNews/HeadlineBulletPoints';
@@ -8,12 +9,19 @@ import ArticleThumbnail from '../components/ArticleThumbnails/ArticleThumbnail';
 import titleCase from '../utils/titleCase';
 import formattedDate from '../utils/formattedDate'
 
+import defaultArticleImage from '../assets/defaultArticleImage';
+
 import './ArticlePage.css'
 
 const ArticlePage: React.FC = () => {
     const [articleObj, setArticleObj] = useState<Article>()
     const [recommendedArticles, setRecommendedArticles] = useState<Article[]>([])
     const { articleUID } = useParams()
+
+    const defaultMainArticleImage: ArticleImage = {
+        ...defaultArticleImage,
+        caption: articleObj?.heading || "The MoNews logo"
+    }
 
     useEffect(()=>{
         (async () => {
@@ -52,7 +60,7 @@ const ArticlePage: React.FC = () => {
         </>)
     }
 
-    const mainImage = articleObj.images[0]
+    const mainImage = articleObj.images.length ? articleObj.images[0] : defaultMainArticleImage
     const body = typeof articleObj.body == "string" ? <p>{articleObj.body}</p> : articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
 
     const articleThumbnails = [<ArticleThumbnail key={articleObj._id?.toString()} className="main-article" article={articleObj}/>].concat(
@@ -62,7 +70,7 @@ const ArticlePage: React.FC = () => {
     
 
     return (
-    <main className='page-container'>
+    <main className='article-container'>
         <div className='article'>
             <h1 className="article--header">{titleCase(articleObj.heading)}</h1>
             <h5 className="article--author">BY {articleObj.authors.map((author)=>author.toUpperCase()).join(",")}</h5>
