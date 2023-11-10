@@ -44,6 +44,45 @@ const ArticleForm: React.FC = () => {
         register("content", { required: "Articles must have content" })
     }, [register])
 
+    // Side effect to fill in the form with the details of an existing article
+    // if the form is being used to edit it
+    useEffect(() => {
+        const fillInFormForArticle = async () => {
+            const articleResponse = await axios.get(
+                `${BASE_SERVER_URL}/api/article/${articleId}`,
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${Cookies.get("access_token")}`
+                    }
+                }
+            )
+
+            const article = articleResponse.data
+            
+            if (articleResponse.status !== 500) {
+                setValue("heading", article.heading)
+                setValue("subHeading", article.subHeading)
+                setValue("author", article.authors.join(", "))
+                setValue("allowComments", article.allowComments)
+                setValue("allowAnonymousComments", article.allowAnonymousComments)
+                setValue("content", article.body)
+            }
+        }
+
+        if (!isNewArticle) {
+            try {
+                fillInFormForArticle();
+            } catch (error: any) {
+                console.log(
+                    `Error occurred retrieving details for article of id ${articleId}: `, 
+                    error
+                )
+                alert("Error occurred while retrieving details for article")
+                formNavigate("/business/articles")
+            }
+        }
+    }, [articleId])
+
     // If allow comments is set to false, then the allow anonymous comments
     // checkbox is set to false and also disabled
     useEffect(() => {
