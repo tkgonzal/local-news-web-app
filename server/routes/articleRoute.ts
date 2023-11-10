@@ -38,7 +38,7 @@ router.post("/new", authenticateToken, async (req, res) => {
             source: articleData.source,
             heading: articleData.heading,
             authors: articleData.authors,
-            subHeading: articleData.subheading || undefined,
+            subHeading: articleData.subHeading || undefined,
             engagements: 0,
             body: articleData.body,
             publishedDate: (new Date()).toISOString(),
