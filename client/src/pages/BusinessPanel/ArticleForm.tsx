@@ -133,7 +133,7 @@ const ArticleForm: React.FC = () => {
      */
     const cancelFormChanges: React.FormEventHandler = (event: React.FormEvent) => {
         event.preventDefault()
-        formNavigate("/business/users")
+        formNavigate("/business/articles")
     }
 
     // Utility Functions
