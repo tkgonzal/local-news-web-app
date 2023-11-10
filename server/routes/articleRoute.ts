@@ -65,6 +65,8 @@ router.post('/:uid', async (req, res) => {
 
 })
 
+// Given an articleId, deletes the article with the corresponding value for its
+// _id
 router.delete("/:articleId", authenticateToken, async (req, res) => {
     try {
         const { articleId } = req.params;
