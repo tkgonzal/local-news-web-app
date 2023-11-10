@@ -1,4 +1,4 @@
-import { Collection, ObjectId, FindCursor, WithId } from 'mongodb';
+import { Collection, ObjectId, FindCursor, WithId, MatchKeysAndValues } from 'mongodb';
 import { connectToDatabase } from '../config/db';
 import { Article } from '../types/interfaces/Article';
 import { ArticleTag } from '../types/types/ArticleTag';
@@ -68,6 +68,31 @@ async function deleteArticle(articleId: string) {
   console.log(result);
 }
 
+/**
+ * Finds an article based on the articleId and updates its corresponding values
+ * based on the valuesToUpdate
+ * @param articleId {string} The string for the id of the Article to update
+ * @param valuesToUpdate {Object} The pairs of keys and values to update for the
+ * article of _id articleId
+ */
+async function updateArticleValuesById(
+  articleId: string,
+  valuesToUpdate: MatchKeysAndValues<Article>
+) {
+  const userCollection = await getArticleCollection();
+
+  const filteredValuesToUpdate = {
+    ...valuesToUpdate,
+    "businessId": valuesToUpdate["businessId"] ?
+      new ObjectId(valuesToUpdate["businessId"]) : undefined
+  }
+
+  await userCollection.findOneAndUpdate(
+    { _id: new ObjectId(articleId)},
+    { $set: filteredValuesToUpdate }
+  );
+}
+
 export {
   Article, 
   getArticles, 
@@ -75,5 +100,6 @@ export {
   getArticleByID, 
   getArticlesByBusinessId,
   createArticle,
-  deleteArticle
+  deleteArticle,
+  updateArticleValuesById
 }

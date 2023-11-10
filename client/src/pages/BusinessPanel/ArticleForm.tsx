@@ -96,7 +96,7 @@ const ArticleForm: React.FC = () => {
     const submitArticle: SubmitHandler<ArticleInput> = async data => {
         try {
             const articleRequestData: ArticleRequestData = {
-                "source": "MoNews",
+                "source": user?.businessName || "MoNews",
                 "heading": data.heading,
                 "subHeading": data.subHeading || undefined,
                 "body": data.content,
