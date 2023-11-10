@@ -108,6 +108,8 @@ const ArticleForm: React.FC = () => {
 
             if (isNewArticle) {
                 await submitNewArticle(articleRequestData)
+            } else {
+                await updateArticle(articleRequestData)
             }
 
             alert(`Article was successfully ${isNewArticle ? "posted": "updated"}`)
@@ -137,10 +139,28 @@ const ArticleForm: React.FC = () => {
     }
 
     // Utility Functions
+    /**
+     * Submits a new article to add to the app and db
+     * @param article {ArticleRequestData} Data formatted for the article api on
+     * the server to process, structured generally similar to the Article type
+     */
     const submitNewArticle = async (article: ArticleRequestData) => {
         axios.post(`${BASE_SERVER_URL}/api/article/new`,
             {
                 "articleData": article
+            },
+            {
+                "headers": {
+                    "Authorization": `Bearer ${Cookies.get("access_token")}`
+                }
+            }
+        )
+    }
+
+    const updateArticle = async (article: ArticleRequestData) => {
+        axios.put(`${BASE_SERVER_URL}/api/article/${articleId}`,
+            {
+                "articleValues": article
             },
             {
                 "headers": {
