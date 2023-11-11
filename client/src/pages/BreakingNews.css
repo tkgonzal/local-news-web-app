@@ -1,8 +1,6 @@
 .home {
-    width: calc(100% - 200px - 2rem);
-    margin: 1rem 0rem;
-    padding: 2rem 2rem 0rem 0;
-    padding-left: 200px;
+    width: calc(100% - 4rem);
+    padding: 2rem 2rem 2rem 0;
     display: flex;
     gap: 1rem;
 }

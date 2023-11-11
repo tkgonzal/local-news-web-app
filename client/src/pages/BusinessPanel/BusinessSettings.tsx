@@ -1,13 +1,48 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 
+import axios from "axios"
+import Cookies from "js-cookie"
+
+import { useUserContext } from "../../contexts/UserContext"
+
 import BusinessPanelPage from "./BusinessPanelPage"
 
 import { SettingsInput } from "../../types/interfaces/BusinessPanel/SettingsInput"
 
 // Page for business settings, only has toggle for comment notifications
 const BusinessSettings: React.FC = () => {
-    const { register, handleSubmit } = useForm<SettingsInput>();
-    const submitSettings: SubmitHandler<SettingsInput> = data => console.log(data)
+    const { user } = useUserContext()
+    const { register, handleSubmit } = useForm<SettingsInput>()
+
+    // Event Handlers
+    // Updates the user's comment notification settings
+    const submitSettings: SubmitHandler<SettingsInput> = async data => {
+        try {
+            await axios.put(`${import.meta.env.VITE_SERVER_URL}/api/business/notifications`,
+                {
+                    "_id": user?._id,
+                    "valuesToUpdate": {
+                        "receivesCommentNotifications": data.enableCommentNotifications
+                    }
+                },
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${Cookies.get("access_token")}`
+                    }
+                }
+            )
+
+            alert("Notifications settings successfully updated")
+        } catch (error: any) {
+            if (error.response && 
+                error.response.data && 
+                error.response.data.message) {
+                    alert(error.response.data.message)
+            } else {
+                alert("An error occured, notification settings could not be updated")
+            }
+        }
+    }
 
     return (
         <BusinessPanelPage>
@@ -24,11 +59,11 @@ const BusinessSettings: React.FC = () => {
                 <span className="business-panel--settings-input">
                     <input
                         type="checkbox"
-                        id="allowComments"
-                        {...register("allowComments")}
+                        id="enableCommentNotifications"
+                        {...register("enableCommentNotifications")}
                     />
 
-                    <label htmlFor="allowComments">
+                    <label htmlFor="enableCommentNotifications">
                         <b>New Comments</b> - Toggle here to be emailed a 
                         notification whenever articles receive a new 
                         comment

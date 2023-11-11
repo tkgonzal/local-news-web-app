@@ -3,7 +3,7 @@ import Permission from "../types/enums/Permission"
 
 const UserData: User[] = [
     {
-        id: "1",
+        _id: "1",
         name: {
             first: "Jane",
             last: "Remover"
@@ -11,10 +11,11 @@ const UserData: User[] = [
         email: "frailty@swag.net",
         phone: "(555)555-555",
         articlePermissions: Permission.READ_ONLY,
-        userPermissions: Permission.READ_ONLY
+        userPermissions: Permission.READ_ONLY,
+        accType: "User",
     },
     {
-        id: "2",
+        _id: "2",
         name: {
             first: "Jeff",
             last: "Rosenstock"
@@ -22,10 +23,11 @@ const UserData: User[] = [
         email: "jeff@quoteunquote.net",
         phone: "(666)666-6666",
         articlePermissions: Permission.WRITE,
-        userPermissions: Permission.WRITE
+        userPermissions: Permission.WRITE,
+        accType: "User",
     },
     {
-        id: "3",
+        _id: "3",
         name: {
             first: "Solange",
             last: "Knowles"
@@ -33,7 +35,8 @@ const UserData: User[] = [
         email: "seat@table.org",
         phone: "(777)777-7777",
         articlePermissions: Permission.DELETE,
-        userPermissions: Permission.DELETE
+        userPermissions: Permission.DELETE,
+        accType: "User",
     }
 ]
 

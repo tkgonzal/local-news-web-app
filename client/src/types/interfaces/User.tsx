@@ -1,14 +1,9 @@
 // Interface currently only accounds for members needed for BusinessPanel
-import { Name } from "./Name"
-import Permission from "../enums/Permission"
+import { User as backendUser } from "../../../../server/models/User" 
 
-interface User {
-    id: string
-    name?: Name
-    email: string
-    phone?: string
-    articlePermissions?: Permission
-    userPermissions?: Permission
+interface User extends Omit<backendUser, "_id" | "businessId"> {
+    _id: string,
+    businessId: string
 }
 
 export type { User }

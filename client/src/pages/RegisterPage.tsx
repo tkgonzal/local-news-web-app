@@ -6,31 +6,30 @@ import { isStrongPassword } from '../utils/passwordUtils';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../contexts/UserContext';
 
+import moNewsLogoImg from "/assets/mo_news_logo_white.png"
+
 const RegisterPage: React.FC = () => {
+    const { user, setUser } = useUserContext();
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         confirmPassword: '',
-        accType: 'user',
+        accType: 'User',
         businessName: '',
         businessWebsite: '',
         mobileNumber: '',
     });
-
-    // Uncomment useEffect When business panel page gets added. 
-
-    // useEffect(() => {
-    //     if (user?.accType === 'business') {
-    //         navigate('/business-panel');  *** just change the '/business-panel' to the correct route
-    //     }
-    //     else {
-    //         navigate('/')
-    //     }
-    // }, [user])
-
-    const { setUser } = useUserContext();
-
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user?.accType === 'Business') {
+            navigate('/business/articles')
+        }
+        else if (user) {
+            navigate('/')
+        }
+    }, [user])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -63,7 +62,7 @@ const RegisterPage: React.FC = () => {
                 };
 
                 const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/users/register`, {
-                userData
+                    userData
                 });
 
                 const { userWithoutPassword, accessToken } = response.data;
@@ -76,7 +75,7 @@ const RegisterPage: React.FC = () => {
             }  
         }
         catch (error: any) {
-            console.error('Error registering user.', error);
+            // console.error('Error registering user.', error);
             if (error.response && error.response.data && error.response.data.message) {
                 alert(`${error.response.data.message}.`);
             }
@@ -92,19 +91,17 @@ const RegisterPage: React.FC = () => {
                 businessWebsite: '',
                 mobileNumber: '',
             });
-            // remove below when business panel page gets pushed and uncomment useEffect
-            navigate('/');
-            // remove above when business panel page gets pushed and uncomment useEffect
         }
 
     }
 
     return (
         <div className="main-container">
-            <div className='header'>
+            {/* <div className='header'>
                 <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
-            </div>
+            </div> */}
             <div className="container">
+                <h4 className='home-link' onClick={() => navigate("/")}>Home</h4>
                 <div className="register-container">
                     <h1 className='title' >Register</h1>
                     <form onSubmit={handleSubmit}>
@@ -149,12 +146,12 @@ const RegisterPage: React.FC = () => {
                                 value={formData.accType}
                                 onChange={handleAccTypeChange}
                             >
-                                <option value={'user'}>User</option>
-                                <option value={'business'}>Business</option>
+                                <option value={'User'}>User</option>
+                                <option value={'Business'}>Business</option>
                             </select>
                             <label className='user-label-transparent'>Account Type</label>
                         </div>
-                        {formData.accType === 'business' && (
+                        {formData.accType === 'Business' && (
                             <div className="input-group">
                                 <input
                                     className='input'
@@ -168,7 +165,7 @@ const RegisterPage: React.FC = () => {
                                 <label className='user-label'>Business Name:</label>
                             </div>
                         )}
-                        { formData.accType === 'business' && (
+                        { formData.accType === 'Business' && (
                             <div className="input-group">
                                 <input
                                     className='input'
@@ -182,7 +179,7 @@ const RegisterPage: React.FC = () => {
                                 <label className='user-label'>Business Website:</label>
                             </div>
                         )}
-                        {formData.accType === 'business' && (
+                        {formData.accType === 'Business' && (
                             <div className="input-group">
                                 <input
                                     className='input'
@@ -207,16 +204,22 @@ const RegisterPage: React.FC = () => {
                 <div className='welcome-container'>
                     <div className='right-container'>
                         <div className='logo'>
-                            <h1>LOGO</h1>
+                            <img 
+                                src={moNewsLogoImg}
+                                onClick={() => navigate("/")}
+                                alt="MoNews Logo in White" 
+                            />
                         </div>
                         <div className='welcome'>
                             <h1>WELCOME</h1>
                         </div>
                         <div className='cta'>
-                            <h4>Sign up today and discover the latest articles locally.</h4>
+                            <h4>
+                                Already have an account? Login and discover the latest articles locally.
+                            </h4>
                         </div>
                         <div className='inverse-button'>
-                            <button className='btn-inverse login-btn' onClick={() => navigate("/register")}>Sign Up</button>
+                            <button className='btn-inverse login-btn' onClick={() => navigate("/login")}>Login</button>
                         </div>
                     </div>
                 </div>

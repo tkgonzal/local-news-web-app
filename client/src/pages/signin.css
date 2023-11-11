@@ -79,12 +79,12 @@ body {
     transition: 150ms cubic-bezier(0.4,0,0.2,1);
 }
    
-.input:focus, input:valid {
+.input:focus, .main-container input:valid {
     outline: none;
     border: 1.5px solid #0F0C0C;
 }
    
-.input:focus ~ label, input:valid ~ label {
+.input:focus ~ label, .main-container input:valid ~ label {
     transform: translateY(-50%) scale(0.8);
     background-color: white;
     padding: 0 .2em;
@@ -184,8 +184,9 @@ button:active {
 .home-link {
     position: fixed;
     left: 50px;
-    top: -5px;
+    top: 15px;
     cursor: pointer;
+    color: #878787;
 }
 
 .welcome {
@@ -199,4 +200,10 @@ button:active {
 
 .inverse-button {
     width: 100%;
+}
+
+.pseudo-link {
+    color: #0066cc;
+    text-decoration: underline;
+    cursor: pointer;
 }

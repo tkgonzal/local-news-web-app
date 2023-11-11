@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { NavbarProps } from "../../types/interfaces/NavInterface";
+
 import Logo from "../Navbar/image 6.png";
 
 const Sidebar: React.FC<NavbarProps> = ({ links }) => {
@@ -14,7 +17,7 @@ const Sidebar: React.FC<NavbarProps> = ({ links }) => {
             <ul>
               {link.name.map((item, idx) => (
                 <li className="left-links" key={idx}>
-                  <a href={link.url[idx]}>{item}</a>
+                  <Link to={link.url[idx]}>{item}</Link>
                 </li>
               ))}
             </ul>{" "}

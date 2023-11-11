@@ -23,6 +23,10 @@
     padding-bottom: 1rem;
 }
 
+.business-panel--header-buttons button:first-child {
+    margin-right: 0.3rem;
+}
+
 .business-panel--form-half {
     width: calc(50% - 0.125rem);
     margin: 0.0625rem;
@@ -57,13 +61,17 @@
 .business-panel--input {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    padding-top: 1rem;
 }
 
 .business-panel--user-first-half .business-panel--input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.business-panel--form .error-message {
+    text-align: left;
 }
 
 .business-panel--user-first-half .business-panel--input label {
@@ -118,7 +126,14 @@
     margin-top: .5rem;
 }
 
-.business-panel--input:last-child,
+.business-panel--input:first-of-type {
+    padding-top: 0;
+}
+
+.business-panel--user-form h2:not(:first-child) {
+    padding-top: 1rem;
+}
+
 .business-panel--checkbox-span:last-child {
     margin-bottom: 0;
 }
