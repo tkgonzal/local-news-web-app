@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
+import { useUserContext } from "../../contexts/UserContext"
 
 import Sidebar from "./Sidebar"
 
@@ -17,6 +19,8 @@ const Navbar: React.FC = () => {
   // const [navOpen, setNavOpen] = useState(false)
   // const [searchTerm, setSearchTerm] = useState("")
   const [weather, setWeather] = useState<Weather | null>(null)
+  const homeNavigate = useNavigate()
+  const { user, logout } = useUserContext()
 
   // Side Effects
   // Side effect to update the weather state if the user allows the app
@@ -41,6 +45,13 @@ const Navbar: React.FC = () => {
     }
   }, [OPEN_WEATHER_API_KEY]);
 
+
+  // Event Handlers
+  const handleLogout = () => {
+    user && alert(`User of email ${user.email} has been successfully logged out`)
+    logout()
+    homeNavigate("/")
+  }
 
   //   const toggleNav = () => {
   //     setNavOpen(!navOpen);
@@ -126,7 +137,11 @@ const Navbar: React.FC = () => {
           <div className="top-navbar-links">
             <ul>
               <li className="main-links">
-                <Link to="/login">Login</Link>
+                {
+                  user ? 
+                  <span onClick={handleLogout}>Logout</span> :
+                  <Link to="/login">Login</Link>
+                }
               </li>
               <li className="main-links">
                 <Link to="/subscibe" className="subscribe-link">Subscribe</Link>
