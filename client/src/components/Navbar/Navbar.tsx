@@ -18,6 +18,9 @@ const Navbar: React.FC = () => {
   // const [searchTerm, setSearchTerm] = useState("")
   const [weather, setWeather] = useState<Weather | null>(null)
 
+  // Side Effects
+  // Side effect to update the weather state if the user allows the app
+  // to get their location and has a valid API key
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
@@ -52,6 +55,16 @@ const Navbar: React.FC = () => {
   //   console.log("Searching for:", searchTerm);
   // };
 
+  /**
+   * @param latitude {number} The latitude of the user, as determined by their
+   * geolocation
+   * @param longitude {number} The longitude of the user, as determined by their
+   * geolocation
+   * @param apiKey {string} The API key from which to accecces the Open Weather 
+   * API with
+   * @returns A response from the Open Weather API with the relevent information
+   * regarding the user's location's current weather if available 
+   */
   const getWeatherByLocation = async (
     latitude: number, longitude: number, apiKey: string
   ) => {
@@ -66,18 +79,25 @@ const Navbar: React.FC = () => {
     }
   };
 
+  // Converts kelvin to fahrenheit, for the weather temperature display
   const kelvinToFahrenheit = (kelvin: number) => {
     return ((kelvin - 273.15) * 9) / 5 + 32;
   };
 
-  const sideBarLinks = [
+  // An array of the different links to render on the Navbar's sidebar
+  const sideBarLinks: LinkData[] = [
     { name: ["HOME"], url: ["/"] },
     {
-      name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION"],
-      url: ["/news", "/news/local", "/news/crime","/news/government","/news/education"],
+      name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION", "SPORTS"],
+      url: [
+        "/news", 
+        "/news/local", 
+        "/news/crime", 
+        "/news/government", 
+        "/news/education",
+        "/"
+      ]
     },
-    { name: ["SPORTS", "HIGHSCHOOL"], url: ["/", "/"] },
-    { name: ["LOCAL", "CRIME"], url: ["/", "/"] },
     { name: ["BUSINESS", "STAFF"], url: ["/business/articles", "/staff"] },
   ];
 
@@ -114,9 +134,9 @@ const Navbar: React.FC = () => {
                 <li key={index} className="main-links">
                   <Link
                     to={topBarLinks.url[index]}
-                    // className={
-                    //   link.name === "Subscribe" ? "subscribe-link" : ""
-                    // }
+                    className={
+                      link === "Subscribe" ? "subscribe-link" : ""
+                    }
                   >
                     {link}
                   </Link>
