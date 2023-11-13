@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import Sidebar from "./Sidebar"
-import SearchBar from "./magnifying-glass-1976105_960_720.webp"
 
 import { NavbarProps } from "../../types/interfaces/Navbar/NavInterface"
+
+import magnifyingGlassImg from "/assets/magnifying-glass-1976105_960_720.webp"
 
 import "./Navbar.css"
 
@@ -125,10 +126,10 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         </nav>
       </div>
 
-      <div className="title">
+      {/* <div className="title">
         <form onSubmit={handleSearch} className="search-bar">
           <div className="">
-            <img src={SearchBar} alt="" className="mglass" />
+            <img src={magnifyingGlassImg} alt="" className="mglass" />
             <input
               type="text"
               placeholder="Search articles"
@@ -143,7 +144,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
             />
           </div>
         </form>
-      </div>
+      </div> */}
     </>
   );
 };
