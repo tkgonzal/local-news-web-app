@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
-import Sidebar from "../Sidebar/sidebar";
-import SearchBar from "./magnifying-glass-1976105_960_720.webp";
+import Sidebar from "./Sidebar"
+import SearchBar from "./magnifying-glass-1976105_960_720.webp"
 
-import { NavbarProps } from "../../types/interfaces/NavInterface";
+import { NavbarProps } from "../../types/interfaces/Navbar/NavInterface"
 
-import "./Navbar.css";
+import "./Navbar.css"
+
+// Constants
+const OPEN_WEATHER_API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
-  //   const [navOpen, setNavOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [weather, setWeather] = useState(null);
-
-  const apiKey = "743b3e5891961a75fb3d47b89a5a6e97";
+  //   const [navOpen, setNavOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [weather, setWeather] = useState(null)
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -23,7 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         const weatherData = await getWeatherByLocation(
           latitude,
           longitude,
-          apiKey
+          OPEN_WEATHER_API_KEY
         );
 
         if (weatherData) {
@@ -33,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-  }, [apiKey]);
+  }, [OPEN_WEATHER_API_KEY]);
 
 
   //   const toggleNav = () => {
@@ -66,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
   };
 
   const sideBarLinks = [
-    { name: ["HOME"], url: "/" },
+    { name: ["HOME"], url: ["/"] },
     {
       name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION"],
       url: ["/news", "/news/local", "/news/crime","/news/government","/news/education"],
