@@ -99,12 +99,7 @@ const Navbar: React.FC = () => {
       ]
     },
     { name: ["BUSINESS", "STAFF"], url: ["/business/articles", "/staff"] },
-  ];
-
-  const topBarLinks: LinkData = {
-      name: ["Login", "Subscribe"],
-      url: ["/login", "/subscribe"]
-  }
+  ]
 
   return (
     <>
@@ -130,18 +125,12 @@ const Navbar: React.FC = () => {
 
           <div className="top-navbar-links">
             <ul>
-              {topBarLinks.name.map((link, index) => (
-                <li key={index} className="main-links">
-                  <Link
-                    to={topBarLinks.url[index]}
-                    className={
-                      link === "Subscribe" ? "subscribe-link" : ""
-                    }
-                  >
-                    {link}
-                  </Link>
-                </li>
-              ))}
+              <li className="main-links">
+                <Link to="/login">Login</Link>
+              </li>
+              <li className="main-links">
+                <Link to="/subscibe" className="subscribe-link">Subscribe</Link>
+              </li>
             </ul>
           </div>
 
