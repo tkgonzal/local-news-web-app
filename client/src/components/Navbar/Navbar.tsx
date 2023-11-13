@@ -3,16 +3,16 @@ import { Link } from "react-router-dom"
 
 import Sidebar from "./Sidebar"
 
-import { NavbarProps } from "../../types/interfaces/Navbar/NavInterface"
+import { LinkData } from "../../types/interfaces/Navbar/LinkData"
 
-import magnifyingGlassImg from "/assets/magnifying-glass-1976105_960_720.webp"
+// import magnifyingGlassImg from "/assets/magnifying-glass-1976105_960_720.webp"
 
 import "./Navbar.css"
 
 // Constants
 const OPEN_WEATHER_API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY
 
-const Navbar: React.FC<NavbarProps> = ({ links }) => {
+const Navbar: React.FC = () => {
   //   const [navOpen, setNavOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [weather, setWeather] = useState(null)
@@ -42,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
   //     setNavOpen(!navOpen);
   //   };
 
-  const inputChange = (e) => {
+  const inputChange = () => {
     setSearchTerm(e.target.value);
   };
 
@@ -78,6 +78,11 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
     { name: ["BUSINESS", "STAFF"], url: ["/business/articles", "/staff"] },
   ];
 
+  const topBarLinks: LinkData = {
+      name: ["Login", "Subscribe"],
+      url: ["/login", "/subscribe"]
+  }
+
   return (
     <>
       <div className="nav-container">
@@ -102,15 +107,15 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
 
           <div className="top-navbar-links">
             <ul>
-              {links.map((link, index) => (
+              {topBarLinks.name.map((link, index) => (
                 <li key={index} className="main-links">
                   <Link
-                    to={link.url}
+                    to={topBarLinks.url[index]}
                     // className={
                     //   link.name === "Subscribe" ? "subscribe-link" : ""
                     // }
                   >
-                    {link.name}
+                    {link}
                   </Link>
                 </li>
               ))}
@@ -126,6 +131,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         </nav>
       </div>
 
+      {/* Commented out search bar as it it not required for MVP */}
       {/* <div className="title">
         <form onSubmit={handleSearch} className="search-bar">
           <div className="">
