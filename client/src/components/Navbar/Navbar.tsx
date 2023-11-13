@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 import Sidebar from "./Sidebar"
 
+import { Weather } from "../../types/interfaces/Navbar/Weather"
 import { LinkData } from "../../types/interfaces/Navbar/LinkData"
 
 // import magnifyingGlassImg from "/assets/magnifying-glass-1976105_960_720.webp"
@@ -13,23 +14,23 @@ import "./Navbar.css"
 const OPEN_WEATHER_API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY
 
 const Navbar: React.FC = () => {
-  //   const [navOpen, setNavOpen] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [weather, setWeather] = useState(null)
+  // const [navOpen, setNavOpen] = useState(false)
+  // const [searchTerm, setSearchTerm] = useState("")
+  const [weather, setWeather] = useState<Weather | null>(null)
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
+        const { latitude, longitude } = position.coords
         // const geocodingUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
         const weatherData = await getWeatherByLocation(
           latitude,
           longitude,
           OPEN_WEATHER_API_KEY
-        );
+        )
 
         if (weatherData) {
-          setWeather(weatherData);
+          setWeather(weatherData)
         }
       });
     } else {
@@ -42,16 +43,18 @@ const Navbar: React.FC = () => {
   //     setNavOpen(!navOpen);
   //   };
 
-  const inputChange = () => {
-    setSearchTerm(e.target.value);
-  };
+  // const inputChange = (e) => {
+  //   setSearchTerm(e.target.value);
+  // };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchTerm);
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   console.log("Searching for:", searchTerm);
+  // };
 
-  const getWeatherByLocation = async (latitude, longitude, apiKey) => {
+  const getWeatherByLocation = async (
+    latitude: number, longitude: number, apiKey: string
+  ) => {
     try {
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
       const response = await fetch(weatherUrl);
@@ -63,7 +66,7 @@ const Navbar: React.FC = () => {
     }
   };
 
-  const kelvinToFahrenheit = (kelvin) => {
+  const kelvinToFahrenheit = (kelvin: number) => {
     return ((kelvin - 273.15) * 9) / 5 + 32;
   };
 
