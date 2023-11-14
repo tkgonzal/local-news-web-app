@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 import { NavbarProps } from "../../types/interfaces/Navbar/NavInterface"
 
-import moNewsLogo from "/assets/mo_news_logo_white.png"
+import moNewsLogo from "/assets/mo_news_logo_white_lg.png"
 
 const Sidebar: React.FC<NavbarProps> = ({ links }) => {
   const homeNavigate = useNavigate()

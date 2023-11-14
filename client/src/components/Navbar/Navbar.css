@@ -57,6 +57,14 @@ body {
   color: var(--nav-bar-color, white);
 }
 
+.left-container .logo {
+  width: 10rem;
+}
+
+.left-container .logo img {
+  width: 100%;
+}
+
 .left-main-links {
   margin: 0.5rem 0.5rem 1.5rem;
 }
