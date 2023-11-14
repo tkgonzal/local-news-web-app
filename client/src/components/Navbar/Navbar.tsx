@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
                 }
               </li>
               <li className="main-links">
-                <Link to="/subscibe" className="subscribe-link">Subscribe</Link>
+                <Link to="/subscribe" className="subscribe-link">Subscribe</Link>
               </li>
             </ul>
           </div>
