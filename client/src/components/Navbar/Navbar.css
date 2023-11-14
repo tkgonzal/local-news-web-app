@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: fixed;
   width: 100%;
   background-color: var(--nav-bar-bg-color, black);
 }
@@ -45,7 +45,6 @@ body {
 }
 
 .left-container > ul {
-  padding-top: 10rem;
   list-style: none;
 }
 .left-column {
