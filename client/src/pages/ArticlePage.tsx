@@ -61,7 +61,9 @@ const ArticlePage: React.FC = () => {
     }
 
     const mainImage = articleObj.images.length ? articleObj.images[0] : defaultMainArticleImage
-    const body = typeof articleObj.body == "string" ? <p>{articleObj.body}</p> : articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
+    const body = typeof articleObj.body == "string" ? 
+        <div dangerouslySetInnerHTML={{__html: articleObj.body}}></div> : 
+        articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
 
     const articleThumbnails = [<ArticleThumbnail key={articleObj._id?.toString()} className="main-article" article={articleObj}/>].concat(
         recommendedArticles.map((article)=><ArticleThumbnail key={article._id?.toString()} article={article}/>)
