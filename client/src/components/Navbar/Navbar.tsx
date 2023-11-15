@@ -1,55 +1,84 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
-import Sidebar from "../Sidebar/sidebar";
-import SearchBar from "./magnifying-glass-1976105_960_720.webp";
+import { useUserContext } from "../../contexts/UserContext"
 
-import { NavbarProps } from "../../types/interfaces/NavInterface";
+import Sidebar from "./Sidebar"
 
-import "./Navbar.css";
+import { Weather } from "../../types/interfaces/Navbar/Weather"
+import { LinkData } from "../../types/interfaces/Navbar/LinkData"
 
-const Navbar: React.FC<NavbarProps> = ({ links }) => {
-  //   const [navOpen, setNavOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [weather, setWeather] = useState(null);
+// import magnifyingGlassImg from "/assets/magnifying-glass-1976105_960_720.webp"
 
-  const apiKey = "743b3e5891961a75fb3d47b89a5a6e97";
+import "./Navbar.css"
 
+// Constants
+const OPEN_WEATHER_API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY
+
+const Navbar: React.FC = () => {
+  // const [navOpen, setNavOpen] = useState(false)
+  // const [searchTerm, setSearchTerm] = useState("")
+  const [weather, setWeather] = useState<Weather | null>(null)
+  const homeNavigate = useNavigate()
+  const { user, logout } = useUserContext()
+
+  // Side Effects
+  // Side effect to update the weather state if the user allows the app
+  // to get their location and has a valid API key
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
+        const { latitude, longitude } = position.coords
         // const geocodingUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
         const weatherData = await getWeatherByLocation(
           latitude,
           longitude,
-          apiKey
-        );
+          OPEN_WEATHER_API_KEY
+        )
 
         if (weatherData) {
-          setWeather(weatherData);
+          setWeather(weatherData)
         }
       });
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
-  }, [apiKey]);
+  }, [OPEN_WEATHER_API_KEY]);
 
+
+  // Event Handlers
+  const handleLogout = () => {
+    user && alert(`User of email ${user.email} has been successfully logged out`)
+    logout()
+    homeNavigate("/")
+  }
 
   //   const toggleNav = () => {
   //     setNavOpen(!navOpen);
   //   };
 
-  const inputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  // const inputChange = (e) => {
+  //   setSearchTerm(e.target.value);
+  // };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("Searching for:", searchTerm);
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   console.log("Searching for:", searchTerm);
+  // };
 
-  const getWeatherByLocation = async (latitude, longitude, apiKey) => {
+  /**
+   * @param latitude {number} The latitude of the user, as determined by their
+   * geolocation
+   * @param longitude {number} The longitude of the user, as determined by their
+   * geolocation
+   * @param apiKey {string} The API key from which to accecces the Open Weather 
+   * API with
+   * @returns A response from the Open Weather API with the relevent information
+   * regarding the user's location's current weather if available 
+   */
+  const getWeatherByLocation = async (
+    latitude: number, longitude: number, apiKey: string
+  ) => {
     try {
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
       const response = await fetch(weatherUrl);
@@ -61,20 +90,27 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
     }
   };
 
-  const kelvinToFahrenheit = (kelvin) => {
+  // Converts kelvin to fahrenheit, for the weather temperature display
+  const kelvinToFahrenheit = (kelvin: number) => {
     return ((kelvin - 273.15) * 9) / 5 + 32;
   };
 
-  const sideBarLinks = [
-    { name: ["HOME"], url: "/" },
+  // An array of the different links to render on the Navbar's sidebar
+  const sideBarLinks: LinkData[] = [
+    { name: ["HOME"], url: ["/"] },
     {
-      name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION"],
-      url: ["/news", "/news/local", "/news/crime","/news/government","/news/education"],
+      name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION", "SPORTS"],
+      url: [
+        "/news", 
+        "/news/local", 
+        "/news/crime", 
+        "/news/government", 
+        "/news/education",
+        "/"
+      ]
     },
-    { name: ["SPORTS", "HIGHSCHOOL"], url: ["/", "/"] },
-    { name: ["LOCAL", "CRIME"], url: ["/", "/"] },
     { name: ["BUSINESS", "STAFF"], url: ["/business/articles", "/staff"] },
-  ];
+  ]
 
   return (
     <>
@@ -100,18 +136,16 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
 
           <div className="top-navbar-links">
             <ul>
-              {links.map((link, index) => (
-                <li key={index} className="main-links">
-                  <Link
-                    to={link.url}
-                    // className={
-                    //   link.name === "Subscribe" ? "subscribe-link" : ""
-                    // }
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              <li className="main-links">
+                {
+                  user ? 
+                  <span onClick={handleLogout}>Logout</span> :
+                  <Link to="/login">Login</Link>
+                }
+              </li>
+              <li className="main-links">
+                <Link to="/subscribe" className="subscribe-link">Subscribe</Link>
+              </li>
             </ul>
           </div>
 
@@ -124,10 +158,11 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         </nav>
       </div>
 
-      <div className="title">
+      {/* Commented out search bar as it it not required for MVP */}
+      {/* <div className="title">
         <form onSubmit={handleSearch} className="search-bar">
           <div className="">
-            <img src={SearchBar} alt="" className="mglass" />
+            <img src={magnifyingGlassImg} alt="" className="mglass" />
             <input
               type="text"
               placeholder="Search articles"
@@ -142,7 +177,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
             />
           </div>
         </form>
-      </div>
+      </div> */}
     </>
   );
 };

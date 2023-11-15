@@ -26,11 +26,6 @@ import "./App.css"
 function App() : JSX.Element {
   const location = useLocation()
 
-  const navLinks = [
-    { name: 'Login', url: '/login' },
-    { name: 'Subscribe', url: '/subscribe' },
-  ]
-
   // Side Effects
   // Changes the background colour of the body if the sites loads any of the
   // business panel pages
@@ -50,7 +45,7 @@ function App() : JSX.Element {
 
   return (
     <>
-      {shouldRenderNavbar && <Navbar links={navLinks}/>}
+      {shouldRenderNavbar && <Navbar />}
 
       <main className={shouldRenderNavbar ? "page-container": ""}>
         <Routes>

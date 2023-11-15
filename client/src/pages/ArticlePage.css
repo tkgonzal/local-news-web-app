@@ -2,12 +2,17 @@
     display: flex;
     flex-direction: row;
 }
+
+.article--img {
+    width: 100%;
+}
+
 @media only screen and (max-width: 1440px) {
     .article-container {
         display: flex;
         flex-direction: column;
     }
-  }
+}
 
 .article {
     width: calc(100% - 4rem);

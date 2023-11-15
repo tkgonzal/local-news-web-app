@@ -1,1 +1,0 @@
-// Sample hook file to maintain client directory structure

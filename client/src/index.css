@@ -6,6 +6,8 @@
     --primary-text-color: #000;
     --secondary-text-color: #7d7d7d;
     --bp-primary-bg-color: #fbfbfb;
+    --nav-bar-bg-color: #0f0c0c;
+    --nav-bar-color: #fff;
 }
 
 #root {

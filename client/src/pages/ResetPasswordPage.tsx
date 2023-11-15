@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
+
 import './resetpassword.css';
 
 const ResetPassword: React.FC = () => {
     const [email, setEmail] = useState('');
-
-    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,7 +28,7 @@ const ResetPassword: React.FC = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='reset-main-container'>
             <div className='resetPassword-container'>
                 <div className='reset-password-icon'>
                     <svg className="svg-icon" style={{  verticalAlign: 'middle', fill: 'currentColor', overflow: 'hidden' }} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +53,7 @@ const ResetPassword: React.FC = () => {
                         />
                         <button className='reset-submit-btn' type='submit'>Submit</button>
                     </div>
-                    <a href='' onClick={() => navigate("/login")}>Return to login</a>
+                    <Link to="/login">Return to login</Link>
                     
                 </form>
             </div>

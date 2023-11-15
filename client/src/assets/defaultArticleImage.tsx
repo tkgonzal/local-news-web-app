@@ -1,6 +1,6 @@
 import { ArticleImage } from "../types/interfaces/ArticleImage"
 
-import defaultNewsImage from "/assets/mo_news_logo_black.png"
+import defaultNewsImage from "/assets/default_article_image.png"
 
 const defaultArticleImage: ArticleImage = {
     url: defaultNewsImage,

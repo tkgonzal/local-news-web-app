@@ -61,7 +61,9 @@ const ArticlePage: React.FC = () => {
     }
 
     const mainImage = articleObj.images.length ? articleObj.images[0] : defaultMainArticleImage
-    const body = typeof articleObj.body == "string" ? <p>{articleObj.body}</p> : articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
+    const body = typeof articleObj.body == "string" ? 
+        <div dangerouslySetInnerHTML={{__html: articleObj.body}}></div> : 
+        articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
 
     const articleThumbnails = [<ArticleThumbnail key={articleObj._id?.toString()} className="main-article" article={articleObj}/>].concat(
         recommendedArticles.map((article)=><ArticleThumbnail key={article._id?.toString()} article={article}/>)
@@ -75,7 +77,7 @@ const ArticlePage: React.FC = () => {
             <h1 className="article--header">{titleCase(articleObj.heading)}</h1>
             <h5 className="article--author">BY {articleObj.authors.map((author)=>author.toUpperCase()).join(",")}</h5>
             <h5 className="article--date">{formattedDate(articleObj)}</h5>
-            <img src={mainImage.url} />
+            <img className="article--img" src={mainImage.url} />
             <h5 className='image--caption'>{mainImage.caption}</h5>
             {body}
         </div>

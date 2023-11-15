@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link, useNavigate } from "react-router-dom"
 
-import { NavbarProps } from "../../types/interfaces/NavInterface";
+import { NavbarProps } from "../../types/interfaces/Navbar/NavInterface"
 
-import Logo from "../Navbar/image 6.png";
+import moNewsLogo from "/assets/mo_news_logo_white_lg.png"
 
 const Sidebar: React.FC<NavbarProps> = ({ links }) => {
+  const homeNavigate = useNavigate()
+
   return (
     <div className="left-container">
-      <div className="logo">
-        <img src={Logo} alt="logo" />
+      <div 
+        className="logo"
+        onClick={() => homeNavigate("/")}
+      >
+        <img src={moNewsLogo} alt="logo" />
       </div>
       <ul>
         {links.map((link, index) => (

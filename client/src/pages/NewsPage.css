@@ -3,8 +3,8 @@
 .subpage {
     display:flex;
     flex-direction: column;
-    margin-left: 25rem;
-    width:100%-25rem;
+    width:calc(100% - 13rem);
+    padding: 2rem 6.5rem 2rem 6.5rem;
 }
 .subpage--articles{
     display:flex;
