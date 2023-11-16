@@ -1,5 +1,10 @@
 import express from "express";
-import { Article, getArticles, getArticlesByTag } from "../models/Article";
+import { 
+    Article, 
+    getArticles, 
+    getArticlesByTag, 
+    getBreakingArticles 
+} from "../models/Article";
 import { isArticleTag } from "../types/types/ArticleTag";
 require('dotenv').config();
 
@@ -15,7 +20,10 @@ router.get('/', async (req, res) => {
     }
 
     let cursor;
-    if (tag) {
+    if (tag && tag === "Breaking News") {
+        cursor = await getBreakingArticles();
+    }
+    else if (tag) {
         cursor = await getArticlesByTag(tag)
     }
     else {
