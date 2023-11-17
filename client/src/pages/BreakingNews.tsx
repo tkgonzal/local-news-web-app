@@ -12,6 +12,8 @@ import HeadlineBulletPoints from "../components/BreakingNews/HeadlineBulletPoint
 
 import "./BreakingNews.css"
 
+import ArticleTestData from "../test/ArticleData"
+
 // Constants
 const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
 // The amount of articles to display in the HeadlineColumn and HeadlineBulletPoints
@@ -20,11 +22,14 @@ const ARTICLE_DISPLAY_COUNT = 3
 // Page component for the home page of the app which displays breaking news
 const BreakingNews: React.FC = () => {
     const [headlineArticles, setHeadlineArticles] = useState<Article[]>([])
+    const [breakingArticles, setBreakingArticles] = useState<Article[]>([])
     const location = useLocation()
 
     // Side Effects
+    // Pulls Headline and Breaking articles to render
     useEffect(() => {
         updateHeadlineArticles()
+        updateBreakingArticles()
     }, [location])
 
     // Utility Functions
@@ -42,11 +47,32 @@ const BreakingNews: React.FC = () => {
         }
     }
 
+    // Pulls from the DB all articles that are considered BreakingNews
+    const updateBreakingArticles = async () => {
+        try {
+            const breakingResponse = await axios.get(
+                `${BASE_SERVER_URL}/api/articles?tag=Breaking%20News`
+            )
+
+            setBreakingArticles(breakingResponse.data)
+        } catch (error: any) {
+            console.log("An error occurred while retrieving Breaking News")
+            console.log(error)
+        }
+    }
+
     const mainArticleThumbnail: JSX.Element = headlineArticles.length ? 
-        <ArticleThumbnail className="main-article" article={headlineArticles[0]}/> : 
-        <></>
+        <ArticleThumbnail 
+            className="main-article" 
+            article={headlineArticles[0]}
+        /> : <></>
 
     const articleThumbnails: JSX.Element[] = headlineArticles.slice(1).map(
+        (article: Article) => 
+            <ArticleThumbnail key={article._id?.toString()} article={article} />
+    )
+
+    const carouselThumbnails: JSX.Element[] = ArticleTestData.map(
         (article: Article) => 
             <ArticleThumbnail key={article._id?.toString()} article={article} />
     )
@@ -61,7 +87,7 @@ const BreakingNews: React.FC = () => {
 
                 <h2 className="home--article-carousel-header">TOP STORIES</h2>
                 <div className="home--article-carousel-container">
-                    <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                    <ArticleCarousel articleThumbnails={carouselThumbnails}/>
                 </div>
             </div>
 
