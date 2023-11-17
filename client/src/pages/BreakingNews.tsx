@@ -14,7 +14,7 @@ import "./BreakingNews.css"
 
 // Constants
 const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
-// The amount of articles to display in the HeadlineColumn and HeadlineBullets
+// The amount of articles to display in the HeadlineColumn and HeadlineBulletPoints
 const ARTICLE_DISPLAY_COUNT = 3
 
 // Page component for the home page of the app which displays breaking news
