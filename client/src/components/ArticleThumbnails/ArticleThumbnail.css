@@ -37,6 +37,14 @@
     width: 80%;
 }
 
+.main-article .article-thumbnail--body {
+    display: block !important; 
+}
+
+.main-article .article-thumbnail--author {
+    display: block !important;
+}
+
 .main-article .article-thumbnail--date {
     margin-top: 0;
     border-bottom: .0625rem solid var(--element-2-color, gray);
@@ -59,6 +67,16 @@
     cursor: pointer;
 }
 
-.article-thumbnail:hover .article-thumbnail--headings-div {
+.article-thumbnail:hover .article-thumbnail--headings-div,
+.article-thumbnail:hover .article-thumbnail--body {
     text-decoration: underline;
+}
+
+
+.article-thumbnail--body-string p {
+    display: none;
+}
+
+.article-thumbnail--body-string p:first-child {
+    display: block;
 }
