@@ -47,7 +47,7 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
         <ArticleThumbnail className="main-article" article={headlineArticles[0]}/> : 
         <></>
 
-    const articleThumbnails: JSX.Element[] = articles.slice(1).map(
+    const articleThumbnails: JSX.Element[] = headlineArticles.slice(1).map(
         (article: Article) => 
             <ArticleThumbnail key={article._id?.toString()} article={article} />
     )
@@ -68,7 +68,9 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
 
             <div className="home--secondary-column">
                 <h2 className="home--latest-header">LATEST HEADLINES</h2>
-                <HeadlineColumn articleThumbnails={articleThumbnails}/>
+                <HeadlineColumn 
+                    articleThumbnails={articleThumbnails.slice(0, 3)}
+                />
                 <h2 className="home--more-news">MORE NEWS</h2>
                 <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
             </div>
