@@ -12,14 +12,13 @@ import HeadlineBulletPoints from "../components/BreakingNews/HeadlineBulletPoint
 
 import "./BreakingNews.css"
 
-interface Props {
-    articles: Article[]
-}
-
+// Constants
 const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
+// The amount of articles to display in the HeadlineColumn and HeadlineBullets
+const ARTICLE_DISPLAY_COUNT = 3
 
 // Page component for the home page of the app which displays breaking news
-const BreakingNews: React.FC<Props> = ({ articles }) => {
+const BreakingNews: React.FC = () => {
     const [headlineArticles, setHeadlineArticles] = useState<Article[]>([])
     const location = useLocation()
 
@@ -69,10 +68,17 @@ const BreakingNews: React.FC<Props> = ({ articles }) => {
             <div className="home--secondary-column">
                 <h2 className="home--latest-header">LATEST HEADLINES</h2>
                 <HeadlineColumn 
-                    articleThumbnails={articleThumbnails.slice(0, 3)}
+                    articleThumbnails={
+                        articleThumbnails.slice(0, ARTICLE_DISPLAY_COUNT)
+                    }
                 />
                 <h2 className="home--more-news">MORE NEWS</h2>
-                <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
+                <HeadlineBulletPoints 
+                    articleThumbnails={articleThumbnails.slice(
+                        articleThumbnails.length - ARTICLE_DISPLAY_COUNT, 
+                        articleThumbnails.length
+                    )}
+                />
             </div>
         </main>
     )
