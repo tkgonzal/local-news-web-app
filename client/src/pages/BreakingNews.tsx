@@ -1,4 +1,9 @@
+import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
+
 import { Article } from "../types/interfaces/Article"
+
+import axios from "axios"
 
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
@@ -11,10 +16,36 @@ interface Props {
     articles: Article[]
 }
 
+const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
+
 // Page component for the home page of the app which displays breaking news
 const BreakingNews: React.FC<Props> = ({ articles }) => {
-    const mainArticleThumbnail: JSX.Element = 
-        <ArticleThumbnail className="main-article" article={articles[0]}/>
+    const [headlineArticles, setHeadlineArticles] = useState<Article[]>([])
+    const location = useLocation()
+
+    // Side Effects
+    useEffect(() => {
+        updateHeadlineArticles()
+    }, [location])
+
+    // Utility Functions
+    // Pulls from the DB all articles with the Headline tag
+    const updateHeadlineArticles = async () => {
+        try {
+            const headlineResponse = await axios.get(
+                `${BASE_SERVER_URL}/api/articles?tag=Headline`
+            )
+
+            setHeadlineArticles(headlineResponse.data)
+        } catch (error: any) {
+            console.log("An error occurred while retrieving Headlines")
+            console.log(error)
+        }
+    }
+
+    const mainArticleThumbnail: JSX.Element = headlineArticles.length ? 
+        <ArticleThumbnail className="main-article" article={headlineArticles[0]}/> : 
+        <></>
 
     const articleThumbnails: JSX.Element[] = articles.slice(1).map(
         (article: Article) => 
