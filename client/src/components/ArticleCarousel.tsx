@@ -12,20 +12,24 @@ interface Props {
 
 // A component meant to display a set of article thumbnail
 const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
-    const { articles } = useArticleCarouselState(articleThumbnails)
+    const { 
+        articlesDisplay,
+        backRef,
+        frontRef
+    } = useArticleCarouselState(articleThumbnails)
 
     return (
         <section className="articles-carousel">
-            <button>
-                <img src={LeftArrow} alt="Chevron Left from Font Awesome" />
+            <button ref={backRef} onClick={() => console.log(1)}>
+                <img src={LeftArrow} alt="Back Button" />
             </button>
 
             <div className="carousel-content">
-                {articles}
+                {articlesDisplay}
             </div>
 
-            <button>
-                <img src={RightArrow} alt="Chevron Right from Font Awesome" />
+            <button ref={frontRef}>
+                <img src={RightArrow} alt="Forward Button" />
             </button>
         </section>
     )
