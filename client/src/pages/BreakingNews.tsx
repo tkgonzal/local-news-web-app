@@ -26,8 +26,10 @@ const BreakingNews: React.FC = () => {
     // Side Effects
     // Pulls Headline and Breaking articles to render
     useEffect(() => {
-        updateHeadlineArticles()
-        updateBreakingArticles()
+        if (location.pathname === "/") {
+            updateHeadlineArticles()
+            updateBreakingArticles()
+        }
     }, [location])
 
     // Utility Functions
