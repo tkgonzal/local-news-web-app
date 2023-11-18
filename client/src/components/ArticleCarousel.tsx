@@ -15,12 +15,14 @@ const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
     const { 
         articlesDisplay,
         backRef,
-        frontRef
+        frontRef,
+        stepForward,
+        stepBack
     } = useArticleCarouselState(articleThumbnails)
 
     return (
         <section className="articles-carousel">
-            <button ref={backRef} onClick={() => console.log(1)}>
+            <button ref={backRef} onClick={stepBack}>
                 <img src={LeftArrow} alt="Back Button" />
             </button>
 
@@ -28,7 +30,7 @@ const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
                 {articlesDisplay}
             </div>
 
-            <button ref={frontRef}>
+            <button ref={frontRef} onClick={stepForward}>
                 <img src={RightArrow} alt="Forward Button" />
             </button>
         </section>

@@ -6,8 +6,8 @@ const ARTICLES_TO_DISPLAY_COUNT: number = 3
 // Given a set of ArticleThumbnail elements, returns the logic to render said
 // articles for an ArticleCarousel
 const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
-    const [articles, setArticles] = useState<JSX.Element[]>(articleThumbnails)
-    const [currentIndex, setCurrentIndex] = useState<number>(1)
+    const [articles] = useState<JSX.Element[]>(articleThumbnails)
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
     // Ref hooks for the forward and back button
     const backRef = useRef<HTMLButtonElement>(null)
     const frontRef = useRef<HTMLButtonElement>(null)
@@ -22,12 +22,31 @@ const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
             backRef.current?.disabled && setDisabledForRef(backRef, false)
         }
 
-        if (currentIndex + ARTICLES_TO_DISPLAY_COUNT >= articles.length - 1) {
+        if (currentIndex + ARTICLES_TO_DISPLAY_COUNT >= articles.length) {
             setDisabledForRef(frontRef, true)
         } else {
             frontRef.current?.disabled && setDisabledForRef(frontRef, false)
         }
     }, [currentIndex])
+
+    // Event Handlers
+    /**
+     * Increments the currentIndex, changing which chunk of articles to display
+     */
+    const stepForward = () => {
+        if (currentIndex + ARTICLES_TO_DISPLAY_COUNT < articles.length) {
+            setCurrentIndex(prevIndex => prevIndex + ARTICLES_TO_DISPLAY_COUNT)
+        }
+    }
+
+    /**
+     * Decrements the currentIndex, changing which chunk of articles to display
+     */
+    const stepBack = () => {
+        if (currentIndex - ARTICLES_TO_DISPLAY_COUNT > -1) {
+            setCurrentIndex(prevIndex => prevIndex - ARTICLES_TO_DISPLAY_COUNT)
+        }
+    }
 
     // Utility Functions
     /**
@@ -50,7 +69,7 @@ const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
     )
 
 
-    return { articlesDisplay, backRef, frontRef }
+    return { articlesDisplay, backRef, frontRef, stepForward, stepBack }
 }
 
 export default useArticleCarouselState
