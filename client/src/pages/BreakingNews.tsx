@@ -12,8 +12,6 @@ import HeadlineBulletPoints from "../components/BreakingNews/HeadlineBulletPoint
 
 import "./BreakingNews.css"
 
-import ArticleTestData from "../test/ArticleData"
-
 // Constants
 const BASE_SERVER_URL = import.meta.env.VITE_SERVER_URL
 // The amount of articles to display in the HeadlineColumn and HeadlineBulletPoints
@@ -67,15 +65,18 @@ const BreakingNews: React.FC = () => {
             article={headlineArticles[0]}
         /> : <></>
 
-    const articleThumbnails: JSX.Element[] = headlineArticles.slice(1).map(
+    const headlineThumbnails: JSX.Element[] = headlineArticles.slice(1).map(
         (article: Article) => 
             <ArticleThumbnail key={article._id?.toString()} article={article} />
     )
 
-    const carouselThumbnails: JSX.Element[] = ArticleTestData.map(
-        (article: Article) => 
-            <ArticleThumbnail key={article._id?.toString()} article={article} />
-    )
+    const breakingThumbnails: JSX.Element[] = breakingArticles.length ? 
+        breakingArticles.map((article: Article) => 
+            <ArticleThumbnail 
+                key={article._id?.toString()} 
+                article={article} 
+            />) 
+        : []
 
     return (
         <main className="home">
@@ -87,7 +88,10 @@ const BreakingNews: React.FC = () => {
 
                 <h2 className="home--article-carousel-header">TOP STORIES</h2>
                 <div className="home--article-carousel-container">
-                    <ArticleCarousel articleThumbnails={carouselThumbnails}/>
+                    {
+                        breakingThumbnails.length && 
+                        <ArticleCarousel articleThumbnails={breakingThumbnails}/>
+                    }
                 </div>
             </div>
 
@@ -95,14 +99,14 @@ const BreakingNews: React.FC = () => {
                 <h2 className="home--latest-header">LATEST HEADLINES</h2>
                 <HeadlineColumn 
                     articleThumbnails={
-                        articleThumbnails.slice(0, ARTICLE_DISPLAY_COUNT)
+                        headlineThumbnails.slice(0, ARTICLE_DISPLAY_COUNT)
                     }
                 />
                 <h2 className="home--more-news">MORE NEWS</h2>
                 <HeadlineBulletPoints 
-                    articleThumbnails={articleThumbnails.slice(
-                        articleThumbnails.length - ARTICLE_DISPLAY_COUNT, 
-                        articleThumbnails.length
+                    articleThumbnails={headlineThumbnails.slice(
+                        headlineThumbnails.length - ARTICLE_DISPLAY_COUNT, 
+                        headlineThumbnails.length
                     )}
                 />
             </div>
