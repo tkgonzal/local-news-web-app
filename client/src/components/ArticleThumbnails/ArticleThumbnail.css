@@ -3,6 +3,11 @@
     width: 100%;
 }
 
+/* Adds text-wrap for rendering on Google Chrome */
+.article-thumbnail h2, h3, p {
+    text-wrap: wrap;
+}
+
 .article-thumbnail--img {
     object-fit: cover;
     width: 100%;
