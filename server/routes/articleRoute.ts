@@ -62,9 +62,9 @@ router.post("/new", authenticateToken, async (req, res) => {
     }
 });
 
-router.post('/:uid', async (req, res) => {
+// router.post('/:uid', async (req, res) => {
 
-})
+// })
 
 // Route to update
 router.put("/:articleId", authenticateToken, async (req, res) => {
