@@ -75,6 +75,10 @@ const ArticlePage: React.FC = () => {
     <main className='article-container'>
         <div className='article'>
             <h1 className="article--header">{titleCase(articleObj.heading)}</h1>
+            {
+                articleObj.subHeading && 
+                <h2 className="article--subheader">{articleObj.subHeading}</h2>
+            }
             <h5 className="article--author">BY {articleObj.authors.map((author)=>author.toUpperCase()).join(",")}</h5>
             <h5 className="article--date">{formattedDate(articleObj)}</h5>
             <img className="article--img" src={mainImage.url} />
