@@ -12,7 +12,8 @@ import { createUser,
 import { authenticateToken } from "./authRoute";
 import Permission from "../types/enums/Permission";
 
-require('dotenv').config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 const secretKey = process.env.JWT_SECRET as string;

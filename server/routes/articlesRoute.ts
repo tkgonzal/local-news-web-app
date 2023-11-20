@@ -5,8 +5,11 @@ import {
     getArticlesByTag, 
     getBreakingArticles 
 } from "../models/Article";
+
 import { isArticleTag } from "../types/types/ArticleTag";
-require('dotenv').config();
+
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 

@@ -1,4 +1,5 @@
 import express from "express";
+import Case from "case";
 
 import { 
     Article, 
@@ -11,7 +12,8 @@ import {
 import { authenticateToken } from "./authRoute";
 import { ObjectId } from "mongodb";
 
-require('dotenv').config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 
@@ -37,9 +39,9 @@ router.post("/new", authenticateToken, async (req, res) => {
         const newArticle: Article = {
             tags: ["Local News"],
             source: articleData.source,
-            heading: articleData.heading,
+            heading: Case.title(articleData.heading),
             authors: articleData.authors,
-            subHeading: articleData.subHeading || undefined,
+            subHeading: Case.title(articleData.subHeading) || undefined,
             engagements: 0,
             body: articleData.body,
             publishedDate: (new Date()).toISOString(),
@@ -72,7 +74,15 @@ router.put("/:articleId", authenticateToken, async (req, res) => {
         const { articleId } = req.params;
         const { articleValues } = req.body;
 
-        await updateArticleValuesById(articleId, articleValues);
+        const formattedArticleValues = {
+            ...articleValues,
+            heading: articleValues["heading"] ? 
+                Case.title(articleValues["heading"]) : undefined,
+            subHeading: articleValues["subHeading"] ?
+                Case.title(articleValues["subHeading"]) : undefined
+        }
+
+        await updateArticleValuesById(articleId, formattedArticleValues);
 
         res.status(200).json({
             message: "Article sucessfully updated",
