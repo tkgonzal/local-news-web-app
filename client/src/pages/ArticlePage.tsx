@@ -6,7 +6,6 @@ import axios, { AxiosResponse } from 'axios';
 import HeadlineBulletPoints from '../components/BreakingNews/HeadlineBulletPoints';
 import HeadlineColumn from '../components/BreakingNews/HeadlineColumn';
 import ArticleThumbnail from '../components/ArticleThumbnails/ArticleThumbnail';
-import titleCase from '../utils/titleCase';
 import formattedDate from '../utils/formattedDate'
 
 import defaultArticleImage from '../assets/defaultArticleImage';
@@ -74,7 +73,7 @@ const ArticlePage: React.FC = () => {
     return (
     <main className='article-container'>
         <div className='article'>
-            <h1 className="article--header">{titleCase(articleObj.heading)}</h1>
+            <h1 className="article--header">{articleObj.heading}</h1>
             {
                 articleObj.subHeading && 
                 <h2 className="article--subheader">{articleObj.subHeading}</h2>
