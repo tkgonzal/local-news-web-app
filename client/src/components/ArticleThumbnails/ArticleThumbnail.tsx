@@ -52,7 +52,14 @@ const ArticleThumbnail: React.FC<Props> = ({ className, article }) => {
                 <p className="article-thumbnail--author">{authorsText}</p>
                 <p className="article-thumbnail--date">{formattedDate(article)}</p>
                 <p className="article-thumbnail--body">
-                    {article.body.length && article.body[0]}
+                    {
+                        typeof article.body === "string" ? 
+                        <span 
+                            className="article-thumbnail--body-string"
+                            dangerouslySetInnerHTML={{__html: article.body}}
+                        ></span> : 
+                        article.body.length && article.body[0]
+                    }
                 </p>
             </div>
         </div>

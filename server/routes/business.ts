@@ -9,7 +9,8 @@ import {
     getArticlesByBusinessId
 } from "../models/Article"
 
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 

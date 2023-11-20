@@ -18,7 +18,17 @@
 
 .articles-carousel button img:hover {
     width: 100%;
-    filter: invert(94%) sepia(1%) saturate(0%) hue-rotate(23deg) brightness(87%) contrast(91%);
+    filter: invert(94%) sepia(1%) saturate(0%) 
+        hue-rotate(23deg) brightness(87%) contrast(91%);
+}
+
+.articles-carousel button:disabled img {
+    filter: invert(94%) sepia(1%) saturate(0%) 
+        hue-rotate(23deg) brightness(87%) contrast(91%);
+}
+
+.articles-carousel button:active {
+    box-shadow: none;
 }
 
 .carousel-content {

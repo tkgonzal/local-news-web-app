@@ -47,5 +47,5 @@
 .headline-bullet-points .article-thumbnail--author,
 .headline-bullet-points .article-thumbnail--body,
 .headline-bullet-points .article-thumbnail--img {
-    display: none;
+    display: none !important;
 }

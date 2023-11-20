@@ -1,4 +1,5 @@
 const SectionTags = [
+    "Headline",
     "Breaking News",
     "Local News",
     "Crime",

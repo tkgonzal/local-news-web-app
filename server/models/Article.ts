@@ -1,7 +1,7 @@
 import { Collection, ObjectId, FindCursor, WithId, MatchKeysAndValues } from 'mongodb';
 import { connectToDatabase } from '../config/db';
 import { Article } from '../types/interfaces/Article';
-import { ArticleTag } from '../types/types/ArticleTag';
+import { ArticleTag, isArticleTag } from '../types/types/ArticleTag';
 
 async function getArticleCollection(): Promise<Collection<Article>> {
     const db = await connectToDatabase();
@@ -22,6 +22,23 @@ async function getArticlesByTag(tag: ArticleTag): Promise<FindCursor<Article> | 
     const cursor = articleCollection.find<Article>({tags:tag})
     return cursor
   };
+
+/**
+ * @returns {Promise<FindCursor<Article> | null>} A find cursor consisting of 
+ * articles that have been published within the past month
+ */
+async function getBreakingArticles(): Promise<FindCursor<Article> | null> {
+  const articles = await getArticleCollection();
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  return articles.find<Article>({ 
+    $or: [
+      { publishedDate: { $gt: oneMonthAgo.toISOString() } },
+      { tags: "Breaking News" }
+    ]
+  });
+}
 
 async function getArticleByID(id: string): Promise<Article | null> {
     const articleCollection = await getArticleCollection()
@@ -97,6 +114,7 @@ export {
   Article, 
   getArticles, 
   getArticlesByTag, 
+  getBreakingArticles,
   getArticleByID, 
   getArticlesByBusinessId,
   createArticle,

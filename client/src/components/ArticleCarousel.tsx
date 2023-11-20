@@ -1,3 +1,5 @@
+import useArticleCarouselState from "../hooks/useArticleCarouselState"
+
 import RightArrow from "/assets/chevron-right-font-awesome.svg"
 import LeftArrow from "/assets/chevron-left-font-awesome.svg"
 
@@ -10,18 +12,26 @@ interface Props {
 
 // A component meant to display a set of article thumbnail
 const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
+    const { 
+        articlesDisplay,
+        backRef,
+        frontRef,
+        stepForward,
+        stepBack
+    } = useArticleCarouselState(articleThumbnails)
+
     return (
         <section className="articles-carousel">
-            <button>
-                <img src={LeftArrow} alt="Chevron Left from Font Awesome" />
+            <button ref={backRef} onClick={stepBack}>
+                <img src={LeftArrow} alt="Back Button" />
             </button>
 
             <div className="carousel-content">
-                {articleThumbnails}
+                {articlesDisplay}
             </div>
 
-            <button>
-                <img src={RightArrow} alt="Chevron Right from Font Awesome" />
+            <button ref={frontRef} onClick={stepForward}>
+                <img src={RightArrow} alt="Forward Button" />
             </button>
         </section>
     )
