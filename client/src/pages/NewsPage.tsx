@@ -4,10 +4,10 @@ import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
 
 import axios from "axios"
-
-import "./NewsPage.css"
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+
+import "./NewsPage.css"
 
 const BASE_API_URL = import.meta.env.VITE_SERVER_URL
 

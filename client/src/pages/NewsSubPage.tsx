@@ -3,34 +3,71 @@ import { Article } from "../types/interfaces/Article"
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
 
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import "./NewsPage.css"
 
-interface Props {
-    articles: Article[],
-    category: string
-}
+
+const BASE_API_URL = import.meta.env.VITE_SERVER_URL
 
 // Page component for the news page of the app when displaying a single subcategory
-const NewsSubPage: React.FC<Props> = ({ articles, category }) => {
-    const mainArticleThumbnail: JSX.Element = 
-        <ArticleThumbnail className="main-article" article={articles[0]}/>
+const NewsSubPage: React.FC = () => {
+    const location = useLocation()
+    const [newsArticles,setArticles] = useState<Article[]>([])
+    const [headerName, setHeaderName] = useState<string>("")
+    useEffect(() => {
+        //Pulls the relevant articles for the subcategory page
+        if(location.pathname === "/news/local"){
+            fetchArticles("Local%20News")
+            setHeaderName("Local News")
+        }else if(location.pathname === "/news/crime"){
+            fetchArticles("Crime")
+            setHeaderName("Crime")
+        }else if(location.pathname === "/news/government"){
+            fetchArticles("Government")
+            setHeaderName("Government")
+        }else if(location.pathname === "/news/education"){
+            fetchArticles("Education")
+            setHeaderName("Education")
+        }
+    }, [location]);
 
-    const articleThumbnails: JSX.Element[] = articles.slice(1).map(
+    const fetchArticles = async (category: string) => {
+        try {
+            const articleResponse = await axios.get(
+                `${BASE_API_URL}/api/articles?tag=${category}`
+            )
+            setArticles(articleResponse.data)
+        } catch (error) {
+            console.log("An error occurred while retrieving Articles")
+            console.log(error)
+        }
+    }
+    const mainArticleThumbnail: JSX.Element = newsArticles.length ?
+        <ArticleThumbnail className="main-article" article={newsArticles[0]}/> : <></>
+
+    const secondaryArticleThumbnails: JSX.Element[] = newsArticles.slice(1,5).map(
         (article: Article) => 
             <ArticleThumbnail key={article._id} article={article} />
     )
+    const featuredArticleThumbnails: JSX.Element[] = newsArticles.slice(5).map(
+        (article: Article) => 
+            <ArticleThumbnail key={article._id} article={article} />
+    )
+    console.log(featuredArticleThumbnails)
 
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">{`${category}`}</h1>
+            <h1 className="subpage--header">{`${headerName}`}</h1>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}
                 </div>
 
                 <div className="subpage--secondary-articles">
-                    {articleThumbnails}
+                    {secondaryArticleThumbnails}
                 </div>
 
 
@@ -38,7 +75,10 @@ const NewsSubPage: React.FC<Props> = ({ articles, category }) => {
                 
             <h2 className="subpage--article-carousel-header">Featured</h2>
             <div className="subpage--article-carousel-container">
-                <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                {
+                    featuredArticleThumbnails.length &&
+                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                }
             </div>
 
         </main>

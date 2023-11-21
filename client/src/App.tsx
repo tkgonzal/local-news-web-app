@@ -51,10 +51,10 @@ function App() : JSX.Element {
         <Routes>
           <Route path="/" element={<BreakingNews />}/>
           <Route path="/news" element={<NewsPage />}/>
-          <Route path="/news/local" element={<NewsSubPage articles={ArticleTestData} category={"LOCAL"}/>}/>
-          <Route path="/news/crime" element={<NewsSubPage articles={ArticleTestData} category={"CRIME"}/>}/>
-          <Route path="/news/government" element={<NewsSubPage articles={ArticleTestData} category={"GOVERNMENT"}/>}/>
-          <Route path="/news/education" element={<NewsSubPage articles={ArticleTestData} category={"EDUCATION"}/>}/>
+          <Route path="/news/local" element={<NewsSubPage />}/>
+          <Route path="/news/crime" element={<NewsSubPage />}/>
+          <Route path="/news/government" element={<NewsSubPage />}/>
+          <Route path="/news/education" element={<NewsSubPage />}/>
           <Route path="/article/:articleUID" element={<ArticlePage />}/>
           <Route path="/login" element={<LoginPage />}/>
           <Route path="/register" element={<RegisterPage />}/>
