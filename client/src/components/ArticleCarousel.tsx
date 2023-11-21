@@ -22,10 +22,10 @@ const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
         stepBack,
         updateArticles
     } = useArticleCarouselState(articleThumbnails)
-    
+
     useEffect(() => {
         updateArticles(articleThumbnails)
-    }, [articleThumbnails])
+    })
 
     return (
         <section className="articles-carousel">
