@@ -3,55 +3,49 @@ import { Article } from "../types/interfaces/Article"
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
 
+import axios from "axios"
+
 import "./NewsPage.css"
 import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 
 const BASE_API_URL = import.meta.env.VITE_SERVER_URL
 
-interface Props {
-    articles: Article[]
-}
+// interface Props {
+//     articles: Article[]
+// }
 
 // Page component for the news page of the app which displays all the news subcategories
-const NewsPage: React.FC<Props> = ({ articles }) => {
-
+const NewsPage: React.FC = () => {
+    const location = useLocation()
     const [newsArticles,setArticles] = useState<Article[]>([])
     useEffect(() => {
-        (async function(){
-            const articleData = await fetchArticles()
-            if (articleData) {
-              setArticles(articleData)
-            }
-        }())
-      }, []);
+        if(location.pathname === "/news"){
+            fetchArticles()
+        }
+    }, [location]);
+
+    const fetchArticles = async () => {
+        try {
+            const headlineResponse = await axios.get(
+                `${BASE_API_URL}/api/articles?tag=Breaking%20News`
+            )
+
+            setArticles(headlineResponse.data)
+        } catch (error) {
+            console.log("An error occurred while retrieving Articles")
+            console.log(error)
+        }
+    }
+
+    
     const mainArticleThumbnail: JSX.Element = 
         newsArticles.length ? <ArticleThumbnail className="main-article" article={newsArticles[0]}/> : <></>
 
-    const articleThumbnails: JSX.Element[] = newsArticles.slice(1).map(
+    const articleThumbnails: JSX.Element[] = newsArticles.slice(1,5).map(
         (article: Article) => 
             <ArticleThumbnail key={article._id} article={article} />
     )
-    async function fetchArticles() {
-        try {
-            const res = await fetch(
-                `${BASE_API_URL}/api/articles/?tag=Local%20News`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'},
-                    method : "GET",
-                    mode : "cors",   
-                }
-            )
-            const resData = await res.json()
-            console.log(resData)
-            return resData
-    
-        } catch (error) {
-            console.log(error)
-        }
-        
-    }
-
     console.log(newsArticles)
 
     return (

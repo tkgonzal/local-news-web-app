@@ -50,7 +50,7 @@ function App() : JSX.Element {
       <main className={shouldRenderNavbar ? "page-container": ""}>
         <Routes>
           <Route path="/" element={<BreakingNews />}/>
-          <Route path="/news" element={<NewsPage articles={ArticleTestData}/>}/>
+          <Route path="/news" element={<NewsPage />}/>
           <Route path="/news/local" element={<NewsSubPage articles={ArticleTestData} category={"LOCAL"}/>}/>
           <Route path="/news/crime" element={<NewsSubPage articles={ArticleTestData} category={"CRIME"}/>}/>
           <Route path="/news/government" element={<NewsSubPage articles={ArticleTestData} category={"GOVERNMENT"}/>}/>
