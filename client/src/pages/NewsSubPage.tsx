@@ -55,7 +55,6 @@ const NewsSubPage: React.FC = () => {
         (article: Article) => 
             <ArticleThumbnail key={article._id} article={article} />
     )
-    console.log(featuredArticleThumbnails)
 
     return (
         <main className="subpage">

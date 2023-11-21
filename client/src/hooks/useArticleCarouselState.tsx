@@ -6,7 +6,7 @@ const ARTICLES_TO_DISPLAY_COUNT: number = 3
 // Given a set of ArticleThumbnail elements, returns the logic to render said
 // articles for an ArticleCarousel
 const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
-    const [articles] = useState<JSX.Element[]>(articleThumbnails)
+    const [articles, setArticles] = useState<JSX.Element[]>(articleThumbnails)
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     // Ref hooks for the forward and back button
     const backRef = useRef<HTMLButtonElement>(null)
@@ -27,7 +27,7 @@ const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
         } else {
             frontRef.current?.disabled && setDisabledForRef(frontRef, false)
         }
-    }, [currentIndex])
+    }, [currentIndex, articles.length])
 
     // Event Handlers
     /**
@@ -46,6 +46,11 @@ const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
         if (currentIndex - ARTICLES_TO_DISPLAY_COUNT > -1) {
             setCurrentIndex(prevIndex => prevIndex - ARTICLES_TO_DISPLAY_COUNT)
         }
+    }
+    
+    const updateArticles = (newArticles: JSX.Element[]) => {
+        setCurrentIndex(0)
+        setArticles(newArticles)
     }
 
     // Utility Functions
@@ -69,7 +74,14 @@ const useArticleCarouselState = (articleThumbnails: JSX.Element[]) => {
     )
 
 
-    return { articlesDisplay, backRef, frontRef, stepForward, stepBack }
+    return { 
+        articlesDisplay, 
+        backRef, 
+        frontRef, 
+        stepForward, 
+        stepBack, 
+        updateArticles 
+    }
 }
 
 export default useArticleCarouselState

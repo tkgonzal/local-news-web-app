@@ -1,4 +1,6 @@
+import { useEffect } from "react"
 import useArticleCarouselState from "../hooks/useArticleCarouselState"
+
 
 import RightArrow from "/assets/chevron-right-font-awesome.svg"
 import LeftArrow from "/assets/chevron-left-font-awesome.svg"
@@ -17,8 +19,13 @@ const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
         backRef,
         frontRef,
         stepForward,
-        stepBack
+        stepBack,
+        updateArticles
     } = useArticleCarouselState(articleThumbnails)
+    
+    useEffect(() => {
+        updateArticles(articleThumbnails)
+    }, [articleThumbnails])
 
     return (
         <section className="articles-carousel">
