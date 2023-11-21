@@ -30,7 +30,6 @@ const NewsPage: React.FC = () => {
             const headlineResponse = await axios.get(
                 `${BASE_API_URL}/api/articles?tag=Breaking%20News`
             )
-
             setArticles(headlineResponse.data)
         } catch (error) {
             console.log("An error occurred while retrieving Articles")
@@ -42,7 +41,11 @@ const NewsPage: React.FC = () => {
     const mainArticleThumbnail: JSX.Element = 
         newsArticles.length ? <ArticleThumbnail className="main-article" article={newsArticles[0]}/> : <></>
 
-    const articleThumbnails: JSX.Element[] = newsArticles.slice(1,5).map(
+    const secondaryArticleThumbnails: JSX.Element[] = newsArticles.slice(1,5).map(
+        (article: Article) => 
+            <ArticleThumbnail key={article._id} article={article} />
+    )
+    const featuredArticleThumbnails: JSX.Element[] = newsArticles.slice(5).map(
         (article: Article) => 
             <ArticleThumbnail key={article._id} article={article} />
     )
@@ -58,7 +61,7 @@ const NewsPage: React.FC = () => {
                 </div>
 
                 <div className="subpage--secondary-articles">
-                    {articleThumbnails}
+                    {secondaryArticleThumbnails}
                 </div>
 
 
@@ -66,23 +69,38 @@ const NewsPage: React.FC = () => {
                 
             <h2 className="subpage--article-carousel-header">Featured</h2>
             <div className="subpage--article-carousel-container">
-                <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                {
+                    featuredArticleThumbnails.length &&
+                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                }   
             </div>
             <h2 className="subpage--article-carousel-header">Local</h2>
             <div className="subpage--article-carousel-container">
-                <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                {
+                    featuredArticleThumbnails.length &&
+                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                }  
             </div>
             <h2 className="subpage--article-carousel-header">Crime</h2>
             <div className="subpage--article-carousel-container">
-                <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                {
+                    featuredArticleThumbnails.length &&
+                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                }
             </div>
             <h2 className="subpage--article-carousel-header">Government</h2>
             <div className="subpage--article-carousel-container">
-                <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                {
+                    featuredArticleThumbnails.length &&
+                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                }
             </div>
             <h2 className="subpage--article-carousel-header">Education</h2>
             <div className="subpage--article-carousel-container">
-                <ArticleCarousel articleThumbnails={articleThumbnails}/>
+                {
+                    featuredArticleThumbnails.length &&
+                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                }
             </div>
 
         </main>
