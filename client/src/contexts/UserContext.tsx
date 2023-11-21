@@ -24,7 +24,7 @@ interface UserProviderProps {
 export function UserProvider({ children }: UserProviderProps) {
     const [user, setUser] = useState<User | null>(null)
 
-    console.log('context user: ', user)
+    // console.log('context user: ', user)
 
     // Effectively logs the user out by setting their user to null
     const logout = () => {

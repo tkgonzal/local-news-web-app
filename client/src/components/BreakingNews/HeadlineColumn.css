@@ -32,7 +32,7 @@
 .headline-column .article-thumbnail--subheading, 
 .headline-column .article-thumbnail--author,
 .headline-column .article-thumbnail--body {
-    display: none;
+    display: none !important;
 }
 
 

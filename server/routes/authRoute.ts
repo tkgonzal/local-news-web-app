@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken';
 
 import { getUserByEmail, User } from "../models/User";
 
-require('dotenv').config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 const secretKey = process.env.JWT_SECRET as string;
