@@ -25,7 +25,7 @@ const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
 
     useEffect(() => {
         updateArticles(articleThumbnails)
-    })
+    }, [articleThumbnails])
 
     return (
         <section className="articles-carousel">
