@@ -15,7 +15,7 @@ interface Props {
 // Page component for the news page of the app which displays all the news subcategories
 const NewsPage: React.FC<Props> = ({ articles }) => {
 
-    const [newsArticles,setArticles] = useState<Article[]>(articles)
+    const [newsArticles,setArticles] = useState<Article[]>([])
     useEffect(() => {
         (async function(){
             const articleData = await fetchArticles()
@@ -25,7 +25,7 @@ const NewsPage: React.FC<Props> = ({ articles }) => {
         }())
       }, []);
     const mainArticleThumbnail: JSX.Element = 
-        <ArticleThumbnail className="main-article" article={newsArticles[0]}/>
+        newsArticles.length ? <ArticleThumbnail className="main-article" article={newsArticles[0]}/> : <></>
 
     const articleThumbnails: JSX.Element[] = newsArticles.slice(1).map(
         (article: Article) => 
