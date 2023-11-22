@@ -1,8 +1,8 @@
 .subscribe {
-  padding-left: 450px;
   display: flex;
   flex-direction: column;
-  width: 650px;
+  width: calc(100% - 20rem);
+  padding: 5rem 10rem;
 }
 
 .subscribe--header {

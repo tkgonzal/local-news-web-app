@@ -1,18 +1,21 @@
-import React, { useState } from "react";
-import "./SubscribePage.css";
+import React, { useState } from "react"
+
+import "./SubscribePage.css"
 
 type FormData = {
-  isCheckedAll: boolean;
+  isCheckedAll: boolean
   checkboxOptions: {
-    local: boolean;
-    crime: boolean;
-    breakingNews: boolean;
-    sports: boolean;
-  };
-  frequency: string;
-  email: string;
-  phoneNumber: string;
-};
+    local: boolean
+    crime: boolean
+    breakingNews: boolean
+    sports: boolean
+    government: boolean
+    education: boolean
+  }
+  frequency: string
+  email: string
+  phoneNumber: string
+}
 
 const SubscribePage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -22,6 +25,8 @@ const SubscribePage: React.FC = () => {
       crime: false,
       breakingNews: false,
       sports: false,
+      government: false,
+      education: false
     },
     frequency: "",
     email: "",
@@ -29,18 +34,20 @@ const SubscribePage: React.FC = () => {
   });
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = event.target;
+    const { name, checked } = event.target
+
     if (name === "selectAll") {
       setFormData((prevData) => ({
         ...prevData,
         isCheckedAll: checked,
-        checkboxOptions: Object.keys(prevData.checkboxOptions).reduce(
-          (options, key) => {
-            options[key] = checked;
-            return options;
-          },
-          {}
-        ),
+        checkboxOptions: {
+          local: checked,
+          crime: checked,
+          breakingNews: checked,
+          sports: checked,
+          government: checked,
+          education: checked
+        },
       }));
     } else {
       setFormData((prevData) => ({
@@ -49,43 +56,47 @@ const SubscribePage: React.FC = () => {
           ...prevData.checkboxOptions,
           [name]: checked,
         },
-        isCheckedAll: Object.values(prevData.checkboxOptions).every(
+        isCheckedAll: Object.values({
+          ...prevData.checkboxOptions,
+          [name]: checked,
+        }).every(
           (option) => option
         ),
-      }));
+      }))
     }
-  };
+  }
 
   const handleFrequencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, frequency: event.target.value });
-  };
+    setFormData({ ...formData, frequency: event.target.value })
+  }
+
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, email: event.target.value });
-  };
+    setFormData({ ...formData, email: event.target.value })
+  }
+
 
   const handlePhoneNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setFormData({ ...formData, phoneNumber: event.target.value });
-  };
+    setFormData({ ...formData, phoneNumber: event.target.value })
+  }
+
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
+    // console.log(formData)
+  }
 
-    console.log(formData);
-  };
 
   return (
     <div className="subscribe">
-      <h1 className="subscribe--header">Subscribe for Daily Newsletter</h1>
+      <h1 className="subscribe--header">Subscribe for Stay Updated</h1>
       <p className="subscribe--subtext">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error totam
-        nostrum odit adipisci suscipit expedita dolorum tempora ullam natus
-        culpa. Temporibus dolor nam neque maiores deleniti labore dolore officia
-        officiis.
+        Subscribe to stay up to date on the more of the latest articles from 
+        all over the valley!
       </p>
       <form onSubmit={handleSubmit}>
         <div className="subscribe--checkbox-container">
@@ -134,6 +145,24 @@ const SubscribePage: React.FC = () => {
             <label className="subscribe--checkbox-option">
               <input
                 type="checkbox"
+                name="government"
+                checked={formData.checkboxOptions.government}
+                onChange={handleCheckboxChange}
+              />
+              Government
+            </label>
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
+                name="education"
+                checked={formData.checkboxOptions.education}
+                onChange={handleCheckboxChange}
+              />
+              Education
+            </label>
+            <label className="subscribe--checkbox-option">
+              <input
+                type="checkbox"
                 name="selectAll"
                 checked={formData.isCheckedAll}
                 onChange={handleCheckboxChange}
@@ -151,7 +180,7 @@ const SubscribePage: React.FC = () => {
             onChange={handleFrequencyChange}
             className="subscribe--frequency-option"
           >
-            <option value="" selected disabled hidden>
+            <option value="" defaultValue={""}>
               Select Frequency
             </option>
             <option value="hourly">Hourly</option>
