@@ -8,6 +8,9 @@
     --bp-primary-bg-color: #fbfbfb;
     --nav-bar-bg-color: #0f0c0c;
     --nav-bar-color: #fff;
+    --input-bg-color: #fff;
+    --input-border-color: #d9d9d9;
+    --input-color: #000;
 }
 
 #root {

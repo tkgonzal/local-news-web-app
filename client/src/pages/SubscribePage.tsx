@@ -87,7 +87,7 @@ const SubscribePage: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    // console.log(formData)
+    console.log(formData)
   }
 
 
@@ -95,8 +95,8 @@ const SubscribePage: React.FC = () => {
     <div className="subscribe">
       <h1 className="subscribe--header">Subscribe for Stay Updated</h1>
       <p className="subscribe--subtext">
-        Subscribe to stay up to date on the more of the latest articles from 
-        all over the valley!
+        Subscribe to stay up to date on the more of the latest articles on 
+        various topics from all over the valley!
       </p>
       <form onSubmit={handleSubmit}>
         <div className="subscribe--checkbox-container">

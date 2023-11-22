@@ -51,8 +51,10 @@
 }
 
 .subscribe--frequency-option {
-  background-color: #ebebeb;
-  color: #0000007e;
+  border: 0.0125rem solid;
+  border-color: var(--input-border-color, black);
+  background-color: var(--input-bg-color, white);
+  color: var(--input-color, black);
 }
 
 .subscribe--email-container {
@@ -67,13 +69,14 @@
   padding-left: 15px;
   width: 338px;
   height: 57px;
-  border-color: black;
+  border: 0.0125rem solid;
+  border-color: var(--input-border-color, black);
   border-radius: 5px;
-  background-color: #ebebeb;
+  background-color: var(--input-bg-color, white);
 }
 
 .subscribe--form-button {
-  background-color: black;
+  background-color: var(--input-color, black);
   color: white;
   width: 153px;
   height: 61px;
