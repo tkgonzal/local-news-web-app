@@ -10,4 +10,12 @@ async function getSubscriptionCollection(): Promise<Collection<Subscription>> {
     }
 
     return db.collection<Subscription>("Subscription");
+};
+
+async function getSubscriptions(): Promise<Subscription[]> {
+    const subscriptionsCollection = await getSubscriptionCollection();
+    const subscriptions = await subscriptionsCollection.find({});
+    return subscriptions.toArray();
 }
+
+export { getSubscriptions }
