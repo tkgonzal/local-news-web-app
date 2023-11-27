@@ -38,5 +38,5 @@ app.use('/api/articles', articlesRoute);
 app.use("/api/subscriptions", subscriptionsRoute);
 
 app.listen(PORT, () => {
-    console.log(`Local news web app server starting on port ${PORT}`)
+    console.log(`Local news web app server starting on port ${PORT}`);
 });
