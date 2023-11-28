@@ -6,8 +6,9 @@ import {
     createSubscription 
 } from "../models/Subscription";
 
-import dotenv from "dotenv";
 import { Subscription } from "../types/interfaces/Subscription";
+
+import dotenv from "dotenv";
 dotenv.config();
 
 const router = express.Router();
