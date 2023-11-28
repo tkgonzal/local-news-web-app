@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
         res.status(200).json({
             message: "Newsletters subscriptions found",
             subscriptions
-        })
+        });
     } catch (error: any) {
         console.log("Error retrieving subscriptions: ", error);
         res.status(500).json({
