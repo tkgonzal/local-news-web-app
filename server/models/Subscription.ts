@@ -1,4 +1,4 @@
-import { Collection } from "mongodb";
+import { Collection, MatchKeysAndValues } from "mongodb";
 import { connectToDatabase } from "../config/db";
 import { Subscription } from "../types/interfaces/Subscription";
 
@@ -26,6 +26,33 @@ async function getSubscriptions(): Promise<Subscription[]> {
 }
 
 /**
+ * 
+ * @param email {string | null} An email to search for if any
+ * @param phone {phone | null} A phone to search for if any
+ * @returns All subscriptions that match given non-null email and phones
+ */
+async function getSubscriptionsByEmailOrPhone(
+    email: string | null, 
+    phone: string | null
+): Promise<Subscription[] | null> {
+    const subscriptions = await getSubscriptionCollection();
+    const findConstraints: MatchKeysAndValues<Subscription>[] = [];
+    const constraints: [string, string | null][] = [
+        ["email", email], 
+        ["phone", phone]
+    ];
+    
+    constraints.forEach(([name, constraint]) => 
+        constraint && findConstraints.push({ [name]: constraint })
+    );
+
+    const matches = await subscriptions.find(
+        { $or: findConstraints }
+    );
+    return matches.toArray();
+};
+
+/**
  * @param subscription A subscription to add to the db
  * @returns {Promise<Subscription | null>} The subscription as added to the db
  */
@@ -46,4 +73,4 @@ async function createSubscription(subscription: Subscription):
         }
 }
 
-export { getSubscriptions, createSubscription }
+export { getSubscriptions, getSubscriptionsByEmailOrPhone, createSubscription }

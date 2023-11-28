@@ -1,6 +1,10 @@
 import express from "express";
 
-import { getSubscriptions, createSubscription } from "../models/Subscription";
+import { 
+    getSubscriptions, 
+    getSubscriptionsByEmailOrPhone,
+    createSubscription 
+} from "../models/Subscription";
 
 import dotenv from "dotenv";
 import { Subscription } from "../types/interfaces/Subscription";
@@ -8,10 +12,17 @@ dotenv.config();
 
 const router = express.Router();
 
-// Returns newsletter subscriptions
+// Returns newsletter subscriptions. If an email or phone param is given,
+// returns subscriptions that match the given email or phone
 router.get("/", async (req, res) => {
     try {
-        const subscriptions = await getSubscriptions();
+        const { email, phone } = req.query;
+
+        const subscriptions = (email || phone) ? 
+            await getSubscriptionsByEmailOrPhone(
+                email as string, phone as string
+            ) :
+            await getSubscriptions();
 
         res.status(200).json({
             message: "Newsletters subscriptions found",
