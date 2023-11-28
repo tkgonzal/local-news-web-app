@@ -14,7 +14,7 @@ async function getSubscriptionCollection(): Promise<Collection<Subscription>> {
     }
 
     return db.collection<Subscription>("Subscription");
-};
+}
 
 /**
  * @returns {Promise<Subscription[]>} The array of all subscriptions in the db
@@ -50,7 +50,7 @@ async function getSubscriptionsByEmailOrPhone(
         { $or: findConstraints }
     );
     return matches.toArray();
-};
+}
 
 /**
  * @param subscription A subscription to add to the db
@@ -73,4 +73,4 @@ async function createSubscription(subscription: Subscription):
         }
 }
 
-export { getSubscriptions, getSubscriptionsByEmailOrPhone, createSubscription }
+export { getSubscriptions, getSubscriptionsByEmailOrPhone, createSubscription };
