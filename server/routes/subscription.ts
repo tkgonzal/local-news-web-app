@@ -1,9 +1,12 @@
 import express from "express";
+import { MatchKeysAndValues } from "mongodb";
 
 import { 
     getSubscriptions, 
     getSubscriptionsByEmailOrPhone,
-    createSubscription 
+    createSubscription, 
+    updateSubscription,
+    deleteSubscription
 } from "../models/Subscription";
 
 import { Subscription } from "../types/interfaces/Subscription";
@@ -60,6 +63,63 @@ router.post("/new", async (req, res) => {
         console.log("Error adding subscription: ", error);
         res.status(500).json({
             message: "Internal Server Error Occurred Adding Subscription",
+            error
+        });
+    }
+});
+
+// Endpoint to update a subscription in the DB. Finds the subscription by 
+// matching based on a given email and phone. If multiple matches are found
+// for the email and phone combination, will delete extra matches of the 
+// subscription
+router.put("/", async (req, res) => {
+    try {
+        const { subscriptionData } = req.body;
+
+        const email = subscriptionData.email;
+        const phone = subscriptionData.phone;
+
+        const subscriptionMatches = await getSubscriptionsByEmailOrPhone(
+            email, phone
+        );
+
+        if (!subscriptionMatches || subscriptionMatches.length < 1) {
+            return res.status(400).json({
+                message: "No subscriptions found for the given email or phone, updated failed"
+            });
+        }
+
+        const subscriptionValues: MatchKeysAndValues<Subscription> = {
+            email,
+            phone,
+            frequency: subscriptionData.frequency,
+            subscribedForAll: subscriptionData.subscribedForAll,
+            subscriptionTypes: subscriptionData.subscriptionTypes
+        }
+
+        const firstMatch = subscriptionMatches[0];
+        firstMatch._id && await updateSubscription(
+            firstMatch._id, subscriptionValues
+        );
+
+        // Delete extra subscriptions if they exist to prevent a single
+        // email/phone from being sent newsletters for the same updates
+        if (subscriptionMatches.length > 1) {
+            for (let i = 1; i < subscriptionMatches.length; i++) {
+                const curSubscription = subscriptionMatches[i];
+                curSubscription._id && await deleteSubscription(
+                    curSubscription._id
+                );
+            }
+        }
+
+        res.status(200).json({
+            message: "Subscription successfully updated"
+        });
+    } catch (error: any) {
+        console.log("Error occurred updating subscription: ", error);
+        res.status(500).json({
+            message: "Internal server Error Occurred Updating Subscription",
             error
         });
     }

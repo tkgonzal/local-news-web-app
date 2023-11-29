@@ -1,4 +1,4 @@
-import { Collection, MatchKeysAndValues } from "mongodb";
+import { Collection, MatchKeysAndValues, ObjectId } from "mongodb";
 import { connectToDatabase } from "../config/db";
 import { Subscription } from "../types/interfaces/Subscription";
 
@@ -73,4 +73,36 @@ async function createSubscription(subscription: Subscription):
         }
 }
 
-export { getSubscriptions, getSubscriptionsByEmailOrPhone, createSubscription };
+/**
+ * @param id {ObjectId} The id of the subscription to update
+ * @param subscriptionValues {MatchKeysAndValues<Subscription>} The values
+ * to update a subscription with
+ */
+async function updateSubscription(
+    id: ObjectId,
+    subscriptionValues: MatchKeysAndValues<Subscription>
+) {
+    const subscriptions = await getSubscriptionCollection();
+
+    await subscriptions.findOneAndUpdate(
+        { _id: id },
+        { $set: subscriptionValues }
+    );
+}
+
+/**
+ * @param id {ObjectId} The id of a subscription to delete
+ */
+async function deleteSubscription(id: ObjectId) {
+    const subscriptions = await getSubscriptionCollection();
+
+    await subscriptions.deleteOne({ _id: id });
+}
+
+export { 
+    getSubscriptions, 
+    getSubscriptionsByEmailOrPhone, 
+    createSubscription,
+    updateSubscription,
+    deleteSubscription
+};
