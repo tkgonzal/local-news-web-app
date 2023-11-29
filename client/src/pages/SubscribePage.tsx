@@ -2,6 +2,7 @@ import React, { useState } from "react"
 
 import "./SubscribePage.css"
 
+// Interface for FormData
 type FormData = {
   isCheckedAll: boolean
   checkboxOptions: {
@@ -16,6 +17,10 @@ type FormData = {
   email: string
   phoneNumber: string
 }
+
+// Constants
+// const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
+const PHONE_RE: RegExp = /^\d{10}$/
 
 const SubscribePage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -33,6 +38,8 @@ const SubscribePage: React.FC = () => {
     phoneNumber: "",
   });
 
+  // Updates checkboxes for article types to subscribe to, updating the
+  // "all" checkbox as needed
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target
 
@@ -87,13 +94,34 @@ const SubscribePage: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+    
+    if (!formData.email && !formData.phoneNumber) {
+      alert("Enter an email or a phone number in order to subscribe.")
+      return
+    }
+
+    if (formData.phoneNumber && !PHONE_RE.test(formData.phoneNumber)) {
+      alert("Phone number must be in format XXXXXXXXXX.")
+      return
+    }
+
+    if (!formData.frequency) {
+      alert("Select a frequency to subscribe.")
+      return
+    }
+
+    if (Object.values(formData.checkboxOptions).every(option => !option)) {
+      alert("Select an article type to subscribe to.")
+      return
+    }
+
     console.log(formData)
   }
 
 
   return (
     <div className="subscribe">
-      <h1 className="subscribe--header">Subscribe for Stay Updated</h1>
+      <h1 className="subscribe--header">Subscribe to Stay Updated on MoNews!</h1>
       <p className="subscribe--subtext">
         Subscribe to stay up to date on the more of the latest articles on 
         various topics from all over the valley!
@@ -183,11 +211,11 @@ const SubscribePage: React.FC = () => {
             <option value="" defaultValue={""}>
               Select Frequency
             </option>
-            <option value="hourly">Hourly</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="biweekly">Biweekly</option>
-            <option value="monthly">Monthly</option>
+            <option value="Hourly">Hourly</option>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Biweekly">Biweekly</option>
+            <option value="Monthly">Monthly</option>
           </select>
         </div>
         <div className="subscribe--email-container">
