@@ -40,4 +40,21 @@ router.get('/', async (req, res) => {
     res.status(201).json(articles)
 })
 
+router.get("/subscriptions", async (req, res) => {
+    try {
+        res.status(200).json({
+            message: "Subscriptions succssfully retrieved"
+        });
+    } catch (error: any) {
+        console.log(
+            "An error occurred while retrieving articles for subscriptions",
+            error
+        );
+        res.status(500).json({
+            message: "Internal Server Error Occurred While Retrieving Subscription Articles",
+            error
+        });
+    }
+});
+
 export default router;
