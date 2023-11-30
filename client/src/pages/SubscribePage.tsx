@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import axios from "axios"
 
 import "./SubscribePage.css"
 
@@ -19,7 +20,7 @@ type FormData = {
 }
 
 // Constants
-// const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
+const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
 const PHONE_RE: RegExp = /^\d{10}$/
 
 const SubscribePage: React.FC = () => {
@@ -38,6 +39,7 @@ const SubscribePage: React.FC = () => {
     phoneNumber: "",
   });
 
+  // Event Handlers
   // Updates checkboxes for article types to subscribe to, updating the
   // "all" checkbox as needed
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +94,7 @@ const SubscribePage: React.FC = () => {
   }
 
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     
     if (!formData.email && !formData.phoneNumber) {
@@ -115,9 +117,82 @@ const SubscribePage: React.FC = () => {
       return
     }
 
-    console.log(formData)
+    try {
+      const subscriptionData = {
+        email: formData.email ? formData.email : undefined,
+        phone: formData.phoneNumber ? formData.phoneNumber : null,
+        frequency: formData.frequency,
+        subscribedForAll: formData.isCheckedAll,
+        subscriptionTypes: getSubscriptionTypes()
+      }
+
+      if (await hasAnExistingSubscription()) {
+        axios.put(
+          `${BASE_SERVER_URL}/api/subscriptions`,
+          { subscriptionData }
+        )
+      } else {
+        axios.post(
+          `${BASE_SERVER_URL}/api/subscriptions/new`,
+          { subscriptionData }
+        )
+      }
+    } catch (error: any) {
+      console.log("An internal server error occurred", error)
+      alert("An error occurred while subscribing, subscription failed")
+    }
   }
 
+  // Utility Functions
+  // Generates an array of ArticleTags based on the current checked 
+  // checkboxOptions
+  const getSubscriptionTypes = () => {
+    const subscriptionTypes = []
+
+    if (formData.checkboxOptions.local) {
+      subscriptionTypes.push("Local News")
+    }
+
+    if (formData.checkboxOptions.crime) {
+      subscriptionTypes.push("Crime")
+    }
+
+    if (formData.checkboxOptions.breakingNews) {
+      subscriptionTypes.push("Breaking News")
+    }
+
+    if (formData.checkboxOptions.sports) {
+      subscriptionTypes.push("Sports")
+    }
+
+    if (formData.checkboxOptions.government) {
+      subscriptionTypes.push("Government")
+    }
+
+    if (formData.checkboxOptions.education) {
+      subscriptionTypes.push("Education")
+    }
+
+    return subscriptionTypes
+  }
+
+  // Polls the server for if the current combination of email and phone number
+  // has an already existing subscription
+  const hasAnExistingSubscription = async (): Promise<boolean> => {
+    const subscriptionsResponse = await axios.get(
+      `${BASE_SERVER_URL}/api/subscriptions`,
+      {
+        "params": {
+          "email": formData.email || undefined,
+          "phone": formData.phoneNumber || undefined
+        }
+      }
+    )
+
+    const { subscriptions } = subscriptionsResponse.data
+
+    return subscriptions.length
+  }
 
   return (
     <div className="subscribe">
