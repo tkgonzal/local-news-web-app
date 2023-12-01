@@ -13,6 +13,7 @@ const ArticleTestData : Article[] = [
         source: "monews",
         authors: ["author 1"],
         publishedDate: "October 1, 2023",
+        businessId: "1",
         body: [
             "this is the body of article 1"
         ],
@@ -30,6 +31,7 @@ const ArticleTestData : Article[] = [
         source: "monews",
         authors: ["author 2"],
         publishedDate: "October 1, 2023",
+        businessId: "1",
         body: [
             "this is the body of article 2"
         ],
@@ -47,6 +49,7 @@ const ArticleTestData : Article[] = [
         source: "monews",
         authors: ["author 3"],
         publishedDate: "October 1, 2023",
+        businessId: "1",
         body: [
             "this is the body of article 3"
         ],
@@ -64,6 +67,7 @@ const ArticleTestData : Article[] = [
         source: "monews",
         authors: ["author 4"],
         publishedDate: "October 1, 2023",
+        businessId: "1",
         body: [
             "this is the body of article 4"
         ],
