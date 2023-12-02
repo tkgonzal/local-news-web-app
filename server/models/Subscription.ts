@@ -1,6 +1,7 @@
 import { Collection, MatchKeysAndValues, ObjectId } from "mongodb";
 import { connectToDatabase } from "../config/db";
 import { Subscription } from "../types/interfaces/Subscription";
+import { SubscriptionFrequency } from "../types/types/SubscriptionFrequency";
 
 /**
  * @returns {Promise<Collection<Subscription>>} A collection of all the
@@ -23,6 +24,19 @@ async function getSubscriptions(): Promise<Subscription[]> {
     const subscriptionsCollection = await getSubscriptionCollection();
     const subscriptions = await subscriptionsCollection.find({});
     return subscriptions.toArray();
+}
+
+/**
+ * 
+ * @param frequency {SubscriptionFrequency} The frequncy to search for
+ * @returns {Promise<Subscription[]>} A promise to return an array of 
+ * subscriptions
+ */
+async function getSubscriptionsByFrequency(frequency: SubscriptionFrequency):
+    Promise<Subscription[]> {
+    const subscriptions = await getSubscriptionCollection();
+    const matches = await subscriptions.find({ frequency });
+    return matches.toArray();
 }
 
 /**
@@ -101,8 +115,9 @@ async function deleteSubscription(id: ObjectId) {
 
 export { 
     getSubscriptions, 
+    getSubscriptionsByFrequency,
     getSubscriptionsByEmailOrPhone, 
     createSubscription,
     updateSubscription,
-    deleteSubscription
+    deleteSubscription,
 };

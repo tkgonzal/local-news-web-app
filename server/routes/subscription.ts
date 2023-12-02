@@ -2,7 +2,8 @@ import express from "express";
 import { MatchKeysAndValues } from "mongodb";
 
 import { 
-    getSubscriptions, 
+    getSubscriptions,
+    getSubscriptionsByFrequency,
     getSubscriptionsByEmailOrPhone,
     createSubscription, 
     updateSubscription,
@@ -12,6 +13,7 @@ import {
 import { Subscription } from "../types/interfaces/Subscription";
 
 import dotenv from "dotenv";
+import { SubscriptionFrequency, isSubscriptionFrequency } from "../types/types/SubscriptionFrequency";
 dotenv.config();
 
 const router = express.Router();
@@ -36,6 +38,34 @@ router.get("/", async (req, res) => {
         console.log("Error retrieving subscriptions: ", error);
         res.status(500).json({
             message: "Internal Server Error Occurred Retrieving Subscriptions",
+            error
+        });
+    }
+});
+
+// Endpoint to retrieve newsletter subscriptions by frequency
+router.get("/:frequency", async (req, res) => {
+    try {
+        const { frequency } = req.params;
+
+        if (!isSubscriptionFrequency(frequency)) {
+            return res.status(400).json({
+                message: "Must give a valid subscription frequency to search for"
+            });
+        }
+
+        const subscriptions = await getSubscriptionsByFrequency(
+            frequency as SubscriptionFrequency
+        );
+
+        res.status(200).json({
+            message: "Subscriptions found",
+            subscriptions
+        });
+    } catch (error: any) {
+        console.log("An error occurred while retrieving subscriptions", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred Retrieving subscriptions",
             error
         });
     }
