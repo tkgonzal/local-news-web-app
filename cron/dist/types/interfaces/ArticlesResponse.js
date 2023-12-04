@@ -1,7 +1,6 @@
 ;
 ;
 const SubscriptionArticleTags = [
-    "newArticles",
     "Local News",
     "Breaking News",
     "Crime",

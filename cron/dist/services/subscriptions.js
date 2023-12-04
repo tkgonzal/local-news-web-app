@@ -1,10 +1,13 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import { isArticleTag } from "../types/types/ArticleTag.js";
+import { SubscriptionArticleTags } from "../types/interfaces/ArticlesResponse.js";
 import { isSubscriptionFrequency } from "../types/types/SubscriptionFrequencies.js";
 // Setup
 dotenv.config();
 // Constants
 const BASE_SERVER_URL = process.env.SERVER_URL;
+const BASE_CLIENT_URL = process.env.CLIENT_URL;
 // Utility Functions
 // Retrieves new articles published in the given frequency period
 const getNewArticles = async (frequency) => {
@@ -12,11 +15,7 @@ const getNewArticles = async (frequency) => {
         throw new Error("Given frequency is not valid, process terminating");
     }
     try {
-        const articlesResponse = await axios.get(`${BASE_SERVER_URL}/api/articles/subscriptions`, {
-            params: {
-                frequency
-            }
-        });
+        const articlesResponse = await axios.get(`${BASE_SERVER_URL}/api/articles/subscriptions`, { params: { frequency } });
         const articlesData = articlesResponse.data;
         if (articlesData.articles) {
             return articlesData.articles;
@@ -51,10 +50,42 @@ const getSubscriptions = async (frequency) => {
         throw error;
     }
 };
+// Creates a NewsletterTagText object to use for generating a Newsletter
+const makeNewsletterText = (subscriptionArticles) => {
+    const newsletterText = {
+        "Breaking News": "",
+        "Local News": "",
+        "Crime": "",
+        "Sports": "",
+        "Government": "",
+        "Education": "",
+    };
+    for (const tag of SubscriptionArticleTags) {
+        if (isArticleTag(tag)) {
+            // Get the articles for that tag and process them accordingly
+            const articles = subscriptionArticles[tag];
+            let tagText = "";
+            for (const article of articles) {
+                tagText += makeNewsletterBullet(article);
+            }
+            newsletterText[tag] = tagText;
+        }
+    }
+    return newsletterText;
+};
+// Creates a bulletpoint for an article to be used in a Newsletter
+const makeNewsletterBullet = (article) => {
+    return `• ${article.heading} [${article.source}] (${BASE_CLIENT_URL}/article/${article._id})\n`;
+};
+// Main function for subscription service, retrieves new articles for a given
+// frequncy and subscriptions for that frequency and sends out newsletters for
+// each subscription
 const sendOutSubscriptionNewsletters = async (frequency) => {
     try {
         const subscriptionArticles = await getNewArticles(frequency);
         if (subscriptionArticles.newArticles) {
+            const newsletterText = makeNewsletterText(subscriptionArticles);
+            console.log(newsletterText);
             const subscriptions = await getSubscriptions(frequency);
         }
         else {

@@ -2,10 +2,10 @@ import { Article } from "./Article.js";
 
 interface ArticleResponse {
     message: string;
-    articles?: SubscriptionArticlesResponse;
+    articles?: SubscriptionArticles;
 };
 
-interface SubscriptionArticlesResponse {
+interface SubscriptionArticles {
     newArticles: Article[],
     "Local News": Article[],
     "Breaking News": Article[],
@@ -16,7 +16,6 @@ interface SubscriptionArticlesResponse {
 };
 
 const SubscriptionArticleTags = [
-    "newArticles",
     "Local News",
     "Breaking News",
     "Crime",
@@ -26,5 +25,5 @@ const SubscriptionArticleTags = [
 ];
 
 
-export type { ArticleResponse, SubscriptionArticlesResponse };
+export type { ArticleResponse, SubscriptionArticles };
 export { SubscriptionArticleTags };

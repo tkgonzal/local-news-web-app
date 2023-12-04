@@ -1,9 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 import dotenv from "dotenv";
 
+import { isArticleTag } from "../types/types/ArticleTag.js";
+
+import { Article } from "../types/interfaces/Article.js";
 import { 
     ArticleResponse,
-    SubscriptionArticlesResponse
+    SubscriptionArticles,
+    SubscriptionArticleTags
 } from "../types/interfaces/ArticlesResponse.js";
 
 import { Subscription } from "../types/interfaces/Subscription.js";
@@ -15,15 +19,19 @@ import {
     SubscriptionResponse 
 } from "../types/interfaces/SubscriptionsResponse.js";
 
+import { NewsletterTagText } from "../types/interfaces/NewsletterTagText.js";
+
 // Setup
 dotenv.config();
 
 // Constants
 const BASE_SERVER_URL: string = process.env.SERVER_URL;
+const BASE_CLIENT_URL: string = process.env.CLIENT_URL;
 
 // Utility Functions
 // Retrieves new articles published in the given frequency period
-const getNewArticles = async (frequency: SubscriptionFrequency) => {
+const getNewArticles = async (frequency: SubscriptionFrequency):
+    Promise<SubscriptionArticles> => {
     if (!isSubscriptionFrequency(frequency)) {
         throw new Error("Given frequency is not valid, process terminating");
     }
@@ -31,11 +39,7 @@ const getNewArticles = async (frequency: SubscriptionFrequency) => {
     try {
         const articlesResponse: AxiosResponse<ArticleResponse> = await axios.get(
             `${BASE_SERVER_URL}/api/articles/subscriptions`,
-            {
-                params: {
-                    frequency
-                }
-            }
+            { params: { frequency } }
         );
 
         const articlesData = articlesResponse.data;
@@ -77,6 +81,39 @@ const getSubscriptions = async (frequency: SubscriptionFrequency):
     }
 }
 
+// Creates a NewsletterTagText object to use for generating a Newsletter
+const makeNewsletterText = (subscriptionArticles: SubscriptionArticles) => {
+    const newsletterText: NewsletterTagText = {
+        "Breaking News": "",
+        "Local News": "",
+        "Crime": "",
+        "Sports": "",
+        "Government": "",
+        "Education": "",
+    };
+
+    for (const tag of SubscriptionArticleTags) {
+        if (isArticleTag(tag)) {
+            // Get the articles for that tag and process them accordingly
+            const articles = subscriptionArticles[tag];
+            let tagText = "";
+
+            for (const article of articles) {
+                tagText += makeNewsletterBullet(article);
+            }
+
+            newsletterText[tag] = tagText;
+        }
+    }
+
+    return newsletterText;
+}
+
+// Creates a bulletpoint for an article to be used in a Newsletter
+const makeNewsletterBullet = (article: Article): string => {
+    return `• ${article.heading} [${article.source}] (${BASE_CLIENT_URL}/article/${article._id})\n`;
+}
+
 // Main function for subscription service, retrieves new articles for a given
 // frequncy and subscriptions for that frequency and sends out newsletters for
 // each subscription
@@ -86,11 +123,11 @@ const sendOutSubscriptionNewsletters = async (
     try {
         const subscriptionArticles = await getNewArticles(frequency);
         if (subscriptionArticles.newArticles) {
+            const newsletterText = makeNewsletterText(subscriptionArticles);
             const subscriptions = await getSubscriptions(frequency);
         } else {
             console.log(`${(new Date()).toLocaleDateString()}: No new articles made for this period.`);
         }
-
     } catch (error: any) {
         console.log("Error occurred while sending out subscriptions", error);
     }
