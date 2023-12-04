@@ -20,7 +20,7 @@ const sendResetEmail = async (email: string, url: string): Promise<void> => {
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
-            subject: 'Bay Valley Tech News - Password Reset',
+            subject: 'MoNews - Password Reset',
             text: `You've requested that the password be reset for your account.
             To reset your password, click on the link: ${url}`,
         };
