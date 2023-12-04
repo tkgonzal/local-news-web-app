@@ -6,6 +6,30 @@ dotenv.config();
 // Constants
 const BASE_SERVER_URL = process.env.SERVER_URL;
 // Utility Functions
+// Retrieves new articles published in the given frequency period
+const getNewArticles = async (frequency) => {
+    if (!isSubscriptionFrequency(frequency)) {
+        throw new Error("Given frequency is not valid, process terminating");
+    }
+    try {
+        const articlesResponse = await axios.get(`${BASE_SERVER_URL}/api/articles/subscriptions`, {
+            params: {
+                frequency
+            }
+        });
+        const articlesData = articlesResponse.data;
+        if (articlesData.articles) {
+            return articlesData.articles;
+        }
+        else {
+            console.log(`Error occurred while gathering new articles for frequecy ${frequency}`);
+        }
+    }
+    catch (error) {
+        console.log("Error occurred while gathering new articles");
+        throw error;
+    }
+};
 // Retrieves the subscriptions in the DB that match the given subscription 
 // frequency
 const getSubscriptions = async (frequency) => {
@@ -29,8 +53,13 @@ const getSubscriptions = async (frequency) => {
 };
 const sendOutSubscriptionNewsletters = async (frequency) => {
     try {
-        const subscriptions = await getSubscriptions(frequency);
-        console.log(subscriptions);
+        const subscriptionArticles = await getNewArticles(frequency);
+        if (subscriptionArticles.newArticles) {
+            const subscriptions = await getSubscriptions(frequency);
+        }
+        else {
+            console.log(`${(new Date()).toLocaleDateString()}: No new articles made for this period.`);
+        }
     }
     catch (error) {
         console.log("Error occurred while sending out subscriptions", error);

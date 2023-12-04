@@ -1,13 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 import dotenv from "dotenv";
 
-import { Subscription } from "../types/interfaces/Subscription.js";
+import { 
+    ArticleResponse,
+    SubscriptionArticlesResponse
+} from "../types/interfaces/ArticlesResponse.js";
 
+import { Subscription } from "../types/interfaces/Subscription.js";
 import { 
     SubscriptionFrequency, 
     isSubscriptionFrequency 
 } from "../types/types/SubscriptionFrequencies.js";
-
 import { 
     SubscriptionResponse 
 } from "../types/interfaces/SubscriptionsResponse.js";
@@ -19,6 +22,34 @@ dotenv.config();
 const BASE_SERVER_URL: string = process.env.SERVER_URL;
 
 // Utility Functions
+// Retrieves new articles published in the given frequency period
+const getNewArticles = async (frequency: SubscriptionFrequency) => {
+    if (!isSubscriptionFrequency(frequency)) {
+        throw new Error("Given frequency is not valid, process terminating");
+    }
+
+    try {
+        const articlesResponse: AxiosResponse<ArticleResponse> = await axios.get(
+            `${BASE_SERVER_URL}/api/articles/subscriptions`,
+            {
+                params: {
+                    frequency
+                }
+            }
+        );
+
+        const articlesData = articlesResponse.data;
+        if (articlesData.articles) {
+            return articlesData.articles;
+        } else {
+            console.log(`Error occurred while gathering new articles for frequecy ${frequency}`);
+        }
+    } catch (error: any) {
+        console.log("Error occurred while gathering new articles");
+        throw error;
+    }
+}
+
 // Retrieves the subscriptions in the DB that match the given subscription 
 // frequency
 const getSubscriptions = async (frequency: SubscriptionFrequency):
@@ -46,12 +77,20 @@ const getSubscriptions = async (frequency: SubscriptionFrequency):
     }
 }
 
+// Main function for subscription service, retrieves new articles for a given
+// frequncy and subscriptions for that frequency and sends out newsletters for
+// each subscription
 const sendOutSubscriptionNewsletters = async (
     frequency: SubscriptionFrequency
 ) => {
     try {
-        const subscriptions = await getSubscriptions(frequency);
-        console.log(subscriptions);
+        const subscriptionArticles = await getNewArticles(frequency);
+        if (subscriptionArticles.newArticles) {
+            const subscriptions = await getSubscriptions(frequency);
+        } else {
+            console.log(`${(new Date()).toLocaleDateString()}: No new articles made for this period.`);
+        }
+
     } catch (error: any) {
         console.log("Error occurred while sending out subscriptions", error);
     }

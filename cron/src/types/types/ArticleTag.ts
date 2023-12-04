@@ -1,31 +1,19 @@
 const SectionTags = [
-    "Headline",
     "Breaking News",
     "Local News",
     "Crime",
     "Government",
     "Education" ,
     "Sports"
-]
-type SectionTag =  typeof SectionTags[number]
-
-// Types denoting the different types of valid sports article types
-const SportsArticleTags = [
-    "Soccer",
-    "Basketball",
-    "Tennis",
-    "Football",
-    "Golf",
-    "Fishing"
-]
-type SportsArticleTag =  typeof SportsArticleTags[number]
+];
+type SectionTag =  typeof SectionTags[number];
 
 
-type ArticleTag = SectionTag | SportsArticleTag
+type ArticleTag = SectionTag;
 
 function isArticleTag(value: string): value is ArticleTag {
-    return SectionTags.includes(value) || SportsArticleTags.includes(value)
+    return SectionTags.includes(value);
 }
 
-export type { ArticleTag }
-export { isArticleTag }
+export type { ArticleTag, SectionTag };
+export { isArticleTag };
