@@ -22,6 +22,7 @@ type FormData = {
 // Constants
 const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
 const PHONE_RE: RegExp = /^\d{10}$/
+const SUBSCRIPTION_AUTH: string = import.meta.env.VITE_SUBSCRIPTION_AUTH;
 
 const SubscribePage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -129,13 +130,15 @@ const SubscribePage: React.FC = () => {
       if (await hasAnExistingSubscription()) {
         axios.put(
           `${BASE_SERVER_URL}/api/subscriptions`,
-          { subscriptionData }
+          { subscriptionData },
+          { headers: { Authorization: `Bearer ${SUBSCRIPTION_AUTH}`} }
         )
         alert("Subscription successfully updated")
       } else {
         axios.post(
           `${BASE_SERVER_URL}/api/subscriptions/new`,
-          { subscriptionData }
+          { subscriptionData },
+          { headers: { Authorization: `Bearer ${SUBSCRIPTION_AUTH}`} }
         )
         alert("Subscription successfully created")
       }
@@ -184,6 +187,7 @@ const SubscribePage: React.FC = () => {
     const subscriptionsResponse = await axios.get(
       `${BASE_SERVER_URL}/api/subscriptions`,
       {
+        "headers": { "Authorization": `Bearer ${SUBSCRIPTION_AUTH}`},
         "params": {
           "email": formData.email || undefined,
           "phone": formData.phoneNumber || undefined
