@@ -131,11 +131,13 @@ const SubscribePage: React.FC = () => {
           `${BASE_SERVER_URL}/api/subscriptions`,
           { subscriptionData }
         )
+        alert("Subscription successfully updated")
       } else {
         axios.post(
           `${BASE_SERVER_URL}/api/subscriptions/new`,
           { subscriptionData }
         )
+        alert("Subscription successfully created")
       }
     } catch (error: any) {
       console.log("An internal server error occurred", error)
