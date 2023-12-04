@@ -112,7 +112,7 @@ const makeNewsletterText = (subscriptionArticles: SubscriptionArticles) => {
 }
 
 // Sends out a newsletter for a subscription
-const sendOutNewsletter = (
+const sendOutNewsletter = async (
     subscription: Subscription,
     newsletterText: NewsletterTagText,
     frequency: SubscriptionFrequency
@@ -127,7 +127,7 @@ const sendOutNewsletter = (
     }
 
     if (subscription.email) {
-        sendEmail(subscription.email, newsletterSubject, newsletter);
+        await sendEmail(subscription.email, newsletterSubject, newsletter);
     }
 }
 
