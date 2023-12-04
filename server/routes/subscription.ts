@@ -1,5 +1,6 @@
 import express from "express";
 import { MatchKeysAndValues } from "mongodb";
+import dotenv from "dotenv";
 
 import { 
     getSubscriptions,
@@ -12,8 +13,11 @@ import {
 
 import { Subscription } from "../types/interfaces/Subscription";
 
-import dotenv from "dotenv";
-import { SubscriptionFrequency, isSubscriptionFrequency } from "../types/types/SubscriptionFrequency";
+import { 
+    SubscriptionFrequency, 
+    isSubscriptionFrequency 
+} from "../types/types/SubscriptionFrequency";
+
 dotenv.config();
 
 const router = express.Router();

@@ -35,7 +35,7 @@ app.use("/api/business", authenticateToken, businessRoute);
 app.use('/api/article', articleRoute);
 app.use('/api/articles', articlesRoute);
 // Subscriptions endpoints
-app.use("/api/subscriptions", subscriptionsRoute);
+app.use("/api/subscriptions", authenticateToken, subscriptionsRoute);
 
 app.listen(PORT, () => {
     console.log(`Local news web app server starting on port ${PORT}`);

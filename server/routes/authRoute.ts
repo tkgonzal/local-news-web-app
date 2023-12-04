@@ -61,7 +61,9 @@ router.post('/login', async (req, res) => {
             return res.status(403).json({ message: 'Incorrect Password' });
         }
 
-        const accessToken = jwt.sign({ username: user.email }, secretKey);
+        const accessToken = jwt.sign(
+            { username: user.email }, secretKey, { expiresIn: "3h"}
+        );
         const userWithoutPassword = { ...user, password: undefined };
         
         res.json({ accessToken, userWithoutPassword });
