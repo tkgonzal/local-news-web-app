@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { isArticleTag } from "../types/types/ArticleTag.js";
 import { SubscriptionArticleTags } from "../types/interfaces/ArticlesResponse.js";
 import { isSubscriptionFrequency } from "../types/types/SubscriptionFrequencies.js";
+import { sendEmail } from "../utils/email.js";
 // Setup
 dotenv.config();
 // Constants
@@ -74,14 +75,16 @@ const makeNewsletterText = (subscriptionArticles) => {
     return newsletterText;
 };
 // Sends out a newsletter for a subscription
-const sendOutNewsletter = (subscription, newsletterText) => {
+const sendOutNewsletter = (subscription, newsletterText, frequency) => {
     let newsletter = `Here's your ${subscription.frequency} MoNews Newsletter!\n\n`;
     for (const tag of subscription.subscriptionTypes) {
         newsletter += `${tag} Articles:\n`;
         newsletter += newsletterText[tag] || "No new articles for this period\n";
         newsletter += "\n";
     }
-    console.log(newsletter);
+    if (subscription.email) {
+        sendEmail(subscription.email, `MoNews ${frequency} Newsletter Subscription`, newsletter);
+    }
 };
 // Creates a bulletpoint for an article to be used in a Newsletter
 const makeNewsletterBullet = (article) => {
@@ -97,7 +100,7 @@ const sendOutSubscriptionNewsletters = async (frequency) => {
             const newsletterText = makeNewsletterText(subscriptionArticles);
             const subscriptions = await getSubscriptions(frequency);
             for (const subscription of subscriptions) {
-                sendOutNewsletter(subscription, newsletterText);
+                sendOutNewsletter(subscription, newsletterText, frequency);
             }
         }
         else {

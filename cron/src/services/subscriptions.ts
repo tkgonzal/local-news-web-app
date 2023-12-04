@@ -21,6 +21,8 @@ import {
 
 import { NewsletterTagText } from "../types/interfaces/NewsletterTagText.js";
 
+import { sendEmail } from "../utils/email.js";
+
 // Setup
 dotenv.config();
 
@@ -112,9 +114,11 @@ const makeNewsletterText = (subscriptionArticles: SubscriptionArticles) => {
 // Sends out a newsletter for a subscription
 const sendOutNewsletter = (
     subscription: Subscription,
-    newsletterText: NewsletterTagText
+    newsletterText: NewsletterTagText,
+    frequency: SubscriptionFrequency
 ) => {
     let newsletter = `Here's your ${subscription.frequency} MoNews Newsletter!\n\n`;
+    const newsletterSubject = `MoNews ${frequency} Newsletter Subscription`
 
     for (const tag of subscription.subscriptionTypes) {
         newsletter += `${tag} Articles:\n`;
@@ -122,7 +126,9 @@ const sendOutNewsletter = (
         newsletter += "\n";
     }
 
-    console.log(newsletter);
+    if (subscription.email) {
+        sendEmail(subscription.email, newsletterSubject, newsletter);
+    }
 }
 
 // Creates a bulletpoint for an article to be used in a Newsletter
@@ -143,7 +149,7 @@ const sendOutSubscriptionNewsletters = async (
             const subscriptions = await getSubscriptions(frequency);
 
             for (const subscription of subscriptions) {
-                sendOutNewsletter(subscription, newsletterText);
+                sendOutNewsletter(subscription, newsletterText, frequency);
             }
         } else {
             console.log(`${(new Date()).toLocaleDateString()}: No new articles made for this period.`);

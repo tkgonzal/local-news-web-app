@@ -16,6 +16,7 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "@types/nodemailer": "^6.4.14",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "node-cron": "^3.0.3",
