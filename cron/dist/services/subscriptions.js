@@ -73,6 +73,16 @@ const makeNewsletterText = (subscriptionArticles) => {
     }
     return newsletterText;
 };
+// Sends out a newsletter for a subscription
+const sendOutNewsletter = (subscription, newsletterText) => {
+    let newsletter = `Here's your ${subscription.frequency} MoNews Newsletter!\n\n`;
+    for (const tag of subscription.subscriptionTypes) {
+        newsletter += `${tag} Articles:\n`;
+        newsletter += newsletterText[tag] || "No new articles for this period\n";
+        newsletter += "\n";
+    }
+    console.log(newsletter);
+};
 // Creates a bulletpoint for an article to be used in a Newsletter
 const makeNewsletterBullet = (article) => {
     return `• ${article.heading} [${article.source}] (${BASE_CLIENT_URL}/article/${article._id})\n`;
@@ -85,8 +95,10 @@ const sendOutSubscriptionNewsletters = async (frequency) => {
         const subscriptionArticles = await getNewArticles(frequency);
         if (subscriptionArticles.newArticles) {
             const newsletterText = makeNewsletterText(subscriptionArticles);
-            console.log(newsletterText);
             const subscriptions = await getSubscriptions(frequency);
+            for (const subscription of subscriptions) {
+                sendOutNewsletter(subscription, newsletterText);
+            }
         }
         else {
             console.log(`${(new Date()).toLocaleDateString()}: No new articles made for this period.`);
