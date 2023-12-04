@@ -8,6 +8,8 @@ import { useUserContext } from '../contexts/UserContext';
 
 import moNewsLogoImg from "/assets/mo_news_logo_white.png"
 
+const PHONE_RE: RegExp = /^\d{10}$/
+
 const RegisterPage: React.FC = () => {
     const { user, setUser } = useUserContext();
 
@@ -51,6 +53,11 @@ const RegisterPage: React.FC = () => {
         e.preventDefault(); 
 
         try {
+            if (formData.mobileNumber && !PHONE_RE.test(formData.mobileNumber)) {
+                alert("Mobile phone number must be in format of XXXXXXXXXX")
+                return
+            }
+
             if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
                 const userData = {
                     email: formData.email,

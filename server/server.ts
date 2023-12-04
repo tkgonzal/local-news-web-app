@@ -6,9 +6,9 @@ import userRoutes from './routes/userRoute';
 import passwordResetRoute from './routes/passwordResetRoute';
 import confirmResetPassword from './routes/confirmResetPassword';
 import businessRoute from "./routes/business";
-import articleRoute from './routes/articleRoute'
-import articlesRoute from './routes/articlesRoute'
-
+import articleRoute from './routes/articleRoute';
+import articlesRoute from './routes/articlesRoute';
+import subscriptionsRoute from "./routes/subscription";
 
 dotenv.config();
 
@@ -34,8 +34,9 @@ app.use("/api/business", authenticateToken, businessRoute);
 // Article endpoints
 app.use('/api/article', articleRoute);
 app.use('/api/articles', articlesRoute);
-
+// Subscriptions endpoints
+app.use("/api/subscriptions", authenticateToken, subscriptionsRoute);
 
 app.listen(PORT, () => {
-    console.log(`Local news web app server starting on port ${PORT}`)
+    console.log(`Local news web app server starting on port ${PORT}`);
 });

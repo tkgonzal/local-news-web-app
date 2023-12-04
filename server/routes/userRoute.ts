@@ -79,7 +79,11 @@ router.post('/register', async (req, res) => {
         const createdUser = await createUser(newUser);
 
         const userWithoutPassword = { ...createdUser, password: undefined };
-        const accessToken = jwt.sign({ username: userWithoutPassword.email }, secretKey);
+        const accessToken = jwt.sign(
+            { username: userWithoutPassword.email }, 
+            secretKey, 
+            { expiresIn: "3h"}
+        );
         res.status(201).json({ userWithoutPassword, accessToken });
     }
     catch (error) {

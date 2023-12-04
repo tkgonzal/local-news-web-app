@@ -1,7 +1,15 @@
-import { Collection, ObjectId, FindCursor, WithId, MatchKeysAndValues } from 'mongodb';
+import { 
+  Collection, 
+  ObjectId, 
+  FindCursor, 
+  WithId,
+  Filter,
+  MatchKeysAndValues 
+} from 'mongodb';
 import { connectToDatabase } from '../config/db';
 import { Article } from '../types/interfaces/Article';
 import { ArticleTag, isArticleTag } from '../types/types/ArticleTag';
+import { SubscriptionFrequency } from '../types/types/SubscriptionFrequency';
 
 async function getArticleCollection(): Promise<Collection<Article>> {
     const db = await connectToDatabase();
@@ -22,6 +30,50 @@ async function getArticlesByTag(tag: ArticleTag): Promise<FindCursor<Article> | 
     const cursor = articleCollection.find<Article>({tags:tag})
     return cursor
   };
+
+/**
+ * @param frequency {SubscriptionFrequency} The frequency of a subscription to 
+ * check against the Articles for
+ * @param tag {ArticleTag} Optional parameter, specifies if the find should only
+ * find Articles that also match a certain tag
+ * returns {Promise<FindCursor<Article>>} A Promise returning a 
+ */
+async function getArticlesByFrequencyAndTag(
+  frequency: SubscriptionFrequency,
+  tag?: ArticleTag
+): Promise<FindCursor<Article>> {
+  const articles = await getArticleCollection();
+  const filterDate = new Date();
+
+  switch (frequency) {
+    case "Hourly":
+      filterDate.setHours(filterDate.getHours() - 1);
+      break;
+    case "Daily":
+      filterDate.setDate(filterDate.getDate() - 1);
+      break;
+    case "Weekly":
+      filterDate.setDate(filterDate.getDate() - 7);
+      break;
+    case "Biweekly":
+      filterDate.setDate(filterDate.getDate() - 14);
+      break;
+    case "Monthly":
+      filterDate.setMonth(filterDate.getMonth() - 1);
+      break;
+  }
+
+  const articlesAndQuery: Filter<WithId<Article>>[] = [
+    { publishedDate: { $gt: filterDate.toISOString() } }
+  ];
+
+  if (tag) {
+    articlesAndQuery.push({ tags: tag });
+  }
+
+  const articlesCursor = await articles.find<Article>({ $and: articlesAndQuery });
+  return articlesCursor;  
+}
 
 /**
  * @returns {Promise<FindCursor<Article> | null>} A find cursor consisting of 
@@ -113,7 +165,8 @@ async function updateArticleValuesById(
 export {
   Article, 
   getArticles, 
-  getArticlesByTag, 
+  getArticlesByTag,
+  getArticlesByFrequencyAndTag,
   getBreakingArticles,
   getArticleByID, 
   getArticlesByBusinessId,
