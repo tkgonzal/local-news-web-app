@@ -31,6 +31,7 @@ dotenv.config();
 // Constants
 const BASE_SERVER_URL: string = process.env.SERVER_URL;
 const BASE_CLIENT_URL: string = process.env.CLIENT_URL;
+const SUBSCRIPTIONS_AUTH: string = process.env.SUBSCRIPTIONS_AUTH;
 
 // Utility Functions
 // Retrieves new articles published in the given frequency period
@@ -69,7 +70,8 @@ const getSubscriptions = async (frequency: SubscriptionFrequency):
     try {
         const subscriptionsResponse: AxiosResponse<SubscriptionResponse> = 
             await axios.get(
-            `${BASE_SERVER_URL}/api/subscriptions/${frequency}`
+            `${BASE_SERVER_URL}/api/subscriptions/${frequency}`,
+            { headers: { Authorization: `Bearer ${SUBSCRIPTIONS_AUTH}`} }
         )
 
         const subscriptionsData = subscriptionsResponse.data;
