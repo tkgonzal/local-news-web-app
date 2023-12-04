@@ -1,5 +1,5 @@
-import { ArticleTag } from "../types/ArticleTag";
-import { SubscriptionFrequency } from "../types/SubscriptionFrequencies";
+import { ArticleTag } from "../types/ArticleTag.js";
+import { SubscriptionFrequency } from "../types/SubscriptionFrequencies.js";
 
 interface Subscription {
     _id?: string

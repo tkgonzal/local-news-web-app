@@ -1,4 +1,4 @@
-import { ArticleTag } from "../types/ArticleTag"
+import { ArticleTag } from "../types/ArticleTag.js"
 
 interface Article {
     _id?: string
