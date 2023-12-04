@@ -22,6 +22,8 @@ import {
 import { NewsletterTagText } from "../types/interfaces/NewsletterTagText.js";
 
 import { sendEmail } from "../utils/email.js";
+// SMS unused due to Twilio API restrictions
+// import { sendText } from "../utils/text.js";
 
 // Setup
 dotenv.config();
@@ -118,7 +120,7 @@ const sendOutNewsletter = async (
     frequency: SubscriptionFrequency
 ) => {
     let newsletter = `Here's your ${subscription.frequency} MoNews Newsletter!\n\n`;
-    const newsletterSubject = `MoNews ${frequency} Newsletter Subscription`
+    const newsletterSubject = `MoNews ${frequency} Newsletter Subscription`;
 
     for (const tag of subscription.subscriptionTypes) {
         newsletter += `${tag} Articles:\n`;
@@ -127,8 +129,12 @@ const sendOutNewsletter = async (
     }
 
     if (subscription.email) {
-        await sendEmail(subscription.email, newsletterSubject, newsletter);
+        sendEmail(subscription.email, newsletterSubject, newsletter);
     }
+
+    // if (subscription.phone) {
+    //     sendText(subscription.phone, newsletterSubject, newsletter);
+    // }
 }
 
 // Creates a bulletpoint for an article to be used in a Newsletter
@@ -144,6 +150,9 @@ const sendOutSubscriptionNewsletters = async (
 ) => {
     try {
         const subscriptionArticles = await getNewArticles(frequency);
+
+        // Only send out newsletters if there were any new articles posted for
+        // the given frequency period
         if (subscriptionArticles.newArticles) {
             const newsletterText = makeNewsletterText(subscriptionArticles);
             const subscriptions = await getSubscriptions(frequency);

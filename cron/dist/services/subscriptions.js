@@ -4,6 +4,8 @@ import { isArticleTag } from "../types/types/ArticleTag.js";
 import { SubscriptionArticleTags } from "../types/interfaces/ArticlesResponse.js";
 import { isSubscriptionFrequency } from "../types/types/SubscriptionFrequencies.js";
 import { sendEmail } from "../utils/email.js";
+// SMS unused due to Twilio API restrictions
+// import { sendText } from "../utils/text.js";
 // Setup
 dotenv.config();
 // Constants
@@ -75,16 +77,20 @@ const makeNewsletterText = (subscriptionArticles) => {
     return newsletterText;
 };
 // Sends out a newsletter for a subscription
-const sendOutNewsletter = (subscription, newsletterText, frequency) => {
+const sendOutNewsletter = async (subscription, newsletterText, frequency) => {
     let newsletter = `Here's your ${subscription.frequency} MoNews Newsletter!\n\n`;
+    const newsletterSubject = `MoNews ${frequency} Newsletter Subscription`;
     for (const tag of subscription.subscriptionTypes) {
         newsletter += `${tag} Articles:\n`;
         newsletter += newsletterText[tag] || "No new articles for this period\n";
         newsletter += "\n";
     }
     if (subscription.email) {
-        sendEmail(subscription.email, `MoNews ${frequency} Newsletter Subscription`, newsletter);
+        sendEmail(subscription.email, newsletterSubject, newsletter);
     }
+    // if (subscription.phone) {
+    //     sendText(subscription.phone, newsletterSubject, newsletter);
+    // }
 };
 // Creates a bulletpoint for an article to be used in a Newsletter
 const makeNewsletterBullet = (article) => {
