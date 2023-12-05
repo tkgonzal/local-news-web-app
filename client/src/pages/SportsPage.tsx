@@ -16,16 +16,36 @@ const BASE_API_URL = import.meta.env.VITE_SERVER_URL
 const SportsPage: React.FC = () => {
     const location = useLocation()
     const [sportsArticles,setArticles] = useState<Article[]>([])
+    const [headerName, setHeaderName] = useState<string>("")
     useEffect(() => {
         if(location.pathname === "/sports"){
-            fetchArticles()
+            fetchArticles("Sports")
+            setHeaderName("Sports")
+        }else if(location.pathname === "/sports/soccer"){
+            fetchArticles("Soccer")
+            setHeaderName("Soccer")
+        }else if(location.pathname === "/sports/basketball"){
+            fetchArticles("Basketball")
+            setHeaderName("Basketball")
+        }else if(location.pathname === "/sports/tennis"){
+            fetchArticles("Tennis")
+            setHeaderName("Tennis")
+        }else if(location.pathname === "/sports/football"){
+            fetchArticles("Football")
+            setHeaderName("Football")
+        }else if(location.pathname === "/sports/golf"){
+            fetchArticles("Golf")
+            setHeaderName("Golf")
+        }else if(location.pathname === "/sports/fishing"){
+            fetchArticles("Fishing")
+            setHeaderName("Fishing")
         }
     }, [location]);
 
-    const fetchArticles = async () => {
+    const fetchArticles = async (category: string) => {
         try {
             const articleResponse = await axios.get(
-                `${BASE_API_URL}/api/articles?tag=Sports`
+                `${BASE_API_URL}/api/articles?tag=${category}`
             )
             setArticles(articleResponse.data)
         } catch (error) {
@@ -49,7 +69,7 @@ const SportsPage: React.FC = () => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">Sports</h1>
+            <h1 className="subpage--header">{`${headerName}`}</h1>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}
