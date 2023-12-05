@@ -6,7 +6,18 @@
 import scrapy
 
 
-class NewsscraperItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class Image(scrapy.Item):
+    url = scrapy.Field(serializer=str)
+    caption = scrapy.Field(serializer=str)
+
+
+class NewsArticle(scrapy.Item):
+    source = scrapy.Field(serializer=str)
+    sourceUrl = scrapy.Field(serializer=str)
+    heading = scrapy.Field(serializer=str)
+    publishedDate = scrapy.Field(serializer=str)
+    authors = scrapy.Field(serializer=list[str])
+    tags = scrapy.Field(serializer=list[str])
+    images = scrapy.Field(serializer=list[Image])
+    description = scrapy.Field(serializer=str)
+    body = scrapy.Field(serializer=list[str])
