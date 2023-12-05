@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
 import NewsPage from "./pages/NewsPage"
 import NewsSubPage from "./pages/NewsSubPage"
+import SportsPage from "./pages/SportsPage"
 import StaffPage from "./pages/StaffPage"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
@@ -55,6 +56,8 @@ function App() : JSX.Element {
           <Route path="/news/crime" element={<NewsSubPage />}/>
           <Route path="/news/government" element={<NewsSubPage />}/>
           <Route path="/news/education" element={<NewsSubPage />}/>
+          <Route path="/sports" element={<SportsPage />}/>
+          
           <Route path="/article/:articleUID" element={<ArticlePage />}/>
           <Route path="/login" element={<LoginPage />}/>
           <Route path="/register" element={<RegisterPage />}/>
