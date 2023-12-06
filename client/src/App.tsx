@@ -19,7 +19,7 @@ import ResetPassword from "./pages/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/ConfirmResetPasswordPage"
 import Error from "./pages/Error"
 
-import ArticleTestData from "./test/ArticleData"
+// import ArticleTestData from "./test/ArticleData"
 
 import "./App.css"
 
