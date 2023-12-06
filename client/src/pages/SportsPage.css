@@ -11,13 +11,15 @@
     display: flex;
     flex-direction: row;
     justify-content: start;
+    flex-shrink:initial;
     overflow: hidden;
 
     background-color: #C71E1E;
     color: black;
 
     max-width:30rem;
-    padding:none;
+    height:2.3rem;
+    padding:0rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
     border-top-left-radius: 1.5rem;
@@ -30,16 +32,23 @@
     align-items: center;
     justify-content: space-around;
     list-style: none;
+    padding:0rem;
+    margin:0rem;
+    margin-left: 0.5rem;
     width:100%;
     height:100%;
-    margin: none;
 }
 .sports-nav--link{
+    display: flex;
     height:100%;
-    border: dotted 1px #C71E1E;
+    border: solid #C71E1E;
+    border-width: 0px 1px;
+    align-items: center;
+    padding:0.2rem
 }
 .sports-nav--link:hover{
-    border:dotted 1px black
+    border: solid black;
+    border-width: 0px 1px;
 }
 .sports-nav--link >a {
     color: black;
