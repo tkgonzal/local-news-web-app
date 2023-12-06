@@ -5,7 +5,7 @@ import ArticleCarousel from "../components/ArticleCarousel"
 
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
 
 import "./SportsPage.css"
 
@@ -70,6 +70,28 @@ const SportsPage: React.FC = () => {
         <main className="subpage">
 
             <h1 className="subpage--header">{`${headerName}`}</h1>
+            <div className="sports-nav">
+                <ul className="sports-nav--categories">
+                    <li className="sports-nav--link">
+                        <Link to="/sports/soccer">Soccer</Link>
+                    </li>
+                    <li className="sports-nav--link">
+                        <Link to="/sports/basketball">Basketball</Link>
+                    </li>
+                    <li className="sports-nav--link">
+                        <Link to="/sports/tennis">Tennis</Link>
+                    </li>
+                    <li className="sports-nav--link">
+                        <Link to="/sports/football">Football</Link>
+                    </li>
+                    <li className="sports-nav--link">
+                        <Link to="/sports/golf">Golf</Link>
+                    </li>
+                    <li className="sports-nav--link">
+                        <Link to="/sports/fishing">Fishing</Link>
+                    </li>
+                </ul>
+            </div>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}
