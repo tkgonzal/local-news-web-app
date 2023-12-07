@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar"
 import BreakingNews from "./pages/BreakingNews"
 import NewsPage from "./pages/NewsPage"
 import NewsSubPage from "./pages/NewsSubPage"
+import SportsPage from "./pages/SportsPage"
 import StaffPage from "./pages/StaffPage"
 import ArticlesTable from "./pages/BusinessPanel/ArticlesTable"
 import ArticleForm from "./pages/BusinessPanel/ArticleForm"
@@ -55,13 +56,25 @@ function App() : JSX.Element {
           <Route path="/news/crime" element={<NewsSubPage />}/>
           <Route path="/news/government" element={<NewsSubPage />}/>
           <Route path="/news/education" element={<NewsSubPage />}/>
+
+          <Route path="/sports" element={<SportsPage />}/>
+          <Route path="/sports/soccer" element={<SportsPage />}/>
+          <Route path="/sports/basketball" element={<SportsPage />}/>
+          <Route path="/sports/tennis" element={<SportsPage />}/>
+          <Route path="/sports/football" element={<SportsPage />}/>
+          <Route path="/sports/golf" element={<SportsPage />}/>
+          <Route path="/sports/fishing" element={<SportsPage />}/>
+          
           <Route path="/article/:articleUID" element={<ArticlePage />}/>
+
           <Route path="/login" element={<LoginPage />}/>
           <Route path="/register" element={<RegisterPage />}/>
           <Route path="/reset-password" element={<ResetPassword />}/>
           <Route path="/confirm-reset-password" element={<ConfirmResetPassword />}/>
-          <Route path="/staff" element={<StaffPage />}/>
           <Route path="/subscribe" element={<SubscribePage />}/>
+
+          <Route path="/staff" element={<StaffPage />}/>
+
           <Route path="/business/articles" element={<ArticlesTable />}/>
           <Route path="/business/articles/form/:articleId" element={<ArticleForm />}/>
           <Route path="/business/users" element={<UsersTable />}/>

@@ -99,14 +99,25 @@ const Navbar: React.FC = () => {
   const sideBarLinks: LinkData[] = [
     { name: ["HOME"], url: ["/"] },
     {
-      name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION", "SPORTS"],
+      name: ["NEWS", "LOCAL", "CRIME", "GOVERNMENT",  "EDUCATION"],
       url: [
         "/news", 
         "/news/local", 
         "/news/crime", 
         "/news/government", 
-        "/news/education",
-        "/"
+        "/news/education"
+      ]
+    },
+    {
+      name: ["SPORTS", "SOCCER", "BASKETBALL", "TENNIS", "FOOTBALL", "GOLF", "FISHING"],
+      url: [
+        "/sports", 
+        "/sports/soccer", 
+        "/sports/basketball", 
+        "/sports/tennis", 
+        "/sports/football", 
+        "/sports/golf", 
+        "/sports/fishing"
       ]
     },
     { name: ["BUSINESS", "STAFF"], url: ["/business/articles", "/staff"] },
