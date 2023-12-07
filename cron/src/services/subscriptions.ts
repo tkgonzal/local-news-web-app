@@ -153,20 +153,15 @@ const sendOutSubscriptionNewsletters = async (
     try {
         const subscriptionArticles = await getNewArticles(frequency);
 
-        // Only send out newsletters if there were any new articles posted for
-        // the given frequency period
-        if (subscriptionArticles.newArticles) {
-            const newsletterText = makeNewsletterText(subscriptionArticles);
-            const subscriptions = await getSubscriptions(frequency);
+        const newsletterText = makeNewsletterText(subscriptionArticles);
+        const subscriptions = await getSubscriptions(frequency);
 
-            for (const subscription of subscriptions) {
-                sendOutNewsletter(subscription, newsletterText, frequency);
-            }
-        } else {
-            console.log(`${(new Date()).toLocaleDateString()}: No new articles made for this period.`);
+        for (const subscription of subscriptions) {
+            sendOutNewsletter(subscription, newsletterText, frequency);
         }
+        console.log(`${(new Date()).toLocaleDateString()}: Newsletters sent out for this period.`);
     } catch (error: any) {
-        console.log("Error occurred while sending out subscriptions", error);
+        console.log(`${(new Date()).toLocaleDateString()}: Error occurred while sending out subscriptions`, error);
     }
 }
 

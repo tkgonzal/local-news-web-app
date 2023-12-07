@@ -243,7 +243,7 @@ const PanelTable: React.FC<Props> = ({
                             onClick={
                                 tableType === "User" ? 
                                 () => deleteUserFromBusiness(row._id) :
-                                () => deleteArticle(row._id)
+                                () => row._id && deleteArticle(row._id)
                             }
                         >
                             <img src={TrashIcon} alt="Trash Button" />
