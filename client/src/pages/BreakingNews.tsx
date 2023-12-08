@@ -67,7 +67,7 @@ const BreakingNews: React.FC = () => {
             article={headlineArticles[0]}
         /> : <></>
 
-    console.log(headlineArticles)
+    console.log(BASE_SERVER_URL)
 
     const headlineThumbnails: JSX.Element[] = headlineArticles.slice(1).map(
         (article: Article) => 
