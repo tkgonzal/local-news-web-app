@@ -10,14 +10,16 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "./dist/server.js",
-            "methods": ["GET", "POST", "PUT", "DELETE"],
-            "headers": [
-                {
-                    "key": "access-control-allow-origin",
-                    "value": "https://mo-news.vercel.app/"
-                }
-            ]
+            "dest": "./dist/server.js"
+        }
+    ],
+    "headers": [
+        {
+            "source": "https://mo-news.vercel.app/(.*)",
+            "headers": {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+            }
         }
     ]
 }
