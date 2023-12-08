@@ -17,11 +17,18 @@ const PORT: Number | string = process.env.PORT || 5000;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    methods: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}));
   
-// app.get('/', (req: Request, res: Response) => {
-//     res.send('API is running SMOOOOOTHLY');
-// });
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "MoNews Server is Running"
+    });
+});
 
 // Login/Authentication Endpoints
 app.use('/api/auth', loginRoute);
