@@ -24,7 +24,7 @@
             ]
         },
         {
-            "source": "https://mo-news.vercel.app/(.*)",
+            "source": "/mo-news.vercel.app/(.*)",
             "headers": [
                 {
                     "key": "Access-Control-Allow-Origin",
