@@ -7,19 +7,30 @@
             "config": { "includeFiles": ["dist/**"] }
         }
     ],
-    "routes": [
+    "rewrites": [
         {
-            "src": "/(.*)",
-            "dest": "./dist/server.js"
+            "source": "/(.*)",
+            "destination": "./dist/server.js"
         }
     ],
     "headers": [
         {
-            "source": "https://mo-news.vercel.app/(.*)",
-            "headers": {
-                "key": "Access-Control-Allow-Origin",
-                "value": "*"
-            }
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                }
+            ]
+        },
+        {
+            "source": "/mo-news.vercel.app/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                }
+            ]
         }
     ]
 }
