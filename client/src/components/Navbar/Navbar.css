@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+}
+
+.search-bar {
+  padding: 20px;
+}
+.search-bar > div {
+  border: 1px solid #d9d9d9;
+  width: 386px;
+  height: 49px;
+  margin-left: 20rem;
+}
+.weather-details {
+  display: flex;
+  justify-content: space-around;
+  color: var(--nav-bar-color, white);
+  margin-right: 300px;
+}
+.weather-details > p {
+  padding: 5px;
+}
+.custom-input {
+  outline: none;
+  border: none;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  background-color: var(--nav-bar-bg-color, black);
+}
+.nav-main {
+  display: flex;
+  position: relative;
+  justify-content: right;
+  align-items: center;
+  margin: 0%;
+  height: 43px;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.left-container > ul {
+  list-style: none;
+}
+.left-column {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 10;
+  background-color: var(--nav-bar-bg-color, black);
+  color: var(--nav-bar-color, white);
+}
+
+.left-container .logo {
+  width: 10rem;
+}
+
+.left-container .logo img {
+  width: 100%;
+}
+
+.left-main-links {
+  margin: 0.5rem 0.5rem 1.5rem;
+}
+.left-links {
+  list-style: none;
+}
+
+.left-links > a {
+  color: white;
+  text-decoration: none;
+}
+
+.top-navbar-links > ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+}
+.mglass {
+  height: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.subscribe-link {
+  background-color: var(--nav-bar-bg-color, black);
+  padding: 0.5rem 2rem;
+  color: var(--nav-bar-color, white);
+  border: 1px solid var(--nav-bar-color, white);
+}
+.main-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin-right: 1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.main-links:hover,
+.left-links:hover {
+  text-decoration: underline;
+}
+
+.subscribe-link:hover {
+  background-color: var(--nav-bar-color, white);
+  color: var(--nav-bar-bg-color, black);
+}
+
+
+.main-links > a {
+  text-decoration: none;
+  margin: 0 0.3rem;
+  color: white;
+}
+
+.sidebar-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: var(--nav-bar-color, white);
+  border: 1px solid var(--nav-bar-bg-color, black);
+}

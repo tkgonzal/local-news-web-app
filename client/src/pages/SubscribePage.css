@@ -1,0 +1,92 @@
+.subscribe {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 20rem);
+  padding: 5rem 10rem;
+}
+
+.subscribe--header {
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.subscribe--subtext {
+  font-size: 16px;
+}
+
+.subscribe--checkbox-container {
+  margin-top: 80px;
+  display: flex;
+}
+
+.subscribe--label-container {
+  width: 300px;
+}
+
+.subscribe--checkbox-label {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.subscribe--checkbox-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.subscribe--checkbox-option {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.subscribe--frequency-container {
+  margin-top: 50px;
+}
+
+.subscribe--frequency-label {
+  font-size: 24px;
+  font-weight: 600;
+  margin-right: 144px;
+}
+
+.subscribe--frequency-option {
+  border: 0.0125rem solid;
+  border-color: var(--input-border-color, black);
+  background-color: var(--input-bg-color, white);
+  color: var(--input-color, black);
+  cursor: pointer;
+}
+
+.subscribe--email-container {
+  margin-top: 50px;
+  display: flex;
+  gap: 10px;
+  width: 850px;
+  overflow-x: visible;
+}
+
+.subscribe--input-field {
+  padding-left: 15px;
+  width: 338px;
+  height: 57px;
+  border: 0.0125rem solid;
+  border-color: var(--input-border-color, black);
+  border-radius: 5px;
+  background-color: var(--input-bg-color, white);
+}
+
+.subscribe--form-button {
+  background-color: var(--input-color, black);
+  color: white;
+  width: 153px;
+  height: 61px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.subscribe--form-button:hover {
+  outline: 0.2rem solid var(--hover-color, gray);
+}

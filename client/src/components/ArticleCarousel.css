@@ -1,0 +1,62 @@
+.articles-carousel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.articles-carousel button {
+    width: 2rem;
+    border: 0;
+    background: none;
+}
+
+.articles-carousel button img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.articles-carousel button img:hover {
+    width: 100%;
+    filter: invert(94%) sepia(1%) saturate(0%) 
+        hue-rotate(23deg) brightness(87%) contrast(91%);
+}
+
+.articles-carousel button:disabled img {
+    filter: invert(94%) sepia(1%) saturate(0%) 
+        hue-rotate(23deg) brightness(87%) contrast(91%);
+}
+
+.articles-carousel button:active {
+    box-shadow: none;
+}
+
+.carousel-content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-content .article-thumbnail {
+    width: 30%;
+}
+
+.carousel-content .article-thumbnail--heading {
+    font-size: 1.2rem;
+    margin-bottom: .3rem;
+}
+
+.carousel-content .article-thumbnail--date {
+    margin-top: 0;
+    color: var(--secondary-text-color, gray);
+    font-size: 1rem;
+}
+
+.carousel-content .article-thumbnail--subheading, 
+.carousel-content .article-thumbnail--author,
+.carousel-content .article-thumbnail--body {
+    display: none;
+}

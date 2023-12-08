@@ -1,0 +1,29 @@
+.article-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.article--img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 1440px) {
+    .article-container {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.article {
+    width: calc(100% - 4rem);
+    padding: 0rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.more-news {
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+}
+

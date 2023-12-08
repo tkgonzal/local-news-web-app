@@ -1,0 +1,87 @@
+.article-thumbnail {
+    /* outline: 0.125rem solid black; */
+    width: 100%;
+}
+
+/* Adds text-wrap for rendering on Google Chrome */
+.article-thumbnail h2, h3, p {
+    text-wrap: wrap;
+}
+
+.article-thumbnail--img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 15rem;
+}
+
+.article-thumbnail--heading,
+.article-thumbnail--subheading {
+    margin: .5rem;
+    margin-left: 0rem;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.article-thumbnail--heading {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.article-thumbnail--subheading {
+    font-size: 1.3rem;
+    margin-top: 0;
+}
+
+.article-thumbnail--author {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.main-article {
+    width: 80%;
+}
+
+.main-article .article-thumbnail--body {
+    display: block !important; 
+}
+
+.main-article .article-thumbnail--author {
+    display: block !important;
+}
+
+.main-article .article-thumbnail--date {
+    margin-top: 0;
+    border-bottom: .0625rem solid var(--element-2-color, gray);
+}
+
+
+.main-article .article-thumbnail--img {
+    max-height: 30rem !important;
+}
+
+.main-article .article-thumbnail--heading {
+    font-size: 2.5rem
+}
+
+.main-article .article-thumbnail--subheading {
+    font-size: 1.8rem
+}
+
+.article-thumbnail:hover {
+    cursor: pointer;
+}
+
+.article-thumbnail:hover .article-thumbnail--headings-div,
+.article-thumbnail:hover .article-thumbnail--body {
+    text-decoration: underline;
+}
+
+
+.article-thumbnail--body-string p {
+    display: none;
+}
+
+.article-thumbnail--body-string p:first-child {
+    display: block;
+}

@@ -1,0 +1,97 @@
+/* CSS used for both main news page, and the subpages */
+
+.subpage {
+    display:flex;
+    flex-direction: column;
+    width:calc(100% - 13rem);
+    padding: 2rem 6.5rem 2rem 6.5rem;
+}
+
+.sports-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-shrink:initial;
+    overflow: hidden;
+
+    background-color: #C71E1E;
+    color: black;
+
+    max-width:30rem;
+    height:2.3rem;
+    padding:0rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top-left-radius: 1rem;
+    box-shadow: 8px -8px 0px 0px rgba(0,0,0,1);
+
+}
+.sports-nav--categories{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    padding:0rem;
+    margin:0rem;
+    margin-left: 0.5rem;
+    width:100%;
+    height:100%;
+}
+.sports-nav--link{
+    display: flex;
+    height:100%;
+    border: solid #C71E1E;
+    border-width: 0px 1px;
+    align-items: center;
+    padding:0.2rem
+}
+.sports-nav--link:hover{
+    border: solid black;
+    border-width: 0px 1px;
+}
+.sports-nav--link >a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.subpage--articles{
+    display:flex;
+    flex-direction: row;
+}
+.subpage--main-article{
+    width:70%;
+}
+
+
+.subpage--secondary-articles{
+    width:30%;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: top;
+    column-gap:1rem;
+    padding:none;
+    margin:none;
+}
+.subpage--secondary-articles .article-thumbnail{
+    width: 40%;
+}
+.subpage--secondary-articles .article-thumbnail--heading{
+    font-size:1.2rem;
+}
+.subpage--secondary-articles .article-thumbnail--date{
+    font-size:1rem;
+}
+.subpage--secondary-articles .article-thumbnail--subheading,.article-thumbnail--author, .article-thumbnail--body{
+    display:none;
+}
+
+
+.subpage--article-carousel-header{
+    padding-top: 1rem;
+}
+.subpage--article-carousel-container{
+    border-bottom: .0625rem solid var(--element-2-color, gray);
+}
