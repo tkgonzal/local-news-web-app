@@ -49,4 +49,4 @@ app.listen(PORT, () => {
 });
 
 // Added for vercel hosting
-module.exports = app;
+export default app;
