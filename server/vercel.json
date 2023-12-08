@@ -15,6 +15,15 @@
     ],
     "headers": [
         {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                }
+            ]
+        },
+        {
             "source": "https://mo-news.vercel.app/(.*)",
             "headers": [
                 {
