@@ -24,9 +24,11 @@ app.use(cors({
     credentials: true
 }));
   
-// app.get('/', (req: Request, res: Response) => {
-//     res.send('API is running SMOOOOOTHLY');
-// });
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "MoNews Server is Running"
+    });
+});
 
 // Login/Authentication Endpoints
 app.use('/api/auth', loginRoute);
