@@ -67,6 +67,8 @@ const BreakingNews: React.FC = () => {
             article={headlineArticles[0]}
         /> : <></>
 
+    console.log(headlineArticles)
+
     const headlineThumbnails: JSX.Element[] = headlineArticles.slice(1).map(
         (article: Article) => 
             <ArticleThumbnail key={article._id?.toString()} article={article} />
