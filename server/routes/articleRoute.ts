@@ -6,7 +6,8 @@ import {
     getArticleByID, 
     createArticle, 
     deleteArticle,
-    updateArticleValuesById
+    updateArticleValuesById,
+    incrementArticleEngagements
 } from "../models/Article";
 
 import { authenticateToken } from "./authRoute";
@@ -64,10 +65,6 @@ router.post("/new", authenticateToken, async (req, res) => {
     }
 });
 
-// router.post('/:uid', async (req, res) => {
-
-// })
-
 // Route to update
 router.put("/:articleId", authenticateToken, async (req, res) => {
     try {
@@ -93,6 +90,25 @@ router.put("/:articleId", authenticateToken, async (req, res) => {
         res.status(500).json({
             message: "Internal Server Error Occurred While Updating Article",
             error
+        });
+    }
+});
+
+// Route to increase the engagements of an article by their articleId
+router.put("/engagements/:articleId", authenticateToken, async (req, res) => {
+    try {
+        const { articleId } = req.params;
+
+        // By default, increment an article's engagements by 1
+        await incrementArticleEngagements(articleId, 1);
+
+        res.status(200).json({
+            message: `Engagements successfully increased for article of id ${articleId}`
+        });
+    } catch (error: any) {
+        console.log("An error occurred whil trying to update the article", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred While Updating Article Engagements"
         });
     }
 });
