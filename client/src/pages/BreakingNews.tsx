@@ -93,7 +93,6 @@ const BreakingNews: React.FC = () => {
                 <h2 className="home--article-carousel-header">TOP STORIES</h2>
                 <div className="home--article-carousel-container">
                     {
-                        breakingThumbnails.length && 
                         <ArticleCarousel articleThumbnails={breakingThumbnails}/>
                     }
                 </div>

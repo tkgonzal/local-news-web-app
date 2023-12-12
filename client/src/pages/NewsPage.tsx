@@ -98,35 +98,30 @@ const NewsPage: React.FC = () => {
             <h2 className="subpage--article-carousel-header">Featured</h2>
             <div className="subpage--article-carousel-container">
                 {
-                    featuredArticleThumbnails.length &&
                     <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
                 }   
             </div>
             <h2 className="subpage--article-carousel-header">Local</h2>
             <div className="subpage--article-carousel-container">
                 {
-                    featuredArticleThumbnails.length &&
                     <ArticleCarousel articleThumbnails={localArticles}/>
                 }  
             </div>
             <h2 className="subpage--article-carousel-header">Crime</h2>
             <div className="subpage--article-carousel-container">
                 {
-                    featuredArticleThumbnails.length &&
                     <ArticleCarousel articleThumbnails={crimeArticles}/>
                 }
             </div>
             <h2 className="subpage--article-carousel-header">Government</h2>
             <div className="subpage--article-carousel-container">
                 {
-                    featuredArticleThumbnails.length &&
                     <ArticleCarousel articleThumbnails={governmentArticles}/>
                 }
             </div>
             <h2 className="subpage--article-carousel-header">Education</h2>
             <div className="subpage--article-carousel-container">
                 {
-                    featuredArticleThumbnails.length &&
                     <ArticleCarousel articleThumbnails={educationArticles}/>
                 }
             </div>

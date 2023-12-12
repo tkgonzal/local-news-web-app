@@ -107,7 +107,6 @@ const SportsPage: React.FC = () => {
             <h2 className="subpage--article-carousel-header">Featured</h2>
             <div className="subpage--article-carousel-container">
                 {
-                    featuredArticleThumbnails.length &&
                     <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
                 }
             </div>
