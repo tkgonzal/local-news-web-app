@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
 
-import { isStrongPassword } from '../utils/passwordUtils';
+import { isStrongPassword } from '../../utils/passwordUtils';
 import { useNavigate } from 'react-router-dom';
-import { useUserContext } from '../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 
 import moNewsLogoImg from "/assets/mo_news_logo_white.png"
 
