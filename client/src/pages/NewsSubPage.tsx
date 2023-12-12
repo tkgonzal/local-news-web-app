@@ -1,11 +1,13 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import useLoadingNewsPage from "../hooks/useLoadingNewsPage"
+
 import { Article } from "../types/interfaces/Article"
 
 import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
 import ArticleCarousel from "../components/ArticleCarousel"
 
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
 import "./NewsPage.css"
 
 
@@ -16,6 +18,7 @@ const NewsSubPage: React.FC = () => {
     const location = useLocation()
     const [newsArticles,setArticles] = useState<Article[]>([])
     const [headerName, setHeaderName] = useState<string>("")
+    const { loading, setLoading, LoadingElement } = useLoadingNewsPage()
     useEffect(() => {
         //Pulls the relevant articles for the subcategory page
         if(location.pathname === "/news/local"){
@@ -35,10 +38,13 @@ const NewsSubPage: React.FC = () => {
 
     const fetchArticles = async (category: string) => {
         try {
+            setLoading(true)
             const articleResponse = await axios.get(
                 `${BASE_API_URL}/api/articles?tag=${category}`
             )
+
             setArticles(articleResponse.data)
+            setLoading(false)
         } catch (error) {
             console.log("An error occurred while retrieving Articles")
             console.log(error)
@@ -60,24 +66,33 @@ const NewsSubPage: React.FC = () => {
         <main className="subpage">
 
             <h1 className="subpage--header">{`${headerName}`}</h1>
-            <div className="subpage--articles">
-                <div className="subpage--main-article">
-                    {mainArticleThumbnail}
-                </div>
+            {
+                loading ? 
+                LoadingElement : 
+                <>
+                    <div className="subpage--articles">
+                        <div className="subpage--main-article">
+                            {mainArticleThumbnail}
+                        </div>
 
-                <div className="subpage--secondary-articles">
-                    {secondaryArticleThumbnails}
-                </div>
+                        <div className="subpage--secondary-articles">
+                            {secondaryArticleThumbnails}
+                        </div>
 
 
-            </div>
-                
-            <h2 className="subpage--article-carousel-header">Featured</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
-                }
-            </div>
+                    </div>
+                        
+                    <h2 className="subpage--article-carousel-header">Featured</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel 
+                                articleThumbnails={featuredArticleThumbnails}
+                            />
+                        }
+                    </div>
+                </>
+            }
+
 
         </main>
     )
