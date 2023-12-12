@@ -1,12 +1,12 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation, Link } from "react-router-dom"
-import useLoadingNewsPage from "../hooks/useLoadingNewsPage"
+import useLoadingNewsPage from "../../hooks/useLoadingNewsPage"
 
-import { Article } from "../types/interfaces/Article"
+import { Article } from "../../types/interfaces/Article"
 
-import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
-import ArticleCarousel from "../components/ArticleCarousel"
+import ArticleThumbnail from "../../components/ArticleThumbnails/ArticleThumbnail"
+import ArticleCarousel from "../../components/ArticleCarousel"
 
 import "./SportsPage.css"
 
