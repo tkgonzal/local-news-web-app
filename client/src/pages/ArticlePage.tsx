@@ -12,6 +12,9 @@ import defaultArticleImage from '../assets/defaultArticleImage';
 
 import './ArticlePage.css'
 
+const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
+const ENGAGEMENTS_AUTH_KEY: string = import.meta.env.VITE_ENGAGEMENTS_AUTH
+
 const ArticlePage: React.FC = () => {
     const [articleObj, setArticleObj] = useState<Article>()
     const [recommendedArticles, setRecommendedArticles] = useState<Article[]>([])
@@ -25,8 +28,18 @@ const ArticlePage: React.FC = () => {
     useEffect(()=>{
         (async () => {
             try {
-                const article : AxiosResponse<Article> = await axios.get<Article>(`${import.meta.env.VITE_SERVER_URL}/api/article/${articleUID}`)
+                axios.put(
+                    `${BASE_SERVER_URL}/api/article/engagements/${articleUID}`,
+                    { },
+                    { 
+                        headers: { 
+                            Authorization: `Bearer ${ENGAGEMENTS_AUTH_KEY}` 
+                        } 
+                    }
+                )
+                const article : AxiosResponse<Article> = await axios.get<Article>(`${BASE_SERVER_URL}/api/article/${articleUID}`)
                 setArticleObj(article.data)
+
             } catch (err) {
                 console.log(err)
             }
@@ -37,7 +50,7 @@ const ArticlePage: React.FC = () => {
         if (articleObj == undefined) {return}
         (async () => {
             try {
-                const response : AxiosResponse<Article[]> = await axios.get<Article[]>(`${import.meta.env.VITE_SERVER_URL}/api/articles`,{
+                const response : AxiosResponse<Article[]> = await axios.get<Article[]>(`${BASE_SERVER_URL}/api/articles`,{
                     params: {
                         tag: articleObj?.tags[0]
                     }
