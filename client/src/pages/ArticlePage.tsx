@@ -14,6 +14,7 @@ import './ArticlePage.css'
 
 const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
 const ENGAGEMENTS_AUTH_KEY: string = import.meta.env.VITE_ENGAGEMENTS_AUTH
+const RECOMMENDED_ARTICLES_COUNT: number = 8
 
 const ArticlePage: React.FC = () => {
     const [articleObj, setArticleObj] = useState<Article>()
@@ -77,7 +78,7 @@ const ArticlePage: React.FC = () => {
         <div dangerouslySetInnerHTML={{__html: articleObj.body}}></div> : 
         articleObj.body.map((text, index)=>(<p key={index}>{text}</p>))
 
-    const articleThumbnails = [<ArticleThumbnail key={articleObj._id?.toString()} className="main-article" article={articleObj}/>].concat(
+    const articleThumbnails = [<ArticleThumbnail key={articleObj._id?.toString() + "main-article"} className="main-article" article={articleObj}/>].concat(
         recommendedArticles.map((article)=><ArticleThumbnail key={article._id?.toString()} article={article}/>)
     )
 
@@ -99,8 +100,8 @@ const ArticlePage: React.FC = () => {
         </div>
         <div className='more-news'>
             <h2 className="home--more-news">MORE NEWS: {articleObj?.tags[0].toUpperCase()} </h2>
-            <HeadlineBulletPoints articleThumbnails={articleThumbnails}/>
-            <HeadlineColumn articleThumbnails={articleThumbnails}/>
+            <HeadlineBulletPoints articleThumbnails={articleThumbnails.slice(0, RECOMMENDED_ARTICLES_COUNT)}/>
+            <HeadlineColumn articleThumbnails={articleThumbnails.slice(0, RECOMMENDED_ARTICLES_COUNT)}/>
         </div>
     </main>
     )
