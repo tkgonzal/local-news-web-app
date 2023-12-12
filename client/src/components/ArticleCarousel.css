@@ -25,6 +25,11 @@
 .articles-carousel button:disabled img {
     filter: invert(94%) sepia(1%) saturate(0%) 
         hue-rotate(23deg) brightness(87%) contrast(91%);
+    cursor: auto;
+}
+
+.articles-carousel button:disabled {
+    cursor: auto;
 }
 
 .articles-carousel button:active {
