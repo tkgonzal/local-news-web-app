@@ -78,22 +78,22 @@ const SportsPage: React.FC = () => {
             <div className="sports-nav">
                 <ul className="sports-nav--categories">
                     <li className="sports-nav--link">
-                        <Link to="/sports/soccer">Soccer</Link>
+                        <Link to="/sports/soccer">SOCCER</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/basketball">Basketball</Link>
+                        <Link to="/sports/basketball">BASKETBALL</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/tennis">Tennis</Link>
+                        <Link to="/sports/tennis">TENNIS</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/football">Football</Link>
+                        <Link to="/sports/football">FOOTBALL</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/golf">Golf</Link>
+                        <Link to="/sports/golf">GOLF</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/fishing">Fishing</Link>
+                        <Link to="/sports/fishing">FISHING</Link>
                     </li>
                 </ul>
             </div>
