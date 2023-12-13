@@ -1,5 +1,5 @@
 import { Staff } from "../types/interfaces/Staff"
-import StaffData from "../test/StaffData"
+import StaffData from "../assets/StaffData"
 import StaffCard from "../components/StaffDisplay/StaffCard"
 
 import "./StaffPage.css";
