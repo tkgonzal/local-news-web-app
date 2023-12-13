@@ -10,37 +10,37 @@ import michalaImage from "/assets/michala.jpg"
 
 const StaffData : Staff[] = [
     {
-        staffName: "Traven Gonzales",
+        staffName: "TRAVEN GONZALES",
         imgSrc: tkImage,
         position: "Team Lead and Fullstack Developer",
     },
     {
-        staffName: "Liam Stelly-Hawkes",
+        staffName: "LIAM STELLY-HAWKES",
         imgSrc: liamImage,
         position: "Fullstack Developer and Crawler Developer",
     },
     {
-        staffName: "Jordan Dinis",
+        staffName: "JORDAN DINIS",
         imgSrc: jordanImage,
         position: "Fullstack Developer",
     },
     {
-        staffName: "Dawid Fourie",
+        staffName: "DAWID FOURIE",
         imgSrc: dawidImage,
         position: "Fullstack Developer",
     },
     {
-        staffName: "Ivan Piceno",
+        staffName: "IVAN PICENO",
         imgSrc: ivanImage,
         position: "Fullstack Developer",
     },
     {
-        staffName: "Misael Bolainez",
+        staffName: "MISAEL BOLAINEZ",
         imgSrc: missileImage,
         position: "Fullstack Developer",
     },
     {
-        staffName: "Michala Curran",
+        staffName: "MICHALA CURRAN",
         imgSrc: michalaImage,
         position: "UI/UX Designer",
     },
