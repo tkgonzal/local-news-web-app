@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 import { isArticleTag } from "../types/types/ArticleTag.js";
 
+import logActivity from "../utils/log.js";
+
 import { Article } from "../types/interfaces/Article.js";
 import { 
     ArticleResponse,
@@ -22,8 +24,8 @@ import {
 import { NewsletterTagText } from "../types/interfaces/NewsletterTagText.js";
 
 import { sendEmail } from "../utils/email.js";
-// SMS unused due to Twilio API restrictions
-// import { sendText } from "../utils/text.js";
+// SMS unusable for our purposes of US numbers due to Twilio API restrictions
+import { sendText } from "../utils/text.js";
 
 // Setup
 dotenv.config();
@@ -134,9 +136,9 @@ const sendOutNewsletter = async (
         sendEmail(subscription.email, newsletterSubject, newsletter);
     }
 
-    // if (subscription.phone) {
-    //     sendText(subscription.phone, newsletterSubject, newsletter);
-    // }
+    if (subscription.phone) {
+        sendText(subscription.phone, newsletterSubject, newsletter);
+    }
 }
 
 // Creates a bulletpoint for an article to be used in a Newsletter
@@ -159,9 +161,12 @@ const sendOutSubscriptionNewsletters = async (
         for (const subscription of subscriptions) {
             sendOutNewsletter(subscription, newsletterText, frequency);
         }
-        console.log(`${(new Date()).toLocaleDateString()}: Newsletters sent out for this period.`);
+        logActivity(`Newsletters sent out for the ${frequency} period.`);
     } catch (error: any) {
-        console.log(`${(new Date()).toLocaleDateString()}: Error occurred while sending out subscriptions`, error);
+        logActivity(
+            `Error occurred while sending out subscriptions for ${frequency} period.`, 
+            error
+        );
     }
 }
 
