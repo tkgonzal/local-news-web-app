@@ -104,7 +104,7 @@ const ArticlePage: React.FC = () => {
         <div className='more-news'>
             <h2 className="home--more-news">MORE NEWS: {articleObj?.tags[0].toUpperCase()} </h2>
             <HeadlineBulletPoints articleThumbnails={articleThumbnails.slice(0, RECOMMENDED_ARTICLES_COUNT)}/>
-            <HeadlineColumn articleThumbnails={articleThumbnails.slice(0, RECOMMENDED_ARTICLES_COUNT)}/>
+            <HeadlineColumn articleThumbnails={articleThumbnails.slice(articleThumbnails.length - RECOMMENDED_ARTICLES_COUNT, articleThumbnails.length)}/>
         </div>
     </main>
     )
