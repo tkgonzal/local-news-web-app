@@ -65,7 +65,7 @@ const NewsSubPage: React.FC = () => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">{`${headerName}`}</h1>
+            <h1 className="subpage--header">{`${headerName.toUpperCase()}`}</h1>
             {
                 loading ? 
                 LoadingElement : 
@@ -82,7 +82,7 @@ const NewsSubPage: React.FC = () => {
 
                     </div>
                         
-                    <h2 className="subpage--article-carousel-header">Featured</h2>
+                    <h2 className="subpage--article-carousel-header">FEATURED</h2>
                     <div className="subpage--article-carousel-container">
                         {
                             <ArticleCarousel 

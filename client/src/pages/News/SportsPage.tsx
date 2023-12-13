@@ -74,7 +74,7 @@ const SportsPage: React.FC = () => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">{`${headerName}`}</h1>
+            <h1 className="subpage--header">{`${headerName.toUpperCase()}`}</h1>
             <div className="sports-nav">
                 <ul className="sports-nav--categories">
                     <li className="sports-nav--link">

@@ -88,7 +88,7 @@ const NewsPage: React.FC = () => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">Recent News</h1>
+            <h1 className="subpage--header">RECENT NEWS</h1>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}
@@ -105,31 +105,31 @@ const NewsPage: React.FC = () => {
                 loading ? 
                 LoadingElement : 
                 <>
-                    <h2 className="subpage--article-carousel-header">Featured</h2>
+                    <h2 className="subpage--article-carousel-header">FEATURED</h2>
                     <div className="subpage--article-carousel-container">
                         {
                             <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
                         }   
                     </div>
-                    <h2 className="subpage--article-carousel-header">Local</h2>
+                    <h2 className="subpage--article-carousel-header">LOCAL</h2>
                     <div className="subpage--article-carousel-container">
                         {
                             <ArticleCarousel articleThumbnails={localArticles}/>
                         }  
                     </div>
-                    <h2 className="subpage--article-carousel-header">Crime</h2>
+                    <h2 className="subpage--article-carousel-header">CRIME</h2>
                     <div className="subpage--article-carousel-container">
                         {
                             <ArticleCarousel articleThumbnails={crimeArticles}/>
                         }
                     </div>
-                    <h2 className="subpage--article-carousel-header">Government</h2>
+                    <h2 className="subpage--article-carousel-header">GOVERNMENT</h2>
                     <div className="subpage--article-carousel-container">
                         {
                             <ArticleCarousel articleThumbnails={governmentArticles}/>
                         }
                     </div>
-                    <h2 className="subpage--article-carousel-header">Education</h2>
+                    <h2 className="subpage--article-carousel-header">EDUCATION</h2>
                     <div className="subpage--article-carousel-container">
                         {
                             <ArticleCarousel articleThumbnails={educationArticles}/>
