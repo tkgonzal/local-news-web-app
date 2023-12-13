@@ -1,12 +1,12 @@
 import { Staff } from "../types/interfaces/Staff"
 
-import tkImage from "../../public/assets/tk.jpg"
-import liamImage from "../../public/assets/liam.png"
-import jordanImage from "../../public/assets/jordan.jpg"
-import dawidImage from "../../public/assets/dawid.jpg"
-import ivanImage from "../../public/assets/ivan.jpg"
-import missileImage from "../../public/assets/missile.jpg"
-import michalaImage from "../../public/assets/michala.jpg"
+import tkImage from "/assets/tk.jpg"
+import liamImage from "/assets/liam.png"
+import jordanImage from "/assets/jordan.jpg"
+import dawidImage from "/assets/dawid.jpg"
+import ivanImage from "/assets/ivan.jpg"
+import missileImage from "/assets/missile.jpg"
+import michalaImage from "/assets/michala.jpg"
 
 const StaffData : Staff[] = [
     {
