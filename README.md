@@ -19,4 +19,6 @@ A local news aggregator for The Valley, made for Bay Valley Tech. Consists of a 
 *Individual modules/libraries used for each of the above mentioned can be viewed in their corresponding README files*
 
 ## Usage
+The client for the app can be reached [here](https://mo-news.vercel.app/).
+
 The client acts as the frontend and primary means for users to interact with the app. The server provides a REST API from which the client, crawler, and cron can interface with to perform their tasks. The crawler consists of several crawlers which scrape from various Valley news outlets and adds their articles to the app's database. The cron schedules and calls a service to send out subscriptions to users for newsletters to update them on new articles added to the app.
