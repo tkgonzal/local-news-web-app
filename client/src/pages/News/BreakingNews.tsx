@@ -97,7 +97,11 @@ const BreakingNews: React.FC = () => {
                 </div>
                 {mainArticleThumbnail}
 
-                <h2 className="home--article-carousel-header">TOP STORIES</h2>
+                
+                {
+                    !loading && 
+                    <h2 className="home--article-carousel-header">TOP STORIES</h2>
+                }
                 <div className="home--article-carousel-container">
                     {
                         loading ? 
@@ -107,21 +111,24 @@ const BreakingNews: React.FC = () => {
                 </div>
             </div>
 
-            <div className="home--secondary-column">
-                <h2 className="home--latest-header">LATEST HEADLINES</h2>
-                <HeadlineColumn 
-                    articleThumbnails={
-                        headlineThumbnails.slice(0, ARTICLE_DISPLAY_COUNT)
-                    }
-                />
-                <h2 className="home--more-news">MORE NEWS</h2>
-                <HeadlineBulletPoints 
-                    articleThumbnails={headlineThumbnails.slice(
-                        headlineThumbnails.length - ARTICLE_DISPLAY_COUNT, 
-                        headlineThumbnails.length
-                    )}
-                />
-            </div>
+            {
+                !loading && 
+                <div className="home--secondary-column">
+                    <h2 className="home--latest-header">LATEST HEADLINES</h2>
+                    <HeadlineColumn 
+                        articleThumbnails={
+                            headlineThumbnails.slice(0, ARTICLE_DISPLAY_COUNT)
+                        }
+                    />
+                    <h2 className="home--more-news">MORE NEWS</h2>
+                    <HeadlineBulletPoints 
+                        articleThumbnails={headlineThumbnails.slice(
+                            headlineThumbnails.length - ARTICLE_DISPLAY_COUNT, 
+                            headlineThumbnails.length
+                        )}
+                    />
+                </div>
+            }
         </main>
     )
 }
