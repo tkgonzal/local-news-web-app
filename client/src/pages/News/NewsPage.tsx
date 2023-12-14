@@ -83,7 +83,6 @@ const NewsPage: React.FC = () => {
         (article: Article) => 
             <ArticleThumbnail key={article._id} article={article} />
     ) : []
-    console.log(newsArticles)
 
     return (
         <main className="subpage">
