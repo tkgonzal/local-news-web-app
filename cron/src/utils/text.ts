@@ -1,6 +1,8 @@
 import pkg from "twilio";
 import dotenv from "dotenv";
 
+import logActivity from "./log.js";
+
 // Setup
 dotenv.config();
 const { Twilio } = pkg;
@@ -25,7 +27,8 @@ const sendText = async (number: string, header: string, body: string) => {
             body: `${header}\n${body}`
         });
     } catch (error: any) {
-        console.log("An error occurred while sending text", error);
+        logActivity("An error occurred while sending out text", error);
+        throw error;
     }
 }
 

@@ -1,11 +1,12 @@
-import { Article } from "../types/interfaces/Article"
-
-import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
-import ArticleCarousel from "../components/ArticleCarousel"
-
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+import useLoadingNewsPage from "../../hooks/useLoadingNewsPage"
+
+import { Article } from "../../types/interfaces/Article"
+
+import ArticleThumbnail from "../../components/ArticleThumbnails/ArticleThumbnail"
+import ArticleCarousel from "../../components/ArticleCarousel"
 
 import "./NewsPage.css"
 
@@ -16,6 +17,8 @@ const BASE_API_URL = import.meta.env.VITE_SERVER_URL
 const NewsPage: React.FC = () => {
     const location = useLocation()
     const [newsArticles,setArticles] = useState<Article[][]>([])
+    const {loading, setLoading, LoadingElement} = useLoadingNewsPage()
+
     useEffect(() => {
         if(location.pathname === "/news"){
             fetchArticles()
@@ -24,6 +27,7 @@ const NewsPage: React.FC = () => {
 
     const fetchArticles = async () => {
         try {
+            setLoading(true)
             const breakingResponse = await axios.get(
                 `${BASE_API_URL}/api/articles?tag=Breaking%20News`
             )
@@ -39,7 +43,9 @@ const NewsPage: React.FC = () => {
             const educationResponse = await axios.get(
                 `${BASE_API_URL}/api/articles?tag=Education`
             )
+
             setArticles([breakingResponse.data,localResponse.data,crimeResponse.data,governmentResponse.data,educationResponse.data])
+            setLoading(false)
         } catch (error) {
             console.log("An error occurred while retrieving Articles")
             console.log(error)
@@ -77,12 +83,11 @@ const NewsPage: React.FC = () => {
         (article: Article) => 
             <ArticleThumbnail key={article._id} article={article} />
     ) : []
-    console.log(newsArticles)
 
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">Recent News</h1>
+            <h1 className="subpage--header">RECENT NEWS</h1>
             <div className="subpage--articles">
                 <div className="subpage--main-article">
                     {mainArticleThumbnail}
@@ -95,41 +100,42 @@ const NewsPage: React.FC = () => {
 
             </div>
                 
-            <h2 className="subpage--article-carousel-header">Featured</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    featuredArticleThumbnails.length &&
-                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
-                }   
-            </div>
-            <h2 className="subpage--article-carousel-header">Local</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    featuredArticleThumbnails.length &&
-                    <ArticleCarousel articleThumbnails={localArticles}/>
-                }  
-            </div>
-            <h2 className="subpage--article-carousel-header">Crime</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    featuredArticleThumbnails.length &&
-                    <ArticleCarousel articleThumbnails={crimeArticles}/>
-                }
-            </div>
-            <h2 className="subpage--article-carousel-header">Government</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    featuredArticleThumbnails.length &&
-                    <ArticleCarousel articleThumbnails={governmentArticles}/>
-                }
-            </div>
-            <h2 className="subpage--article-carousel-header">Education</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    featuredArticleThumbnails.length &&
-                    <ArticleCarousel articleThumbnails={educationArticles}/>
-                }
-            </div>
+            {
+                loading ? 
+                LoadingElement : 
+                <>
+                    <h2 className="subpage--article-carousel-header">FEATURED</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                        }   
+                    </div>
+                    <h2 className="subpage--article-carousel-header">LOCAL</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel articleThumbnails={localArticles}/>
+                        }  
+                    </div>
+                    <h2 className="subpage--article-carousel-header">CRIME</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel articleThumbnails={crimeArticles}/>
+                        }
+                    </div>
+                    <h2 className="subpage--article-carousel-header">GOVERNMENT</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel articleThumbnails={governmentArticles}/>
+                        }
+                    </div>
+                    <h2 className="subpage--article-carousel-header">EDUCATION</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel articleThumbnails={educationArticles}/>
+                        }
+                    </div>
+                </>
+            }
 
         </main>
     )

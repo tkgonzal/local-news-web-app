@@ -51,6 +51,10 @@ Server runs in perpetuity and provides a REST API for the client, crawler, and c
 
     Requires Authorization. Given an articleId for an article in the database and an articleData object in the request's body *(as specified in the documentation for __[POST] /api/new__)*, updates the article of articleId to have the values of the given articleData.
 
+* ```[PUT] /engagements/:articleId```
+
+    Requires Authorization. Given an articeId for an article in the database, increases the engagements of that article by 1.
+
 * ```[DELETE] /:articleId```
 
     Requires Authorization. Given an articleId for an article in the database, deletes the article.

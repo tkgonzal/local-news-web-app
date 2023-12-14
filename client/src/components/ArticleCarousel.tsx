@@ -34,7 +34,11 @@ const ArticleCarousel: React.FC<Props> = ({articleThumbnails}) => {
             </button>
 
             <div className="carousel-content">
-                {articlesDisplay}
+                {
+                    articleThumbnails.length ? 
+                        articlesDisplay : 
+                        "No Articles Found"
+                }
             </div>
 
             <button ref={frontRef} onClick={stepForward}>

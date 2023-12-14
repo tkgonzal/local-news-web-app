@@ -148,7 +148,7 @@ async function updateArticleValuesById(
   articleId: string,
   valuesToUpdate: MatchKeysAndValues<Article>
 ) {
-  const userCollection = await getArticleCollection();
+  const articleCollection = await getArticleCollection();
 
   const filteredValuesToUpdate = {
     ...valuesToUpdate,
@@ -156,9 +156,23 @@ async function updateArticleValuesById(
       new ObjectId(valuesToUpdate["businessId"]) : undefined
   }
 
-  await userCollection.findOneAndUpdate(
+  await articleCollection.findOneAndUpdate(
     { _id: new ObjectId(articleId)},
     { $set: filteredValuesToUpdate }
+  );
+}
+
+/**
+ * @param articleId {string} The object id of an article represented as a string
+ * @param amount {amount} The amount by which to increment an article's 
+ * engagements
+ */
+async function incrementArticleEngagements(articleId: string, amount: number) {
+  const articleCollection = await getArticleCollection();
+
+  await articleCollection.findOneAndUpdate(
+    { _id: new ObjectId(articleId) },
+    { $inc: { engagements: amount } }
   );
 }
 
@@ -172,5 +186,6 @@ export {
   getArticlesByBusinessId,
   createArticle,
   deleteArticle,
-  updateArticleValuesById
+  incrementArticleEngagements,
+  updateArticleValuesById,
 }

@@ -2,7 +2,7 @@
 const AccessDenied: React.FC = () => {
     return (
         <main className="access-denied--container">
-            <h1>Access Denied</h1>
+            <h1>ACCESS DENIED</h1>
             <p>User has insufficient permissions to access page</p>
         </main>
     )

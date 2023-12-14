@@ -8,6 +8,10 @@
     color: var(--secondary-text-color, gray);
 }
 
+.loading-text {
+    text-align: center;
+}
+
 button, .logo {
     cursor: pointer;
 }

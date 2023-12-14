@@ -1,6 +1,6 @@
 const Error: React.FC = () => {
     return (
-        <h1>Page does not exist</h1>
+        <h1>PAGE DOES NOT EXIST</h1>
     )
 }
 
