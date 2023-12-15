@@ -1,6 +1,8 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
+import logActivity from "./log.js";
+
 // Setup
 dotenv.config();
 
@@ -29,7 +31,7 @@ const sendEmail = async (email: string, header: string, body: string) => {
 
         await transport.sendMail(mailOptions);
     } catch (error: any) {
-        console.log("An error occurred while trying to send email", error);
+        logActivity("An error occurred while trying to send out email", error);
         throw error;
     }
 }

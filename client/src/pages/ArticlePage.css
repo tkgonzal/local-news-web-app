@@ -7,6 +7,10 @@
     width: 100%;
 }
 
+.article--p {
+    overflow-wrap: break-word;
+}
+
 @media only screen and (max-width: 1440px) {
     .article-container {
         display: flex;
@@ -15,7 +19,7 @@
 }
 
 .article {
-    width: calc(100% - 4rem);
+    width: calc(100% - 20rem);
     padding: 0rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;

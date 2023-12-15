@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { isStrongPassword } from '../utils/passwordUtils';
+import { isStrongPassword } from '../../utils/passwordUtils';
 import './resetpassword.css';
 
 const ConfirmResetPassword: React.FC = () => {

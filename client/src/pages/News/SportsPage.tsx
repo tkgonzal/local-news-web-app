@@ -1,11 +1,12 @@
-import { Article } from "../types/interfaces/Article"
-
-import ArticleThumbnail from "../components/ArticleThumbnails/ArticleThumbnail"
-import ArticleCarousel from "../components/ArticleCarousel"
-
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation, Link } from "react-router-dom"
+import useLoadingNewsPage from "../../hooks/useLoadingNewsPage"
+
+import { Article } from "../../types/interfaces/Article"
+
+import ArticleThumbnail from "../../components/ArticleThumbnails/ArticleThumbnail"
+import ArticleCarousel from "../../components/ArticleCarousel"
 
 import "./SportsPage.css"
 
@@ -17,6 +18,8 @@ const SportsPage: React.FC = () => {
     const location = useLocation()
     const [sportsArticles,setArticles] = useState<Article[]>([])
     const [headerName, setHeaderName] = useState<string>("")
+    const { loading, setLoading, LoadingElement } = useLoadingNewsPage()
+
     useEffect(() => {
         if(location.pathname === "/sports"){
             fetchArticles("Sports")
@@ -44,10 +47,12 @@ const SportsPage: React.FC = () => {
 
     const fetchArticles = async (category: string) => {
         try {
+            setLoading(true)
             const articleResponse = await axios.get(
                 `${BASE_API_URL}/api/articles?tag=${category}`
             )
             setArticles(articleResponse.data)
+            setLoading(false)
         } catch (error) {
             console.log("An error occurred while retrieving Articles")
             console.log(error)
@@ -69,48 +74,54 @@ const SportsPage: React.FC = () => {
     return (
         <main className="subpage">
 
-            <h1 className="subpage--header">{`${headerName}`}</h1>
+            <h1 className="subpage--header">{`${headerName.toUpperCase()}`}</h1>
             <div className="sports-nav">
                 <ul className="sports-nav--categories">
                     <li className="sports-nav--link">
-                        <Link to="/sports/soccer">Soccer</Link>
+                        <Link to="/sports/soccer">SOCCER</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/basketball">Basketball</Link>
+                        <Link to="/sports/basketball">BASKETBALL</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/tennis">Tennis</Link>
+                        <Link to="/sports/tennis">TENNIS</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/football">Football</Link>
+                        <Link to="/sports/football">FOOTBALL</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/golf">Golf</Link>
+                        <Link to="/sports/golf">GOLF</Link>
                     </li>
                     <li className="sports-nav--link">
-                        <Link to="/sports/fishing">Fishing</Link>
+                        <Link to="/sports/fishing">FISHING</Link>
                     </li>
                 </ul>
             </div>
-            <div className="subpage--articles">
-                <div className="subpage--main-article">
-                    {mainArticleThumbnail}
-                </div>
 
-                <div className="subpage--secondary-articles">
-                    {secondaryArticleThumbnails}
-                </div>
+            {
+                loading ?
+                LoadingElement : 
+                <>
+                    <div className="subpage--articles">
+                        <div className="subpage--main-article">
+                            {mainArticleThumbnail}
+                        </div>
+
+                        <div className="subpage--secondary-articles">
+                            {secondaryArticleThumbnails}
+                        </div>
 
 
-            </div>
-                
-            <h2 className="subpage--article-carousel-header">Featured</h2>
-            <div className="subpage--article-carousel-container">
-                {
-                    featuredArticleThumbnails.length &&
-                    <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
-                }
-            </div>
+                    </div>
+                        
+                    <h2 className="subpage--article-carousel-header">Featured</h2>
+                    <div className="subpage--article-carousel-container">
+                        {
+                            <ArticleCarousel articleThumbnails={featuredArticleThumbnails}/>
+                        }
+                    </div>
+                </>
+            }
 
         </main>
     )
