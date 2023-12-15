@@ -1,27 +1,48 @@
-# React + TypeScript + Vite
+# MoNews Client
+User facing part of the app. Takes necessary data from the backend server, and presents it to the end user. 
+Also responsible for taking in user input, and sending it to the server when necessary.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tech Stack 
+* TypeScript
+* React
+* Node
 
-Currently, two official plugins are available:
+### Modules
+* [axios](https://www.npmjs.com/package/axios)
+* [dotenv](https://www.npmjs.com/package/dotenv)
+* [js-cookie](https://www.npmjs.com/package/js-cookie)
+* [react-dom](https://www.npmjs.com/package/react-dom)
+* [react-hook-form](https://www.npmjs.com/package/react-hook-form)
+* [react-quill](https://www.npmjs.com/package/react-quill)
+* [react-router-dom](https://www.npmjs.com/package/react-router-dom)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Usage
+[Vercel hosted site](https://mo-news.vercel.app/)
 
-## Expanding the ESLint configuration
+This is the user interface for the MoNews application, intended for users to view, manage, and receive updates on news articles from various sources in the Central Valley. 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+*Note: A valid .env file __must__ be in the client folder for the client to properly operate.*
 
-- Configure the top-level `parserOptions` property like this:
+### News Pages
+Displays articles thumbnails from our backend server according to various categories, including:
+* Breaking News
+* Local News
+* Crime
+* Government
+* Education
+* Sports
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### Article Pages
+Displays an article in its entirety after a user clicks on its thumbnail or is directed there in some other manner such as by URL
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Login/Register Pages
+Allows users to create accounts and login, or reset their password
+
+### Business Pages
+Allows businesses with an account to form groups, manage members in those groups, upload or manage articles, and receive notifications for user engagement with their articles
+
+### Subscription Page
+Allows users to follow categories, and receive alerts for those categories at regular intervals
+
+### Staff Page
+Displays all team members for development of this application
