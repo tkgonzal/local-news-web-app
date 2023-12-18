@@ -45,7 +45,7 @@ const hasArticleDeletePermissions = (user: User) => {
  * permissions to edit a business account
  */
 const hasBusinessAdminPermissions = (user: User | null): boolean | null => {
-    return user && user.businessId === ""
+    return user && user.businessId === user._id
 }
 
 export {
