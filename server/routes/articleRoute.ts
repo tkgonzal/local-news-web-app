@@ -142,7 +142,7 @@ router.post("/:articleId/comment", verifyTokenMiddleware, async (req: any, res) 
         const { articleId } = req.params;
         const { comment } = req.body
 
-        comment.userName = user.name.first?user.name.first:"Anon" + user.name.last?` ${user.name.last}`:""
+        comment.userName = user.name?.first?user.name.first:"Anon" + user.name?.last?` ${user.name?.last}`:""
         const comments = await createComment(articleId, comment)
         
         // By default, increment an article's engagements by 5
