@@ -21,6 +21,7 @@ interface Article {
     allowComments?: boolean,
     allowAnonymousComments?: boolean,
     comments?: ArticleComment[]
+    ipCanComment?: boolean
 }
 
 export type { Article }
