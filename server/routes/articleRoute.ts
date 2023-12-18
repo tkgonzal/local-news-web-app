@@ -32,6 +32,9 @@ router.get('/:uid', async (req, res) => {
     if (article == null) {
         return res.status(500).json({ message: 'Article Not Found' })
     }
+    if (article.comments?.find((comment)=>comment.ip==req.ip && comment.userName=="anonymous")) {
+        article.ipCanComment = false
+    }
     if (article.comments) {
         article.comments = [...cleanComments(article.comments)]
     }
