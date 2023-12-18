@@ -190,9 +190,13 @@ async function createComment(articleId: string, newComment: ArticleComment) {
 
     if (!existingArticle) {
         console.error(`Article with ID ${articleId} not found.`)
-        return;
-      }
-  
+        throw Error(`Article not found.`)
+    }
+
+    if (existingArticle.allowComments === false) {
+        throw Error(`Comments not allowed`)
+    }
+
     if (!existingArticle.comments) {
         existingArticle.comments = []
     }
@@ -200,6 +204,11 @@ async function createComment(articleId: string, newComment: ArticleComment) {
     if (newComment.userName === "anonymous" && existingArticle.comments.find((comment)=>(comment.ip==newComment.ip))) {
         console.error(`Article with ID ${articleId} not found.`)
         throw Error(`Ip already posted on this article.`)
+    }
+    
+    if (newComment.userName === "anonymous" && existingArticle.allowAnonymousComments === false) {
+        console.error(`Anonymous comments not allowed on ${articleId}.`)
+        throw Error(`Anonymous comments are disabled.`)
     }
 
     const commentWithId = {

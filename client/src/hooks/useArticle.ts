@@ -80,7 +80,7 @@ function useArticle(articleUID: string | undefined, limit: number) {
         
         console.log(response.data.comments)
         setArticleObj((article)=>(
-            article?{...article,  comments:response.data.comments}:article
+            article?{...article,  comments:response.data.comments, ipCanComment:user?true:false}:article
         ))
     }
 
