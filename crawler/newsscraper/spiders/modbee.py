@@ -14,9 +14,6 @@ class ModbeeSpider(scrapy.Spider):
     ARTICLE_HEADING_SELECTOR = 'h1.h1::text'
     ARTICLE_IMAGES_SELECTOR = 'div.img-container'
     ARTICLE_META_SELECTOR = 'script[type="application/ld+json"]::text'
-    custom_settings = {
-        "DEPTH_LIMIT": 8
-    }
 
     def parse(self, response : scrapy.http.Response):
         article_links = response.css(self.ARTICLE_LINK_SELECTOR)
