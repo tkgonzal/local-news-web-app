@@ -28,7 +28,11 @@ const ConfirmResetPassword: React.FC = () => {
         e.preventDefault();
     
         try {
-            if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
+            if (!isStrongPassword(formData.password)) {
+                alert('Password must be longer than 12 characters and contain uppercase Letter and special character.')
+                return
+            }
+            if (formData.password === formData.confirmPassword) {
                 const response = await axios.post(
                     `${import.meta.env.VITE_SERVER_URL}/api/confirm-password-reset/reset`, 
                     {

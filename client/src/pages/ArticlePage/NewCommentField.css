@@ -1,0 +1,23 @@
+textarea {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+    width: 100%;
+    resize: vertical;
+    min-height: 50px;
+}
+
+.submit-button {
+    position: absolute;
+    bottom: 15px;
+    right: 50px;
+    background-color: #c71e1e;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
