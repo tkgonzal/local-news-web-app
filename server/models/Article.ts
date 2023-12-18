@@ -10,6 +10,8 @@ import { connectToDatabase } from '../config/db';
 import { Article } from '../types/interfaces/Article';
 import { ArticleTag, isArticleTag } from '../types/types/ArticleTag';
 import { SubscriptionFrequency } from '../types/types/SubscriptionFrequency';
+import { ArticleComment } from '../types/interfaces/ArticleComment';
+import { cleanComments } from '../utils/commentUtils';
 
 async function getArticleCollection(): Promise<Collection<Article>> {
     const db = await connectToDatabase();
@@ -176,6 +178,41 @@ async function incrementArticleEngagements(articleId: string, amount: number) {
   );
 }
 
+/**
+ * @param articleId {string} The object id of an article represented as a string
+ * @param comment {Comment} The amount by which to increment an article's 
+ * engagements
+ */
+async function createComment(articleId: string, newComment: ArticleComment) {
+    const articleCollection = await getArticleCollection();
+
+    const existingArticle = await articleCollection.findOne({ _id: new ObjectId(articleId) });
+
+    if (!existingArticle) {
+        console.error(`Article with ID ${articleId} not found.`)
+        return;
+      }
+  
+    if (!existingArticle.comments) {
+        existingArticle.comments = []
+    }
+
+    if (newComment.userName === "anonymous" && existingArticle.comments.find((comment)=>(comment.ip==newComment.ip))) {
+        console.error(`Article with ID ${articleId} not found.`)
+        throw Error(`Ip already posted on this article.`)
+    }
+
+    const commentWithId = {
+        ...newComment,
+        _id: new ObjectId(),
+        publishedDate: new Date().toISOString()
+    }
+    existingArticle.comments.push(commentWithId)
+
+    articleCollection.updateOne({ _id: new ObjectId(articleId) }, { $set: { comments: existingArticle.comments } })
+    return cleanComments(existingArticle.comments)
+}
+
 export {
   Article, 
   getArticles, 
@@ -185,6 +222,7 @@ export {
   getArticleByID, 
   getArticlesByBusinessId,
   createArticle,
+  createComment,
   deleteArticle,
   incrementArticleEngagements,
   updateArticleValuesById,
