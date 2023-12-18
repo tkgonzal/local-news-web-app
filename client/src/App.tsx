@@ -31,12 +31,18 @@ function App() : JSX.Element {
   // Changes the background colour of the body if the sites loads any of the
   // business panel pages
   useEffect(() => {
-    if (location.pathname.includes("/business/") &&
+    if ((
+          location.pathname.includes("/business/") || 
+          location.pathname.includes("/article/")
+        ) &&
         !document.body.classList.contains("business-panel--body")) {
       document.body.classList.add("business-panel--body")
     }
 
-    if (!location.pathname.includes("/business/") && 
+    if (!(
+          location.pathname.includes("/business/") || 
+          location.pathname.includes("/article/")
+        ) && 
         document.body.classList.contains("business-panel--body")) {
       document.body.classList.remove("business-panel--body")
     }
