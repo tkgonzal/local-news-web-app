@@ -81,9 +81,10 @@ const ConfirmResetPassword: React.FC = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            placeholder="Password"
                             required 
                         />
-                        <label className='user-label'>Password:</label>
+                        {/* <label className='user-label'>Password:</label> */}
                     </div>
                     <div className='input-group'>
                         <input
@@ -91,10 +92,11 @@ const ConfirmResetPassword: React.FC = () => {
                             type="password"
                             name="confirmPassword"
                             value={formData.confirmPassword}
+                            placeholder="Confirm Password"
                             onChange={handleChange}
                             required 
                         />
-                        <label className='user-label'>Confirm Password:</label>
+                        {/* <label className='user-label'>Confirm Password:</label> */}
                     </div>
                     <button type='submit' className='login-btn btn'>Submit</button>
                 </form>
