@@ -57,8 +57,13 @@ const RegisterPage: React.FC = () => {
                 alert("Mobile phone number must be in format of XXXXXXXXXX")
                 return
             }
+            
+            if (!isStrongPassword(formData.password)) {
+                alert('Password must be longer than 12 characters and contain uppercase Letter and special character.')
+                return
+            }
 
-            if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
+            if (formData.password === formData.confirmPassword) {
                 const userData = {
                     email: formData.email,
                     password: formData.password,
