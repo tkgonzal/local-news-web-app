@@ -18,6 +18,10 @@
     max-width: 100vw;
 }
 
+.business-panel--body {
+    background-color: var(--bp-primary-bg-color, gray);
+}
+
 .error-message {
     width: 100%;
     display: inline-block;
