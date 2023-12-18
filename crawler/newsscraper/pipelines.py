@@ -89,8 +89,15 @@ class MongoPipeline:
         self.connection.close()
 
     def process_item(self, item, spider):
+        existing_article = self.database["article"].find_one({
+            "heading": item["heading"],
+            "publishedDate": item["publishedDate"]
+        })
+        if existing_article:
+            print(f'Article "{item["heading"]}" Already Exists')
+            return None
         item["images"] = list(map(lambda image: ItemAdapter(image).asdict(), item["images"]))
         parsed_item = ItemAdapter(item).asdict()
-        print(type(parsed_item), ":", parsed_item)
+        print(f"inserted: {type(parsed_item)} : {parsed_item}")
         self.database["article"].insert_one(parsed_item)
         return item
