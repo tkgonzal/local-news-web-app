@@ -46,8 +46,8 @@ const BusinessSettings: React.FC = () => {
             }
         }
     }
-    console.log(user)
-    console.log(user && hasBusinessAdminPermissions(user))
+    // console.log(user)
+    // console.log(user && hasBusinessAdminPermissions(user))
 
     return (
         <BusinessPanelPage>

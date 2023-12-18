@@ -136,7 +136,7 @@ async function deleteArticle(articleId: string) {
   const articleObjectId: ObjectId = new ObjectId(articleId);
 
   const result = await articleCollection.deleteOne({ _id: articleObjectId });
-  console.log(result);
+  // console.log(result);
 }
 
 /**

@@ -133,7 +133,7 @@ router.post("/:articleId/comment", verifyTokenMiddleware, async (req: any, res) 
         });
     }
     const user = await getUserByEmail(userEmail)
-    console.log(user)
+    // console.log(user)
 
     if (user === null) {
         return res.status(400).json({
