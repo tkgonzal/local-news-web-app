@@ -53,7 +53,8 @@ const ArticlePage: React.FC = () => {
             try {
                 const response : AxiosResponse<Article[]> = await axios.get<Article[]>(`${BASE_SERVER_URL}/api/articles`,{
                     params: {
-                        tag: articleObj?.tags[0]
+                        tag: articleObj?.tags[0],
+                        limit: 5
                     }
                 })
                 
