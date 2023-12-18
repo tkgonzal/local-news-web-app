@@ -12,12 +12,14 @@ import NewCommentField from './NewCommentField';
 
 import './index.css'
 import { useArticle } from '../../hooks/useArticle';
+import { useUserContext } from '../../contexts/UserContext';
 
 const RECOMMENDED_ARTICLES_COUNT: number = 8
 
 const ArticlePage: React.FC = () => {
     const { articleUID } = useParams()
     const {articleObj, recommendedArticles, postComment} = useArticle(articleUID, RECOMMENDED_ARTICLES_COUNT)
+    const {user} =  useUserContext()
 
     const defaultMainArticleImage: ArticleImage = {
         ...defaultArticleImage,
@@ -44,7 +46,18 @@ const ArticlePage: React.FC = () => {
         recommendedArticles.map((article)=><ArticleThumbnail key={article._id?.toString()} article={article}/>)
     )
 
-    
+    let comment_disabled = false
+    if (articleObj.allowComments === false) {
+        comment_disabled = true
+    }
+    else if (articleObj.allowAnonymousComments === false && user === null) {
+        comment_disabled = true
+    }
+    else if (articleObj.ipCanComment == false && user === null) {
+        comment_disabled = true
+    }
+    console.log(articleObj.ipCanComment)
+
 
     return (
     <main className='article-container'>
@@ -59,8 +72,10 @@ const ArticlePage: React.FC = () => {
             <img className="article--img" src={mainImage.url} />
             <h5 className='image--caption'>{mainImage.caption}</h5>
             {body}
-            <NewCommentField postComment={postComment}/>
-            <ArticleCommentList comments={articleObj.comments} />
+            {articleObj.allowComments==false?<></>:<>
+                <NewCommentField postComment={postComment} disabled={comment_disabled}/>
+                <ArticleCommentList comments={articleObj.comments} />
+            </>}
         </div>
         <div className='more-news'>
             <h2 className="home--more-news">MORE NEWS: {articleObj?.tags[0].toUpperCase()} </h2>
