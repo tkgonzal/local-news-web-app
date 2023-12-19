@@ -11,6 +11,7 @@ import { LinkData } from "../../types/interfaces/Navbar/LinkData"
 // import magnifyingGlassImg from "/assets/magnifying-glass-1976105_960_720.webp"
 
 import "./Navbar.css"
+import { useSnackbar } from "../../contexts/SnackbarContext"
 
 // Constants
 const OPEN_WEATHER_API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY
@@ -21,6 +22,7 @@ const Navbar: React.FC = () => {
   const [weather, setWeather] = useState<Weather | null>(null)
   const homeNavigate = useNavigate()
   const { user, logout } = useUserContext()
+  const {setSnackbar} = useSnackbar()
 
   // Side Effects
   // Side effect to update the weather state if the user allows the app
@@ -48,7 +50,7 @@ const Navbar: React.FC = () => {
 
   // Event Handlers
   const handleLogout = () => {
-    user && alert(`User of email ${user.email} has been successfully logged out`)
+    user && setSnackbar({severity:"success", message:`User of email ${user.email} has been successfully logged out`})
     logout()
     homeNavigate("/")
   }

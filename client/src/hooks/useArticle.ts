@@ -4,6 +4,7 @@ import { NewArticleComment } from "../types/interfaces/ArticleComment";
 import { Article } from "../types/interfaces/Article";
 import { useUserContext } from "../contexts/UserContext";
 import Cookies from "js-cookie"
+import { useSnackbar } from "../contexts/SnackbarContext";
 
 const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL
 const ENGAGEMENTS_AUTH_KEY: string = import.meta.env.VITE_ENGAGEMENTS_AUTH
@@ -13,6 +14,7 @@ function useArticle(articleUID: string | undefined, limit: number) {
     const [articleObj, setArticleObj] = useState<Article>()
     const [recommendedArticles, setRecommendedArticles] = useState<Article[]>([])
     const {user} = useUserContext()
+    const {setSnackbar} = useSnackbar()
 
     useEffect(()=>{
         if (articleUID == undefined) return;
@@ -58,30 +60,35 @@ function useArticle(articleUID: string | undefined, limit: number) {
     },[articleObj, limit])
 
     async function postComment(message: string) {
-        if (articleObj == undefined) return;
+        try {
+            if (articleObj == undefined) return;
 
-        const comment: NewArticleComment = {
-            message: message,
-        }
-        let response : AxiosResponse;
-        if (user) {
-            response = await axios.post(`${BASE_SERVER_URL}/api/article/${articleUID}/comment`, {
-                comment:comment
-            },{
-                headers: {
-                    "Authorization": Cookies.get("access_token")
-                }
-            })
-        } else {
-            response = await axios.post(`${BASE_SERVER_URL}/api/article/${articleUID}/anoncomment`, {
-                comment:comment
-            })
+            const comment: NewArticleComment = {
+                message: message,
+            }
+            let response : AxiosResponse;
+            if (user) {
+                response = await axios.post(`${BASE_SERVER_URL}/api/article/${articleUID}/comment`, {
+                    comment:comment
+                },{
+                    headers: {
+                        "Authorization": Cookies.get("access_token")
+                    }
+                })
+            } else {
+                response = await axios.post(`${BASE_SERVER_URL}/api/article/${articleUID}/anoncomment`, {
+                    comment:comment
+                })
+            }
+            
+            setArticleObj((article)=>(
+                article?{...article,  comments:response.data.comments, ipCanComment:user?true:false}:article
+            ))
+            setSnackbar({severity: "success", message:"comment posted!"})
+        } catch {
+            setSnackbar({severity: "error", message:"something went wrong :("})
         }
         
-        console.log(response.data.comments)
-        setArticleObj((article)=>(
-            article?{...article,  comments:response.data.comments, ipCanComment:user?true:false}:article
-        ))
     }
 
     return {articleObj, recommendedArticles, postComment}

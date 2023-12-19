@@ -22,6 +22,7 @@ import EditIcon from "/assets/BusinessPanel/pen-to-square.svg"
 import TrashIcon from "/assets/BusinessPanel/trash.svg"
 
 import "./PanelTable.css"
+import { useSnackbar } from "../../contexts/SnackbarContext"
 
 // Types
 type TableType = "User" | "Article"
@@ -110,6 +111,7 @@ const PanelTable: React.FC<Props> = ({
 }) => {
     const { user } = useUserContext()
     const tableNavigate: NavigateFunction = useNavigate()
+    const {setSnackbar} = useSnackbar()
 
     const articleHeaderNames: string[] = [
         "ID", 
@@ -158,11 +160,11 @@ const PanelTable: React.FC<Props> = ({
                 }
             )
 
-            alert("User successfully deleted from business")
+            setSnackbar({severity:"success", message:"User successfully deleted from business"})
             setShouldRefresh && setShouldRefresh(true)
         } catch (error: any) {
             console.log("Error occurred deleting user: ", error)
-            alert("Error occurred while deleting user")
+            setSnackbar({severity:"error", message:"Error occurred while deleting user"})
         }
     }
 
@@ -180,15 +182,15 @@ const PanelTable: React.FC<Props> = ({
                 }
             )
 
-            alert("Article successfully deleted")
+            setSnackbar({severity:"success", message:"Article successfully deleted"})
             setShouldRefresh && setShouldRefresh(true)
         } catch (error: any) {
             console.log("Error occurred deleting article", error)
-            alert("Error occurred while deleting user")
+            setSnackbar({severity:"error", message:"Error occurred while deleting user"})
         }
     }
 
-    let tableHeaderNames = tableType == "Article" ? 
+    const tableHeaderNames = tableType == "Article" ? 
         articleHeaderNames : userHeaderNames
 
     const tableHeaders: JSX.Element[] = tableHeaderNames.map(

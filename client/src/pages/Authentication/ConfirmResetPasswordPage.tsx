@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { isStrongPassword } from '../../utils/passwordUtils';
 import './resetpassword.css';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 const ConfirmResetPassword: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const ConfirmResetPassword: React.FC = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get('token');
+
+    const {setSnackbar} = useSnackbar()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -29,7 +32,7 @@ const ConfirmResetPassword: React.FC = () => {
     
         try {
             if (!isStrongPassword(formData.password)) {
-                alert('Password must be longer than 12 characters and contain uppercase Letter and special character.')
+                setSnackbar({severity:"info", message:'Password must be longer than 12 characters and contain uppercase Letter and special character.'})
                 return
             }
             if (formData.password === formData.confirmPassword) {
@@ -46,16 +49,17 @@ const ConfirmResetPassword: React.FC = () => {
                 );
                 
                 const data = response.data;
-                alert(data.message);
+                setSnackbar({severity:"success", message:data.message});
             }
             else {
-                alert('Passwords do not match');
+                setSnackbar({severity:"warning", message:'Passwords do not match'});
             }
             navigate('/login');
 
         }
         catch (error) {
             console.error('Error resetting password: ', error);
+            setSnackbar({severity:"error", message:"Error resetting password"})
         }
         finally {
             setFormData({
