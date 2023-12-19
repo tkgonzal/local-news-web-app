@@ -8,11 +8,11 @@ A scrapy project that scrapes local news website and appends their data to a Mon
 * MongoDB
 
 ### Modules Used
-* [scrapy]()
-* [python-dotenv]()
-* [titlecase]()
-* [certifi]()
-* [pymongo]()
+* [scrapy3](https://pypi.org/project/Scrapy3/)
+* [python-dotenv](https://pypi.org/project/python-dotenv/)
+* [titlecase](https://pypi.org/project/titlecase/)
+* [certifi](https://pypi.org/project/certifi/)
+* [pymongo](https://pypi.org/project/pymongo303/)
 
 ## Usage 
 This program is design to be run on a linux / unix system. 
