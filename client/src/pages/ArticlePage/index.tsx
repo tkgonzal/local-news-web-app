@@ -26,8 +26,6 @@ const ArticlePage: React.FC = () => {
         caption: articleObj?.heading || "The MoNews logo"
     }
 
-    
-
     if (articleObj == undefined) {
         return (<>
             Loading...
@@ -56,8 +54,6 @@ const ArticlePage: React.FC = () => {
     else if (articleObj.ipCanComment == false && user === null) {
         comment_disabled = true
     }
-    console.log(articleObj.ipCanComment)
-
 
     return (
     <main className='article-container'>

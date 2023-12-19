@@ -11,10 +11,12 @@ import AccessDenied from "../AccessDenied"
 import { SettingsInput } from "../../types/interfaces/BusinessPanel/SettingsInput"
 
 import { hasBusinessAdminPermissions } from "../../utils/permissionsUtils"
+import { useSnackbar } from "../../contexts/SnackbarContext"
 
 // Page for business settings, only has toggle for comment notifications
 const BusinessSettings: React.FC = () => {
     const { user } = useUserContext()
+    const { setSnackbar } = useSnackbar()
     const { register, handleSubmit } = useForm<SettingsInput>()
 
     // Event Handlers
@@ -35,14 +37,14 @@ const BusinessSettings: React.FC = () => {
                 }
             )
 
-            alert("Notifications settings successfully updated")
+            setSnackbar({severity:"success", message:"Notifications settings successfully updated"})
         } catch (error: any) {
             if (error.response && 
                 error.response.data && 
                 error.response.data.message) {
-                    alert(error.response.data.message)
+                    setSnackbar({severity:"error", message:error.response.data.message})
             } else {
-                alert("An error occured, notification settings could not be updated")
+                setSnackbar({severity:"error", message:"An error occured, notification settings could not be updated"})
             }
         }
     }
