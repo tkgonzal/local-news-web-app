@@ -1,12 +1,16 @@
 import express from "express";
 
+import { authenticateToken } from "./authRoute";
+
 import { 
     updateUserMembersById,
-    getUsersByBusinessId
+    getUsersByBusinessId,
+    getUsersByNotifications,
 } from "../models/User";
 
 import {
-    getArticlesByBusinessId
+    getArticlesByBusinessId,
+    getNewestArticleCommentsByBusinessId
 } from "../models/Article"
 
 import dotenv from "dotenv";
@@ -54,6 +58,49 @@ router.get("/articles/:businessId", async (req, res) => {
         );
         res.status(500).json({ 
             message: "Interal Server Error Occurred Retrieving Users",
+            error
+        });
+    }
+});
+
+// Gets all business admins who have their notifications toggle on
+router.get("/notifications/users", async (req, res) => { 
+    try {
+        const usersWithNotificationsOn = await getUsersByNotifications();
+
+        res.status(200).json({
+            message: "Users for notifications update successfully retrieved",
+            users: usersWithNotificationsOn.map(user => 
+                ({...user, password: undefined})
+            )
+        });
+    } catch (error: any) {
+        console.log("Error occurred retrieving users for notifications", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred Retrieving Users",
+            error
+        });
+    }
+});
+
+// Gets all comments posted in the past day on articles that match the given 
+// businessId
+router.get("/notifications/:businessId", async (req, res) => {
+    try {
+        const { businessId } = req.params;
+
+        const articleComments = await getNewestArticleCommentsByBusinessId(
+            businessId
+        );
+
+        res.status(200).json({
+            message: "New comments for business successfully retrieved",
+            articleComments
+        });
+    } catch (error: any) {
+        console.log("Error occureed retrieving new comments", error);
+        res.status(500).json({
+            message: "Internal server error occurred while retrieving comments",
             error
         });
     }

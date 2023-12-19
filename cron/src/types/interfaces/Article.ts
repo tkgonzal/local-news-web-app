@@ -1,13 +1,21 @@
-import { ArticleTag } from "../types/ArticleTag.js"
+import { ArticleTag } from "../types/ArticleTag.js";
+
+interface ArticleComment {
+    message: string;
+    userName: string;
+    _id: string;
+    publishedDate: string;
+};
 
 interface Article {
-    _id?: string
-    tags: (ArticleTag)[]
-    source: string
-    heading: string
-    authors: string[]
+    _id?: string;
+    tags: (ArticleTag)[];
+    source: string;
+    heading: string;
+    authors: string[];
     // String must be in Date ISO format
-    publishedDate: string
-}
+    publishedDate: string;
+    comments: ArticleComment[];
+};
 
-export type { Article }
+export type { Article };

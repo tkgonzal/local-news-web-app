@@ -114,6 +114,33 @@ async function getArticlesByBusinessId(businessId: string): Promise<WithId<Artic
   return articlesForBusiness.toArray();
 }
 
+/**
+ * @param businessId {string} The businessId of an Article represented as a string
+ * @returns {Promise<Document[] | undefined>} A promise meant to return an 
+ * aggregation of all articles with comments posted in the last day
+ */
+async function getNewestArticleCommentsByBusinessId(businessId: string) {
+  const articles = await getArticleCollection();
+  const businessObjectId: ObjectId = new ObjectId(businessId);
+  const dayBefore = (new Date());
+  dayBefore.setDate(dayBefore.getDate() - 1);
+
+  const articleComments = articles.aggregate([
+    { $match: { businessId: businessObjectId }},
+    { $unwind: "$comments" },
+    { $match: { "comments.publishedDate": { $gt: dayBefore.toISOString() }}},
+    { $group: { 
+      _id: { _id: "$_id", heading: "$heading" },
+      comments: { $push: "$comments" }
+    }},
+    { $project: {
+      _id: "$_id._id", heading: "$_id.heading", comments: "$comments"
+    }}
+  ]);
+
+  return articleComments.toArray();
+}
+
 async function createArticle(article: Article): Promise<Article | null> {
     const articleCollection = await getArticleCollection()
     const result = await articleCollection.insertOne(article)
@@ -136,7 +163,7 @@ async function deleteArticle(articleId: string) {
   const articleObjectId: ObjectId = new ObjectId(articleId);
 
   const result = await articleCollection.deleteOne({ _id: articleObjectId });
-  console.log(result);
+  // console.log(result);
 }
 
 /**
@@ -230,9 +257,10 @@ export {
   getBreakingArticles,
   getArticleByID, 
   getArticlesByBusinessId,
+  getNewestArticleCommentsByBusinessId,
   createArticle,
   createComment,
   deleteArticle,
   incrementArticleEngagements,
   updateArticleValuesById,
-}
+};
