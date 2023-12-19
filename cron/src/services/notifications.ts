@@ -6,11 +6,17 @@ import logActivity from "../utils/log.js";
 import { User } from "../types/interfaces/User.js";
 import { UsersResponse } from "../types/interfaces/UsersResponse.js";
 
+import { Article } from "../types/interfaces/Article.js";
+import { CommentsResponse } from "../types/interfaces/CommentsResponse.js";
+
+import { sendEmail } from "../utils/email.js";
+
 // Setup
 dotenv.config();
 
 // Constants
 const BASE_SERVER_URL: string = process.env.SERVER_URL;
+const BASE_CLIENT_URL: string = process.env.CLIENT_URL;
 const NOTIFICATIONS_AUTH: string = process.env.NOTIFICATIONS_AUTH;
 
 // Utility Functions
@@ -35,7 +41,7 @@ const getUsersNeedingNotifications = async (): Promise<User[]> => {
 // businessId (meant to be the id of the user)
 const getArticleComments = async (businessId: string) => {
     try {
-        const commentsResponse = await axios.get(
+        const commentsResponse: AxiosResponse<CommentsResponse> = await axios.get(
             `${BASE_SERVER_URL}/api/business/notifications/${businessId}`,
             { headers: { Authorization: `Bearer ${NOTIFICATIONS_AUTH}`}}
         );
@@ -48,9 +54,43 @@ const getArticleComments = async (businessId: string) => {
     }
 }
 
+// Given an articles and its comments posted in the last day, returns a string
+// to be put into an email denoting all new comments for that article in the last
+// day
+const formatArticleCommentsSection = (article: Article): string => {
+    let commentsSection = `${article.heading} (${BASE_CLIENT_URL}/article/${article._id})\n`;
+
+    for (const comment of article.comments) {
+        commentsSection += `• "${comment.message}" - ${comment.userName}\n`;
+    }
+
+    commentsSection += "\n";
+
+    return commentsSection;
+}
+
+// Given a business admin user, retrieves all articles with new comments
+// posted within the last day and sends an email notifying them of all new 
+// comments posted
 const sendOutNotificationsForUser = async (user: User) => {
     try {
-        console.log(await getArticleComments(user._id));
+        const articleComments = await getArticleComments(user._id);
+
+        let emailBody = ""
+
+        for (const articleComment of articleComments) {
+            emailBody += formatArticleCommentsSection(articleComment);
+        }
+
+        if (!emailBody) {
+            emailBody = "No comments posted to articles in the past day";
+        }
+
+        sendEmail(
+            user.email, 
+            `MoNews - Comment Notifications for ${(new Date()).toDateString()}`,
+            emailBody
+        );
     } catch (error: any) {
         console.log("Error occurred while sending out notifications");
         throw error;
