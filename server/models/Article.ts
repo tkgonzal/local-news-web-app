@@ -134,7 +134,7 @@ async function getNewestArticleCommentsByBusinessId(businessId: string) {
       comments: { $push: "$comments" }
     }},
     { $project: {
-      _id: "$_id.id", heading: "$_id.heading", comments: "$comments"
+      _id: "$_id._id", heading: "$_id.heading", comments: "$comments"
     }}
   ]);
 
