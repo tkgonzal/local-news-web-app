@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 
 import { getUserByEmail, User } from "../models/User";
 
+import { verifyTokenMiddleware } from '../utils/jwtUtils';
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -72,6 +74,37 @@ router.post('/login', async (req, res) => {
     catch (error) {
         console.log('Error during login:', error);
         res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Used to relogin user after refresh if their token is still valid
+router.post("/relogin", verifyTokenMiddleware, async (req: any, res) => {
+    try {
+        const userEmail = req.decoded.username;
+
+        if (!userEmail) {
+            return res.status(400).json({
+                message: "Authentication failed, no matching email found"
+            });
+        }
+
+        const user = await getUserByEmail(userEmail);
+
+        if (!user) {
+            return res.status(400).json({
+                message: "Authentication failed, no matching user found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Successfully relogged in",
+            user: {...user, password: undefined}
+        });
+    } catch (error: any) {
+        console.log("Error occurred logging user back in", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred While Posting Comment"
+        });
     }
 });
 

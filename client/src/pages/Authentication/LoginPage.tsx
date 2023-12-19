@@ -95,10 +95,10 @@ return (
                     </div>
                     <span className="error-message">{errorMessage}</span>
                     <div className='forgot-password'>
-                        <div className='remember'>
+                        {/* <div className='remember'>
                             <input type="checkbox" name="remember-me" id="remember-me" />
                             <p>Remember me</p>
-                        </div>
+                        </div> */}
                         <span className="pseudo-link" onClick={() => navigate("/reset-password")}>Forgot Password?</span>
                     </div>
                     <button type='submit' className='login-btn btn'>Sign In</button>

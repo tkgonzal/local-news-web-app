@@ -1,0 +1,21 @@
+.comment {
+    display: flex;
+    flex-flow: column;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 10px;
+}
+
+.comment .username {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.comment .upload-date {
+    font-size: 16px;
+    color: var(--secondary-text-color, gray);
+}
+
+.comment .message {
+    font-size: 28px;
+    margin-bottom: 5px;
+}

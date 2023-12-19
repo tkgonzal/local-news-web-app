@@ -19,6 +19,7 @@ import RegisterPage from "./pages/Authentication/RegisterPage"
 import ResetPassword from "./pages/Authentication/ResetPasswordPage"
 import ConfirmResetPassword from "./pages/Authentication/ConfirmResetPasswordPage"
 import Error from "./pages/Error"
+import Snackbar from "./components/Snackbar"
 
 // import ArticleTestData from "./test/ArticleData"
 
@@ -31,12 +32,18 @@ function App() : JSX.Element {
   // Changes the background colour of the body if the sites loads any of the
   // business panel pages
   useEffect(() => {
-    if (location.pathname.includes("/business/") &&
+    if ((
+          location.pathname.includes("/business/") || 
+          location.pathname.includes("/article/")
+        ) &&
         !document.body.classList.contains("business-panel--body")) {
       document.body.classList.add("business-panel--body")
     }
 
-    if (!location.pathname.includes("/business/") && 
+    if (!(
+          location.pathname.includes("/business/") || 
+          location.pathname.includes("/article/")
+        ) && 
         document.body.classList.contains("business-panel--body")) {
       document.body.classList.remove("business-panel--body")
     }
@@ -46,8 +53,8 @@ function App() : JSX.Element {
 
   return (
     <>
+    <Snackbar/>
       {shouldRenderNavbar && <Navbar />}
-
       <main className={shouldRenderNavbar ? "page-container": ""}>
         <Routes>
           <Route path="/" element={<BreakingNews />}/>
@@ -82,7 +89,9 @@ function App() : JSX.Element {
           <Route path="/business/settings" element={<BusinessSettings />}/>
           <Route path="*" element={<Error />}/>
         </Routes>
+        
       </main>
+      
     </>
   )
 }

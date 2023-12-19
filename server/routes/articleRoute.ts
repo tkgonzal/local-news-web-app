@@ -1,5 +1,7 @@
 import express from "express";
-import Case from "case";
+import Case, { type } from "case";
+import { verifyToken, verifyTokenMiddleware } from '../utils/jwtUtils';
+import { cleanComments } from "../utils/commentUtils";
 
 import { 
     Article, 
@@ -7,13 +9,15 @@ import {
     createArticle, 
     deleteArticle,
     updateArticleValuesById,
-    incrementArticleEngagements
+    incrementArticleEngagements,
+    createComment,
 } from "../models/Article";
 
 import { authenticateToken } from "./authRoute";
 import { ObjectId } from "mongodb";
 
 import dotenv from "dotenv";
+import { getUserByEmail } from "../models/User";
 dotenv.config();
 
 const router = express.Router();
@@ -27,6 +31,12 @@ router.get('/:uid', async (req, res) => {
     const article = await getArticleByID(id)
     if (article == null) {
         return res.status(500).json({ message: 'Article Not Found' })
+    }
+    if (article.comments?.find((comment)=>comment.ip==req.ip && comment.userName=="anonymous")) {
+        article.ipCanComment = false
+    }
+    if (article.comments) {
+        article.comments = [...cleanComments(article.comments)]
     }
     res.status(201).json(article)
 })
@@ -113,9 +123,82 @@ router.put("/engagements/:articleId", authenticateToken, async (req, res) => {
     }
 });
 
+// route to post a comment
+router.post("/:articleId/comment", verifyTokenMiddleware, async (req: any, res) => {
+    const token = req.headers.authorization as string;
+    const userEmail = req.decoded.username
+    if (userEmail === null) {
+        return res.status(400).json({
+            message: `Authentication Failed email was null`
+        });
+    }
+    const user = await getUserByEmail(userEmail)
+    // console.log(user)
+
+    if (user === null) {
+        return res.status(400).json({
+            message: `Authentication Failed email not found`
+        });
+    }
+
+    try {
+        const { articleId } = req.params;
+        const { comment } = req.body
+
+        comment.userName = user.name?.first?user.name.first:"Anon" + user.name?.last?` ${user.name?.last}`:""
+        const comments = await createComment(articleId, comment)
+        
+        // By default, increment an article's engagements by 5
+        await incrementArticleEngagements(articleId, 5);
+
+        res.status(200).json({
+            message: `Comment Successful Posted`,
+            comments: comments
+        });
+    } catch (error: any) {
+        console.log("Comment failed to post", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred While Posting Comment"
+        });
+    }
+});
+
+// route to post a comment
+router.post("/:articleId/anoncomment", async (req, res) => {
+    try {
+        const { articleId } = req.params;
+        const { comment } = req.body
+        const { ip } = req
+        if (typeof ip !== "string") {
+            return res.status(500).json({
+                message: 'ip undefined'
+            })
+        }
+        comment.ip = ip
+        comment.userName = "anonymous"
+
+        const comments = await createComment(articleId, comment)
+
+        // By default, increment an article's engagements by 5
+        await incrementArticleEngagements(articleId, 5);
+
+        res.status(200).json({
+            message: `Comment Successful Posted ${articleId}`,
+            comments: comments
+        });
+    } catch (error: any) {
+        console.log("Comment failed to post", error);
+        res.status(500).json({
+            message: "Internal Server Error Occurred While Posting Comment",
+        });
+    }
+});
+
 // Given an articleId, deletes the article with the corresponding value for its
 // _id
 router.delete("/:articleId", authenticateToken, async (req, res) => {
+    const token = req.headers.authorization as string;
+    const userEmail = verifyToken(token);
     try {
         const { articleId } = req.params;
 

@@ -28,6 +28,19 @@ router.get('/', async (req, res) => {
         return res.status(400).json({ message: 'Invalid Article Type' })
     }
 
+    const  { limit } = req.query
+    let parsedLimit = -1
+    if (limit !== undefined) {
+        if (typeof tag !== "string") {
+            return res.status(400).json({ message: 'Invalid limit Type' })
+        }
+        parsedLimit = Number(limit)
+        if (isNaN(parsedLimit)) {
+            return res.status(400).json({ message: 'Invalid limit Type' })
+        }
+    }
+
+
     let cursor;
     if (tag && tag === "Breaking News") {
         cursor = await getBreakingArticles();
@@ -41,6 +54,10 @@ router.get('/', async (req, res) => {
     if (cursor == null) {
         return res.status(500).json({ message: 'Internal Server Error' })
     }
+    if (parsedLimit !== -1) {
+        cursor = cursor.limit(parsedLimit)
+    }
+    
     const articles: Article[] = await cursor.toArray()
 
     res.status(201).json(articles)

@@ -6,12 +6,17 @@ import Cookies from "js-cookie"
 import { useUserContext } from "../../contexts/UserContext"
 
 import BusinessPanelPage from "./BusinessPanelPage"
+import AccessDenied from "../AccessDenied"
 
 import { SettingsInput } from "../../types/interfaces/BusinessPanel/SettingsInput"
+
+import { hasBusinessAdminPermissions } from "../../utils/permissionsUtils"
+import { useSnackbar } from "../../contexts/SnackbarContext"
 
 // Page for business settings, only has toggle for comment notifications
 const BusinessSettings: React.FC = () => {
     const { user } = useUserContext()
+    const { setSnackbar } = useSnackbar()
     const { register, handleSubmit } = useForm<SettingsInput>()
 
     // Event Handlers
@@ -32,44 +37,50 @@ const BusinessSettings: React.FC = () => {
                 }
             )
 
-            alert("Notifications settings successfully updated")
+            setSnackbar({severity:"success", message:"Notifications settings successfully updated"})
         } catch (error: any) {
             if (error.response && 
                 error.response.data && 
                 error.response.data.message) {
-                    alert(error.response.data.message)
+                    setSnackbar({severity:"error", message:error.response.data.message})
             } else {
-                alert("An error occured, notification settings could not be updated")
+                setSnackbar({severity:"error", message:"An error occured, notification settings could not be updated"})
             }
         }
     }
+    // console.log(user)
+    // console.log(user && hasBusinessAdminPermissions(user))
 
     return (
         <BusinessPanelPage>
-            <form
-                className="business-panel--settings"
-                onSubmit={handleSubmit(submitSettings)}
-            >
-                <div className="business-panel--page-header">
-                    <h1>SETTINGS</h1>
-                    <button type="submit">Save</button>
-                </div>
+            {
+                user && hasBusinessAdminPermissions(user) ? 
+                <form
+                    className="business-panel--settings"
+                    onSubmit={handleSubmit(submitSettings)}
+                >
+                    <div className="business-panel--page-header">
+                        <h1>SETTINGS</h1>
+                        <button type="submit">Save</button>
+                    </div>
 
-                <h2>Notifications</h2>
-                <span className="business-panel--settings-input">
-                    <input
-                        type="checkbox"
-                        id="enableCommentNotifications"
-                        {...register("enableCommentNotifications")}
-                    />
+                    <h2>Notifications</h2>
+                    <span className="business-panel--settings-input">
+                        <input
+                            type="checkbox"
+                            id="enableCommentNotifications"
+                            {...register("enableCommentNotifications")}
+                        />
 
-                    <label htmlFor="enableCommentNotifications">
-                        <b>New Comments</b> - Toggle here to be emailed a 
-                        notification whenever articles receive a new 
-                        comment
-                    </label>
-                </span>
-            </form>
+                        <label htmlFor="enableCommentNotifications">
+                            <b>New Comments</b> - Toggle here to be emailed a 
+                            notification whenever articles receive a new 
+                            comment
+                        </label>
+                    </span>
+                </form> :
+                <AccessDenied />
+            }
         </BusinessPanelPage>
     )
 }

@@ -10,6 +10,8 @@ import { connectToDatabase } from '../config/db';
 import { Article } from '../types/interfaces/Article';
 import { ArticleTag, isArticleTag } from '../types/types/ArticleTag';
 import { SubscriptionFrequency } from '../types/types/SubscriptionFrequency';
+import { ArticleComment } from '../types/interfaces/ArticleComment';
+import { cleanComments } from '../utils/commentUtils';
 
 async function getArticleCollection(): Promise<Collection<Article>> {
     const db = await connectToDatabase();
@@ -112,6 +114,33 @@ async function getArticlesByBusinessId(businessId: string): Promise<WithId<Artic
   return articlesForBusiness.toArray();
 }
 
+/**
+ * @param businessId {string} The businessId of an Article represented as a string
+ * @returns {Promise<Document[] | undefined>} A promise meant to return an 
+ * aggregation of all articles with comments posted in the last day
+ */
+async function getNewestArticleCommentsByBusinessId(businessId: string) {
+  const articles = await getArticleCollection();
+  const businessObjectId: ObjectId = new ObjectId(businessId);
+  const dayBefore = (new Date());
+  dayBefore.setDate(dayBefore.getDate() - 1);
+
+  const articleComments = articles.aggregate([
+    { $match: { businessId: businessObjectId }},
+    { $unwind: "$comments" },
+    { $match: { "comments.publishedDate": { $gt: dayBefore.toISOString() }}},
+    { $group: { 
+      _id: { _id: "$_id", heading: "$heading" },
+      comments: { $push: "$comments" }
+    }},
+    { $project: {
+      _id: "$_id._id", heading: "$_id.heading", comments: "$comments"
+    }}
+  ]);
+
+  return articleComments.toArray();
+}
+
 async function createArticle(article: Article): Promise<Article | null> {
     const articleCollection = await getArticleCollection()
     const result = await articleCollection.insertOne(article)
@@ -134,7 +163,7 @@ async function deleteArticle(articleId: string) {
   const articleObjectId: ObjectId = new ObjectId(articleId);
 
   const result = await articleCollection.deleteOne({ _id: articleObjectId });
-  console.log(result);
+  // console.log(result);
 }
 
 /**
@@ -176,6 +205,50 @@ async function incrementArticleEngagements(articleId: string, amount: number) {
   );
 }
 
+/**
+ * @param articleId {string} The object id of an article represented as a string
+ * @param comment {Comment} The amount by which to increment an article's 
+ * engagements
+ */
+async function createComment(articleId: string, newComment: ArticleComment) {
+    const articleCollection = await getArticleCollection();
+
+    const existingArticle = await articleCollection.findOne({ _id: new ObjectId(articleId) });
+
+    if (!existingArticle) {
+        console.error(`Article with ID ${articleId} not found.`)
+        throw Error(`Article not found.`)
+    }
+
+    if (existingArticle.allowComments === false) {
+        throw Error(`Comments not allowed`)
+    }
+
+    if (!existingArticle.comments) {
+        existingArticle.comments = []
+    }
+
+    if (newComment.userName === "anonymous" && existingArticle.comments.find((comment)=>(comment.ip==newComment.ip))) {
+        console.error(`Article with ID ${articleId} not found.`)
+        throw Error(`Ip already posted on this article.`)
+    }
+    
+    if (newComment.userName === "anonymous" && existingArticle.allowAnonymousComments === false) {
+        console.error(`Anonymous comments not allowed on ${articleId}.`)
+        throw Error(`Anonymous comments are disabled.`)
+    }
+
+    const commentWithId = {
+        ...newComment,
+        _id: new ObjectId(),
+        publishedDate: new Date().toISOString()
+    }
+    existingArticle.comments.push(commentWithId)
+
+    articleCollection.updateOne({ _id: new ObjectId(articleId) }, { $set: { comments: existingArticle.comments } })
+    return cleanComments(existingArticle.comments)
+}
+
 export {
   Article, 
   getArticles, 
@@ -184,8 +257,10 @@ export {
   getBreakingArticles,
   getArticleByID, 
   getArticlesByBusinessId,
+  getNewestArticleCommentsByBusinessId,
   createArticle,
+  createComment,
   deleteArticle,
   incrementArticleEngagements,
   updateArticleValuesById,
-}
+};

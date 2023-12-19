@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../contexts/UserContext';
 
 import moNewsLogoImg from "/assets/mo_news_logo_white.png"
+import { useSnackbar } from "../../contexts/SnackbarContext";
 
 const PHONE_RE: RegExp = /^\d{10}$/
 
@@ -23,6 +24,7 @@ const RegisterPage: React.FC = () => {
         mobileNumber: '',
     });
     const navigate = useNavigate();
+    const {setSnackbar} = useSnackbar()
 
     useEffect(() => {
         if (user?.accType === 'Business') {
@@ -54,11 +56,16 @@ const RegisterPage: React.FC = () => {
 
         try {
             if (formData.mobileNumber && !PHONE_RE.test(formData.mobileNumber)) {
-                alert("Mobile phone number must be in format of XXXXXXXXXX")
+                setSnackbar({severity:"info", message:"Mobile phone number must be in format of XXXXXXXXXX"})
+                return
+            }
+            
+            if (!isStrongPassword(formData.password)) {
+                setSnackbar({severity:"warning", message:'Password must be longer than 12 characters and contain uppercase Letter and special character.'})
                 return
             }
 
-            if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
+            if (formData.password === formData.confirmPassword) {
                 const userData = {
                     email: formData.email,
                     password: formData.password,
@@ -78,13 +85,13 @@ const RegisterPage: React.FC = () => {
                 setUser(userWithoutPassword);
             }
             else {
-                alert('Passwords do not match');
+                setSnackbar({severity:"warning", message:'Passwords do not match'});
             }  
         }
         catch (error: any) {
             // console.error('Error registering user.', error);
             if (error.response && error.response.data && error.response.data.message) {
-                alert(`${error.response.data.message}.`);
+                setSnackbar({severity:"error", message:`${error.response.data.message}.`});
             }
             
         }

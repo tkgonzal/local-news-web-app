@@ -75,6 +75,20 @@ async function getUsersByBusinessId(businessId: string): Promise<WithId<User>[]>
 }
 
 /**
+ * @returns {Promise<WithId<User>[]>} An array of all users who have the 
+ * receivesCommentNotifications set to true
+ */
+async function getUsersByNotifications(): Promise<WithId<User>[]> {
+  const users = await getUserCollection();
+
+  const usersWithNotificationsOn = await users.find({
+    receivesCommentNotifications: true
+  });
+
+  return usersWithNotificationsOn.toArray();
+}
+
+/**
  * Updates User of email's password to the newPassword
  * @param email {string} Email to find User from
  * @param newPassword {string} new password to update User's password to
@@ -120,7 +134,8 @@ export {
   getUserByEmail,
   getUserById,
   getUsersByBusinessId,
-  getUserCollection, 
+  getUserCollection,
+  getUsersByNotifications,
   updateUserPassword, 
   updateUserMembersById 
 };

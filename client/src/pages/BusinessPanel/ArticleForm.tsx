@@ -15,6 +15,7 @@ import { ArticleRequestData } from "../../types/interfaces/BusinessPanel/Article
 
 // import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
+import { useSnackbar } from "../../contexts/SnackbarContext"
 
 // Constants 
 const MIN_TEXT_LEN: number = 2
@@ -37,6 +38,8 @@ const ArticleForm: React.FC = () => {
 
     const richTextEditorContent = watch("content")
     const allowCommentsWatch = watch("allowComments")
+
+    const {setSnackbar} = useSnackbar()
 
     // Side Effects
     // Use effect to control the content of the react quill content editor
@@ -77,7 +80,7 @@ const ArticleForm: React.FC = () => {
                     `Error occurred retrieving details for article of id ${articleId}: `, 
                     error
                 )
-                alert("Error occurred while retrieving details for article")
+                setSnackbar({severity:"error", message:"Error occurred while retrieving details for article"})
                 formNavigate("/business/articles")
             }
         }
@@ -112,11 +115,11 @@ const ArticleForm: React.FC = () => {
                 await updateArticle(articleRequestData)
             }
 
-            alert(`Article was successfully ${isNewArticle ? "posted": "updated"}`)
+            setSnackbar({severity:"success", message:`Article was successfully ${isNewArticle ? "posted": "updated"}`})
             formNavigate("/business/articles")
         } catch (error: any) {
             console.log("Error occurred while submitting Article", error)
-            alert("An error occurred while submitting the article")
+            setSnackbar({severity:"error", message:"An error occurred while submitting the article"})
         }
     }
 

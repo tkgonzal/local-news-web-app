@@ -25,7 +25,18 @@ const sendResetEmail = async (email: string, url: string): Promise<void> => {
             To reset your password, click on the link: ${url}`,
         };
 
-        await transporter.sendMail(mailOptions);
+        // Wrapping sendmail logic in Promise to compensate for Vercel
+        // not supporting streaming responses
+        await new Promise((resolve, reject): any => {
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    console.log("Error occurred sending email");
+                    reject(err);
+                } else {
+                    resolve(info);
+                }
+            });
+        });
     }
     catch (error) {
         console.log('Error sending email:', error);

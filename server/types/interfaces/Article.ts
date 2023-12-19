@@ -1,6 +1,7 @@
 import { ArticleTag } from "../types/ArticleTag"
 import { ArticleImage } from "./ArticleImage"
 import { ObjectId } from "mongodb"
+import { ArticleComment } from "./ArticleComment"
 
 interface Article {
     _id?: ObjectId
@@ -19,6 +20,8 @@ interface Article {
     businessId?: ObjectId,
     allowComments?: boolean,
     allowAnonymousComments?: boolean,
+    comments?: ArticleComment[]
+    ipCanComment?: boolean
 }
 
 export type { Article }

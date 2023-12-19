@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { isStrongPassword } from '../../utils/passwordUtils';
 import './resetpassword.css';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 const ConfirmResetPassword: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ const ConfirmResetPassword: React.FC = () => {
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get('token');
 
+    const {setSnackbar} = useSnackbar()
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setFormData((prevData) => ({
@@ -28,7 +31,11 @@ const ConfirmResetPassword: React.FC = () => {
         e.preventDefault();
     
         try {
-            if (formData.password === formData.confirmPassword && isStrongPassword(formData.password)) {
+            if (!isStrongPassword(formData.password)) {
+                setSnackbar({severity:"info", message:'Password must be longer than 12 characters and contain uppercase Letter and special character.'})
+                return
+            }
+            if (formData.password === formData.confirmPassword) {
                 const response = await axios.post(
                     `${import.meta.env.VITE_SERVER_URL}/api/confirm-password-reset/reset`, 
                     {
@@ -42,16 +49,17 @@ const ConfirmResetPassword: React.FC = () => {
                 );
                 
                 const data = response.data;
-                alert(data.message);
+                setSnackbar({severity:"success", message:data.message});
             }
             else {
-                alert('Passwords do not match');
+                setSnackbar({severity:"warning", message:'Passwords do not match'});
             }
             navigate('/login');
 
         }
         catch (error) {
             console.error('Error resetting password: ', error);
+            setSnackbar({severity:"error", message:"Error resetting password"})
         }
         finally {
             setFormData({
@@ -77,9 +85,10 @@ const ConfirmResetPassword: React.FC = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
+                            placeholder="Password"
                             required 
                         />
-                        <label className='user-label'>Password:</label>
+                        {/* <label className='user-label'>Password:</label> */}
                     </div>
                     <div className='input-group'>
                         <input
@@ -87,10 +96,11 @@ const ConfirmResetPassword: React.FC = () => {
                             type="password"
                             name="confirmPassword"
                             value={formData.confirmPassword}
+                            placeholder="Confirm Password"
                             onChange={handleChange}
                             required 
                         />
-                        <label className='user-label'>Confirm Password:</label>
+                        {/* <label className='user-label'>Confirm Password:</label> */}
                     </div>
                     <button type='submit' className='login-btn btn'>Submit</button>
                 </form>

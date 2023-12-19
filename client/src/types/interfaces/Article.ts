@@ -1,4 +1,5 @@
 import { ArticleTag } from "../types/ArticleTag";
+import { ArticleComment } from "./ArticleComment";
 import { ArticleImage } from "./ArticleImage";
 
 // Server import type definition commentout out due to isolatedModules requirement
@@ -26,6 +27,8 @@ interface Article {
     businessId?: string
     allowComments?: boolean
     allowAnonymousComments?: boolean
+    comments?: ArticleComment[]
+    ipCanComment?: boolean
 }
 
 export type { Article }

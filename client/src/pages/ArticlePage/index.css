@@ -31,3 +31,12 @@
     flex-direction: column;
 }
 
+.comment-panel {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin:10px;
+    position: relative;
+    height: auto;
+}
