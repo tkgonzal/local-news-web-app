@@ -15,6 +15,7 @@ import Permission from "../../types/enums/Permission"
 
 import "react-quill/dist/quill.snow.css"
 import "./BusinessForm.css"
+import { useSnackbar } from "../../contexts/SnackbarContext"
 
 // Constants 
 const MIN_NAME_LEN: number = 2
@@ -51,6 +52,7 @@ const UserForm: React.FC = () => {
     const formNavigate = useNavigate()
     const { userId } = useParams()
     const [isNewUser] = useState<boolean>(userId === "new")
+    const { setSnackbar } = useSnackbar()
 
     
     // Side effects
@@ -136,15 +138,15 @@ const UserForm: React.FC = () => {
             } else if (userId) {
                 submitUserValues(userId, data)
             } else {
-                alert(`No valid user id for form could be found. Returning to users table`)
+                setSnackbar({severity:"error", message:`No valid user id for form could be found. Returning to users table`})
                 formNavigate("/business/users")
             }
 
-            alert(`User successfully ${isNewUser ? "added": "updated"}`)
+            setSnackbar({severity:"success", message:`User successfully ${isNewUser ? "added": "updated"}`})
             formNavigate("/business/users")
         } catch (error: any) {
             console.log(error)
-            alert("An error occured while make changes to user")
+            setSnackbar({severity:"error", message:"An error occured while make changes to user"})
         }
     }
 

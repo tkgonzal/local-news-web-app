@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import './resetpassword.css';
+import { useSnackbar } from '../../contexts/SnackbarContext';
 
 const ResetPassword: React.FC = () => {
     const [email, setEmail] = useState('');
+    const {setSnackbar} = useSnackbar()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ const ResetPassword: React.FC = () => {
             });
 
             const data = response.data;
-            alert(data.message);
+            setSnackbar({severity:"success", message:data.message});
         }
         catch (error) {
             console.error('Error sending email');

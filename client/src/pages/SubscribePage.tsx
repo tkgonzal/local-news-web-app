@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 
 import "./SubscribePage.css"
+import { useSnackbar } from "../contexts/SnackbarContext"
 
 // Interface for FormData
 type FormData = {
@@ -39,6 +40,7 @@ const SubscribePage: React.FC = () => {
     email: "",
     phoneNumber: "",
   });
+  const {setSnackbar} = useSnackbar()
 
   // Event Handlers
   // Updates checkboxes for article types to subscribe to, updating the
@@ -99,22 +101,22 @@ const SubscribePage: React.FC = () => {
     event.preventDefault()
     
     if (!formData.email && !formData.phoneNumber) {
-      alert("Enter an email or a phone number in order to subscribe.")
+      setSnackbar({severity:"info", message:"Enter an email or a phone number in order to subscribe."})
       return
     }
 
     if (formData.phoneNumber && !PHONE_RE.test(formData.phoneNumber)) {
-      alert("Phone number must be in format XXXXXXXXXX.")
+      setSnackbar({severity:"warning", message:"Phone number must be in format XXXXXXXXXX."})
       return
     }
 
     if (!formData.frequency) {
-      alert("Select a frequency to subscribe.")
+      setSnackbar({severity:"info", message:"Select a frequency to subscribe."})
       return
     }
 
     if (Object.values(formData.checkboxOptions).every(option => !option)) {
-      alert("Select an article type to subscribe to.")
+      setSnackbar({severity:"info", message:"Select an article type to subscribe to."})
       return
     }
 
@@ -133,18 +135,18 @@ const SubscribePage: React.FC = () => {
           { subscriptionData },
           { headers: { Authorization: `Bearer ${SUBSCRIPTION_AUTH}`} }
         )
-        alert("Subscription successfully updated")
+        setSnackbar({severity:"success", message:"Subscription successfully updated"})
       } else {
         axios.post(
           `${BASE_SERVER_URL}/api/subscriptions/new`,
           { subscriptionData },
           { headers: { Authorization: `Bearer ${SUBSCRIPTION_AUTH}`} }
         )
-        alert("Subscription successfully created")
+        setSnackbar({severity:"success", message:"Subscription successfully created"})
       }
     } catch (error: any) {
       console.log("An internal server error occurred", error)
-      alert("An error occurred while subscribing, subscription failed")
+      setSnackbar({severity:"error", message:"An error occurred while subscribing, subscription failed"})
     }
   }
 
