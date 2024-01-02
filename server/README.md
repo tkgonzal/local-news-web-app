@@ -51,6 +51,14 @@ Server runs in perpetuity and provides a REST API for the client, crawler, and c
 
     Requires Authorization. Given an articleId for an article in the database and an articleData object in the request's body *(as specified in the documentation for __[POST] /api/new__)*, updates the article of articleId to have the values of the given articleData.
 
+* ```[POST] /:articleId/comment```
+
+    Requires Authorization. Given an articleId for an article in the database as a parameter and an object with a comment key and string value as the body, adds the comment to the article associating it with the user whose Auth token was used to post the comment.
+
+* ```[POST] /:articleId/anoncomment```
+
+    Given an articleId for an article in the database as a parameter and an object with a comment key and a string value as the body, adds the comment to the article associating it with the IP of the client which sent the anonymous comment request if none are already associated with the article.
+
 * ```[PUT] /engagements/:articleId```
 
     Requires Authorization. Given an articeId for an article in the database, increases the engagements of that article by 1.
@@ -85,25 +93,38 @@ Server runs in perpetuity and provides a REST API for the client, crawler, and c
 
     Given a body with an email and password, attempts to validate the given email and password. If the email and password are valid and associated with a user without a disabled login, returns an json response with an accessToken and the user for the credentials.
 
+* ```[POST] /relogin```
+
+    Requires Authorization. Given an authorization token, attempts to validate it. If validated, returns a json response for the user to remain logged into the client.
+
 ### ```Business``` - /api/business
 
 * ```[GET] /users/:businessId``` 
 
-    Requires authorization. Given a parameter of a businessId returns a json object with a users key that contains an array of all users associated with the businessId.
+    Requires Authorization. Given a parameter of a businessId returns a json object with a users key that contains an array of all users associated with the businessId.
 
 * ```[GET] /articles/:businessId```
 
-    Requires authorization. Given a parameter of a valid business Id, returns a response with a json object containing an articles key consisting of an array of all articles with a matching businessId.
+    Requires Authorization. Given a parameter of a valid business Id, returns a response with a json object containing an articles key consisting of an array of all articles with a matching businessId.
+
+* ```[GET] /notifications/users```
+
+    Requires Authorization. Returns a response with all users who have opted in to receive notifications for articles associated with their business receiving new comments.
+
+* ```[GET] /notifications/:businessId```
+
+    Requires Authorization. Given a parameter of a valid business id, returns a response with all comments posted to articles associated with that business id posted in the past day.
 
 * ```[PUT] /notifications```
 
-    Requires authorization. Given a request with a body that has a valid _id for a user in the database and a valuesToUpdate object of the following type: 
+    Requires Authorization. Given a request with a body that has a valid _id for a user in the database and a valuesToUpdate object of the following type: 
     ```
     interface valuesToUpdate {
         receivesCommentNotifications: boolean;
     }
     ```
     updates the receivesCommentNotifications value for the user of _id, making it so they receive an email anytime an article associated with their business is created.
+
 
 ### ```Confirm Reset Password``` - /api/confirm-password-reset
 * ```[POST] /reset```
@@ -118,24 +139,24 @@ Server runs in perpetuity and provides a REST API for the client, crawler, and c
 ### ```Subscriptions``` - /api/subscriptions
 * ```[GET] /```
 
-    Requires authorization. May be called with a email or phone query, where both are either a valid email or phone number respectively. Returns a response with a subscriptions object that is an array of all subscriptions that match either the email or phone if given, or all subscriptions if neither are given.
+    Requires Authorization. May be called with a email or phone query, where both are either a valid email or phone number respectively. Returns a response with a subscriptions object that is an array of all subscriptions that match either the email or phone if given, or all subscriptions if neither are given.
 
 * ```[GET] /:frequency```
 
-    Requires authorization. Must be called with a frequency parameter that is a valid SubscriptionFrequency. Returns a response with a subscriptions object that is all subscriptions that match the given frequency.
+    Requires Authorization. Must be called with a frequency parameter that is a valid SubscriptionFrequency. Returns a response with a subscriptions object that is all subscriptions that match the given frequency.
 
 * ```[POST] /new```
 
-    Requires authorization. Request must have a subscriptionData object in its body of type Subscription. Creates and adds to the database a new subscription using the subscriptionData.
+    Requires Authorization. Request must have a subscriptionData object in its body of type Subscription. Creates and adds to the database a new subscription using the subscriptionData.
 
 * ```[PUT] /```
 
-    Requires authorization. Request must have a subscriptionData object in its body of type Subscription. Updates the subscription that matches the given subscriptionData's email or phone.
+    Requires Authorization. Request must have a subscriptionData object in its body of type Subscription. Updates the subscription that matches the given subscriptionData's email or phone.
 
 ### ```Users``` - /api/users
 * ```[GET] /id/:userId```
 
-    Requires authorization. Request must have a userId parameter. Returns a response object with a userById object, which is either the user that matches the userId or null.
+    Requires Authorization. Request must have a userId parameter. Returns a response object with a userById object, which is either the user that matches the userId or null.
 
 * ```[POST] /register```
 
@@ -154,8 +175,8 @@ Server runs in perpetuity and provides a REST API for the client, crawler, and c
 
 * ```[POST] /email```
 
-    Requires authorization. Request must have a body with an email key. Returns a response with a userByEmail object of type User, or null if no users exist with the given email.
+    Requires Authorization. Request must have a body with an email key. Returns a response with a userByEmail object of type User, or null if no users exist with the given email.
 
 * ```[PUT] /id/:userId```
 
-    Requires authorization. Request must have a userId parameter and a body with a userValues object of type User. Updates the values of a user with id userId to the values of userValues if they exist.
+    Requires Authorization. Request must have a userId parameter and a body with a userValues object of type User. Updates the values of a user with id userId to the values of userValues if they exist.
