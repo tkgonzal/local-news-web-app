@@ -18,7 +18,7 @@ A REST API express server that provides the means to interact with the MongoDB d
 * [ts-node](https://www.npmjs.com/package/ts-node)
 
 ## Usage 
-Server runs in perpetuity and provides a REST API for the client, crawler, and cron to make requests to to get and alter data from the database for the app. 
+Server runs in perpetuity and provides a REST API for the client, crawler, and cron to send requests to in order get and manipulate data from the database for the app. 
 
 *Note: A valid .env file __must__ be present in the server folder for the server to start.*
 
@@ -105,15 +105,15 @@ Server runs in perpetuity and provides a REST API for the client, crawler, and c
 
 * ```[GET] /articles/:businessId```
 
-    Requires Authorization. Given a parameter of a valid business Id, returns a response with a json object containing an articles key consisting of an array of all articles with a matching businessId.
+    Requires Authorization. Given a parameter of a valid businessId, returns a response with a json object containing an articles key consisting of an array of all articles with a matching businessId.
 
 * ```[GET] /notifications/users```
 
-    Requires Authorization. Returns a response with all users who have opted in to receive notifications for articles associated with their business receiving new comments.
+    Requires Authorization. Returns a response with all users who have opted in to receive notifications for articles associated with their business receiving new comments. Meant to only be called by comment notification service.
 
 * ```[GET] /notifications/:businessId```
 
-    Requires Authorization. Given a parameter of a valid business id, returns a response with all comments posted to articles associated with that business id posted in the past day.
+    Requires Authorization. Given a parameter of a valid businessId, returns a response with all comments posted to articles associated with that businessId posted in the past day. Meant to only be called by comment notification service.
 
 * ```[PUT] /notifications```
 
