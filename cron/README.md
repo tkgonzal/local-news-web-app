@@ -13,7 +13,7 @@ A script that uses the node-cron module to periodically run a function to send o
 * [twilio](https://www.npmjs.com/package/twilio)
 
 ## Limitations
-Twilio package for sending out texts is currently not in use, due to a toll-free verification process requirement to send messages to US numbers, which we can not the verification requires a business/legal entity to register the number to.
+Twilio package for sending out texts is not usable with US numbers due to a toll-free verification process requirement which we can not go through as the process requires a business/legal entity to register the number to.
 
 ## Usage
 Script is run in perpetuity to emulate cron jobs, calling the sendOutSubscriptionNewsletters function at the determined subscription frequency periods and the sendOutCommentNotifications function every day at midnight. 
